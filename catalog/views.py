@@ -12,11 +12,11 @@ def index_view(request):
 
 def contratos_list_view(request):
     contratos = Contrato.objects.all()
-    return render(request, 'contratos_list.html', {'contratos': contratos})
+    return render(request, 'Contratos/contratos_list.html', {'contratos': contratos})
 
 def asistencias_list_view(request):
     asistencias = Asistencia.objects.all()
-    return render(request, 'asistencias_list.html', {'asistencias': asistencias})
+    return render(request, 'Asistencia/asistencias_list.html', {'asistencias': asistencias})
 
 # Vistas para las APIs
 
