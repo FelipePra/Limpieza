@@ -13,29 +13,38 @@
         }
 
         .navbar {
-            background-color: #007bff; /* Color de fondo del menú */
+            background-color: transparent; /* Fondo transparente */
+        }
+
+        .navbar-brand {
+            margin-left: 15px; /* Margen a la izquierda para la marca */
         }
 
         .navbar-nav {
-            margin: auto; /* Centra los elementos del menú horizontalmente */
+            margin-right: 15px; /* Margen a la derecha para los elementos del menú */
         }
 
         .nav-link {
-            color: #ffffff !important; /* Color de texto blanco */
+            color: #000000 !important; /* Color de texto negro */
             font-weight: bold; /* Texto en negrita */
             font-size: 18px; /* Tamaño de fuente */
         }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container">
-            <ul class="navbar-nav">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="/">Inicio</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/contratos_list.html">Contratos</a>
+                    <a class="nav-link" href="contrato_list.html">Contratos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/asistencias_list.html">Asistencias</a>
+                    <a class="nav-link" href="asistencia_list.html">Asistencias</a>
                 </li>
                 <!-- Agrega más enlaces según sea necesario -->
             </ul>
@@ -51,4 +60,12 @@
     <hr> <!-- Línea divisoria para separar el contenido del pie de página -->
 
     <footer>
-        <!-- Elimina el enlace "Volver al
+        <!-- Elimina el enlace "Volver al menú principal" -->
+    </footer>
+
+    <!-- Agregar Bootstrap JS y jQuery (opcional) para funcionalidades avanzadas -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
