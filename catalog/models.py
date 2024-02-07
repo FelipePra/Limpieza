@@ -15,3 +15,16 @@ class Asistencia(models.Model):
 
     def __str__(self):
         return f"Asistencia ({self.fecha}, Presente: {self.presente})"
+    
+class Servicio(models.Model):
+    numero = models.IntegerField()
+    area = models.CharField(max_length=100)
+    dependencia = models.CharField(max_length=100)
+    detalle = models.TextField()
+    frecuencia = models.CharField(max_length=100)
+    procedimientos = models.TextField()
+    parametro_control = models.CharField(max_length=100)
+    horario = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f"Servicio #{self.numero}: {self.area}"

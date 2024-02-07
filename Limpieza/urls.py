@@ -17,13 +17,16 @@ Including another URLconf
 
 
 from django.urls import path
-from catalog.views import ContratoListCreate, ContratoRetrieveUpdateDestroy, AsistenciaListCreate, AsistenciaRetrieveUpdateDestroy, index
+from catalog import views
 
 urlpatterns = [
-    path('', index, name='index'),
-    path('api/contratos/', ContratoListCreate.as_view(), name='contrato-list-create'),
-    path('api/contratos/<int:pk>/', ContratoRetrieveUpdateDestroy.as_view(), name='contrato-detail'),
-    path('api/asistencias/', AsistenciaListCreate.as_view(), name='asistencia-list-create'),
-    path('api/asistencias/<int:pk>/', AsistenciaRetrieveUpdateDestroy.as_view(), name='asistencia-detail'),
-    # Otras rutas de URL para tus otras vistas
+    # Rutas para renderizar las plantillas HTML
+    path('', views.index_view, name='index'),
+    path('contratos/', views.contratos_list_view, name='contratos_list'),
+    path('asistencias/', views.asistencias_list_view, name='asistencias_list'),
+
+    # Rutas para las APIs
+    path('api/contratos/', views.contrato_api),
+    path('api/asistencias/', views.asistencia_api),
+    path('api/servicios/', views.servicio_api),
 ]
