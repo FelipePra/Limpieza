@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicio de Limpieza</title>
+    <!-- Agregar Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Agregar una fuente más limpia -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+        }
+
+        .navbar {
+            background-color: #007bff; /* Color de fondo del menú */
+        }
+
+        .navbar-nav {
+            margin: auto; /* Centra los elementos del menú horizontalmente */
+        }
+
+        .nav-link {
+            color: #ffffff !important; /* Color de texto blanco */
+            font-weight: bold; /* Texto en negrita */
+            font-size: 18px; /* Tamaño de fuente */
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/contratos_list.html">Contratos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/asistencias_list.html">Asistencias</a>
+                </li>
+                <!-- Agrega más enlaces según sea necesario -->
+            </ul>
+        </div>
+    </nav>
+
+    <hr> <!-- Línea divisoria para separar la barra de navegación del contenido -->
+
+    <!-- Aquí puedes agregar tu barra de navegación, encabezado, logo, etc. -->
+    {% block content %}
+    {% endblock %}
+
+    <hr> <!-- Línea divisoria para separar el contenido del pie de página -->
+
+    <footer>
+        <!-- Elimina el enlace "Volver al
