@@ -24,6 +24,7 @@ urlpatterns = [
     path('', views.index_view, name='index'),
     path('contratos/', views.contratos_list_view, name='contratos_list'),
     path('asistencias/', views.asistencias_list_view, name='asistencias_list'),
+    path('servicios/', views.servicios_list_view, name='servicios_list'),
 
     # Rutas para las APIs
     path('api/contratos/', views.contrato_api),

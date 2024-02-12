@@ -8,8 +8,8 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Agregar una fuente más limpia -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Agregar Icono-->
-    <link rel="icon" type="image/x-icon" href="https://i.pinimg.com/originals/d0/42/47/d04247f1ea10926d32f543d84c3db8a6.jpg">
+    <!-- Agregar FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         body {
             font-family: 'Roboto', sans-serif;
@@ -21,10 +21,12 @@
         }
 
         .navbar-brand {
-            margin-left: 15px; /* Margen a la izquierda para la marca */
+            margin-left: auto; /* Margen automático a la izquierda */
+            margin-right: auto; /* Margen automático a la derecha */
+            font-weight: bold; /* Texto en negrita */
         }
 
-        .navbar-nav {
+        .navbar-nav .nav-item {
             margin-right: 15px; /* Margen a la derecha para los elementos del menú */
         }
 
@@ -37,10 +39,21 @@
             color: #007bff !important; /* Cambio de color al pasar el mouse */
         }
 
+        .social-icons a {
+            color: #000;
+            margin-left: 10px;
+        }
+
         hr {
             margin-top: 20px; /* Margen superior para las líneas divisorias */
             margin-bottom: 20px; /* Margen inferior para las líneas divisorias */
             border-top: 1px solid #dee2e6; /* Estilo de la línea divisoria */
+        }
+
+        footer {
+            background-color: #343a40; /* Fondo oscuro para el pie de página */
+            color: #fff; /* Texto blanco */
+            padding: 20px 0; /* Espaciado interior */
         }
     </style>
 </head>
@@ -52,7 +65,7 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto"> <!-- Alinamiento a la derecha -->
+            <ul class="navbar-nav mr-auto"> <!-- Alinamiento a la izquierda -->
                 <li class="nav-item">
                     <a class="nav-link" href="/contratos/">Contratos</a>
                 </li>
@@ -64,6 +77,11 @@
                 </li>
                 <!-- Agrega más enlaces según sea necesario -->
             </ul>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
         </div>
     </nav>
 

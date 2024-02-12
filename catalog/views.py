@@ -18,6 +18,10 @@ def asistencias_list_view(request):
     asistencias = Asistencia.objects.all()
     return render(request, 'Asistencia/asistencias_list.html', {'asistencias': asistencias})
 
+def servicios_list_view(request):
+    servicios = Servicio.objects.all()
+    return render(request, 'Servicios/servicios_list.html', {'asistencias': servicios})
+
 # Vistas para las APIs
 
 @api_view(['GET', 'POST'])

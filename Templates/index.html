@@ -1,34 +1,86 @@
+<!-- templates/index.html -->
+
 {% extends 'base.html' %}
 
 {% block content %}
 <div class="container">
-    <div class="jumbotron">
-        <h1 class="display-4">Servicio de Limpieza</h1>
-        <p class="lead">Bienvenido al mejor servicio de limpieza para tu hogar o negocio.</p>
-        <hr class="my-4">
-        <p>Aquí en Servicio de Limpieza, nos dedicamos a brindarte soluciones de limpieza de alta calidad.</p>
-        <a class="btn btn-primary btn-lg" href="#" role="button">¡Contáctanos!</a>
+    <!-- Nombre de la página en el centro -->
+    <h1 class="text-center">Servicio de Limpieza</h1>
+    
+    <!-- Descripción extensa del sitio -->
+    <p class="lead text-center">Bienvenido a Servicio de Limpieza, el mejor lugar para encontrar soluciones de limpieza de alta calidad para tu hogar o negocio. Ofrecemos una amplia gama de servicios diseñados para satisfacer tus necesidades personales y empresariales.</p>
+    
+    <!-- Iconos de empresas de limpieza -->
+    <div class="row mt-5">
+        <div class="col-md-2 offset-md-1 text-center">
+            <img src="empresa1.png" alt="Empresa 1" class="img-fluid rounded-circle border">
+        </div>
+        <div class="col-md-2 text-center">
+            <img src="empresa2.png" alt="Empresa 2" class="img-fluid rounded-circle border">
+        </div>
+        <div class="col-md-2 text-center">
+            <img src="empresa3.png" alt="Empresa 3" class="img-fluid rounded-circle border">
+        </div>
+        <div class="col-md-2 text-center">
+            <img src="empresa4.png" alt="Empresa 4" class="img-fluid rounded-circle border">
+        </div>
+        <div class="col-md-2 text-center">
+            <img src="empresa5.png" alt="Empresa 5" class="img-fluid rounded-circle border">
+        </div>
     </div>
 
-    <div class="row">
+    <!-- Imágenes estáticas -->
+    <div class="row mt-5">
         <div class="col-md-4">
-            <h2>Servicios a las personas</h2>
-            <p>Ofrecemos una amplia gama de servicios de limpieza para satisfacer tus necesidades personales.</p>
+            <img src="imagen1.jpg" class="img-fluid" alt="Imagen 1">
         </div>
         <div class="col-md-4">
-            <h2>Área de limpieza, jardinería, control de plagas</h2>
-            <p>Nuestro equipo está capacitado para manejar diferentes áreas de limpieza, jardinería y control de plagas.</p>
+            <img src="imagen2.jpg" class="img-fluid" alt="Imagen 2">
         </div>
         <div class="col-md-4">
-            <h2>Limpieza administrativa y industrial</h2>
-            <p>Además de servicios residenciales, también ofrecemos limpieza para empresas y establecimientos industriales.</p>
+            <img src="imagen3.jpg" class="img-fluid" alt="Imagen 3">
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <h2>¿Listo para tener un espacio limpio y ordenado?</h2>
-            <p>¡Contáctanos ahora para obtener una cotización gratuita y descubre cómo podemos ayudarte a mantener un ambiente limpio y saludable!</p>
+    <!-- Ponte en contacto con nosotros -->
+    <div class="row mt-5">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">Ponte en contacto con nosotros</h2>
+                    <p>Avenida de la Paz, 1<br>08001 Barcelona</p>
+                    <p>contact@mygroovydomain.com</p>
+                    <!-- Iconos de redes sociales -->
+                    <div class="text-center mt-4">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Formulario de contacto -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">Ponte en contacto con nosotros</h2>
+                    <form>
+                        <div class="form-group">
+                            <label for="nombre">Nombre:</label>
+                            <input type="text" class="form-control" id="nombre">
+                        </div>
+                        <div class="form-group">
+                            <label for="correo">Correo electrónico:</label>
+                            <input type="email" class="form-control" id="correo">
+                        </div>
+                        <div class="form-group">
+                            <label for="mensaje">Mensaje:</label>
+                            <textarea class="form-control" id="mensaje" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-dark btn-lg">Enviar mensaje</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>
