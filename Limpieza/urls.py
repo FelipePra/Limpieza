@@ -26,8 +26,13 @@ urlpatterns = [
     path('asistencias/', views.asistencias_list_view, name='asistencias_list'),
     path('servicios/', views.servicios_list_view, name='servicios_list'),
 
+    #Rutas Instalaciones
+    path('instalaciones/', views.instalaciones, name='instalaciones'),
+    path('bosques/', views.bosques, name='bosques'),
+
     # Rutas para las APIs
     path('api/contratos/', views.contrato_api),
     path('api/asistencias/', views.asistencia_api),
     path('api/servicios/', views.servicio_api),
+    path('ejemplo/ejemplo/', views.ejemplo_api),
 ]

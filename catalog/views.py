@@ -22,6 +22,19 @@ def servicios_list_view(request):
     servicios = Servicio.objects.all()
     return render(request, 'Servicios/servicios_list.html', {'asistencias': servicios})
 
+
+# Vistas de Instalaciones
+def instalaciones(request):
+    return render(request, 'Instalaciones/instalaciones.html')
+
+def bosques(request):
+    return render(request, 'Instalaciones/Index/Bosques.html')
+
+
+
+def ejemplo_api(request):
+    return render(request, 'ejemplo.html')
+
 # Vistas para las APIs
 
 @api_view(['GET', 'POST'])
@@ -62,3 +75,5 @@ def servicio_api(request):
             serializer.save()
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
+
+
