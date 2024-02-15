@@ -1,5 +1,6 @@
+# forms.py
 from django import forms
-from .models import Contrato, RegistroAsistencia
+from .models import Contrato, DatosCMPCChile, Asistencia
 
 class ContratoForm(forms.ModelForm):
     class Meta:
@@ -8,5 +9,11 @@ class ContratoForm(forms.ModelForm):
 
 class AsistenciaForm(forms.ModelForm):
     class Meta:
-        model = RegistroAsistencia
+        model = Asistencia
         fields = ['usuario', 'contrato', 'fecha', 'presente']
+
+
+class DatosCMPCChileForm(forms.ModelForm):
+    class Meta:
+        model = DatosCMPCChile
+        fields = '__all__' 

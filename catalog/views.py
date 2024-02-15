@@ -1,8 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .models import Contrato, Asistencia, Servicio
+
+from catalog.forms import DatosCMPCChileForm
+from .models import Contrato, Asistencia, Servicio, DatosCMPCChile
 from .serializers import ContratoSerializer, AsistenciaSerializer, ServicioSerializer
 
 # Vistas para renderizar las plantillas HTML
@@ -28,7 +30,21 @@ def instalaciones(request):
     return render(request, 'Instalaciones/instalaciones.html')
 
 def bosques(request):
-    return render(request, 'Instalaciones/Index/Bosques.html')
+    return render(request, 'Bosques/Bosques.html', {})
+
+
+
+# Vistas CMPC
+def CMPC_Chile(request):
+    if request.method == 'POST':
+        form = DatosCMPCChileForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('cmcp-chile')  # Redirige a la misma página para mostrar los datos ingresados
+    else:
+        form = DatosCMPCChileForm()
+    
+    return render(request, 'CMPC/CMCP-Chile.html', {'form': form})
 
 
 

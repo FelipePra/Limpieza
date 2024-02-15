@@ -30,6 +30,10 @@ urlpatterns = [
     path('instalaciones/', views.instalaciones, name='instalaciones'),
     path('bosques/', views.bosques, name='bosques'),
 
+
+    #Rutas CMPC
+    path('cmpc-chile/', views.CMPC_Chile, name='cmpc_chile'),
+
     # Rutas para las APIs
     path('api/contratos/', views.contrato_api),
     path('api/asistencias/', views.asistencia_api),
