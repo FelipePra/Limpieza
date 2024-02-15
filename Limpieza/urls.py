@@ -22,8 +22,6 @@ from catalog import views
 urlpatterns = [
     # Rutas para renderizar las plantillas HTML
     path('', views.index_view, name='index'),
-    path('contratos/', views.contratos_list_view, name='contratos_list'),
-    path('asistencias/', views.asistencias_list_view, name='asistencias_list'),
     path('servicios/', views.servicios_list_view, name='servicios_list'),
 
     #Rutas Instalaciones
@@ -32,11 +30,6 @@ urlpatterns = [
 
 
     #Rutas CMPC
-    path('cmpc-chile/', views.CMPC_Chile, name='cmpc_chile'),
+    path('cmpc-chile/', views.CMPC_Chile, name='CMPC_Chile'),
 
-    # Rutas para las APIs
-    path('api/contratos/', views.contrato_api),
-    path('api/asistencias/', views.asistencia_api),
-    path('api/servicios/', views.servicio_api),
-    path('ejemplo/ejemplo/', views.ejemplo_api),
 ]

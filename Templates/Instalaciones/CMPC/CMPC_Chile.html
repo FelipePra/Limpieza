@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title %}CMPC Chile{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="display-3">Datos CMPC Chile</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div class="container">
+            <h1 class="display-3">Datos CMPC Chile</h1>
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="numero">Número:</label>
+                    <input type="number" class="form-control" id="numero" name="numero">
+                </div>
+                <div class="form-group">
+                    <label for="dependencia">Dependencia:</label>
+                    <input type="text" class="form-control" id="dependencia" name="dependencia">
+                </div>
+                <div class="form-group">
+                    <label for="detalle">Detalle:</label>
+                    <input type="text" class="form-control" id="detalle" name="detalle">
+                </div>
+                <div class="form-group">
+                    <label for="frecuencia">Frecuencia:</label>
+                    <input type="text" class="form-control" id="frecuencia" name="frecuencia">
+                </div>
+                <div class="form-group">
+                    <label for="procedimientos">Procedimientos:</label>
+                    <input type="text" class="form-control" id="procedimientos" name="procedimientos">
+                </div>
+                <div class="form-group">
+                    <label for="parametros_control">Parámetros de Control:</label>
+                    <input type="text" class="form-control" id="parametros_control" name="parametros_control">
+                </div>
+                <div class="form-group">
+                    <label for="horario">Horario:</label>
+                    <input type="text" class="form-control" id="horario" name="horario">
+                </div>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </form>
+    </form>
+
+    <h2 class="mt-5">Tabla de Datos CMPC Chile</h2>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">N°</th>
+            <th scope="col">Dependencia</th>
+            <th scope="col">Detalle</th>
+            <th scope="col">Frecuencia</th>
+            <th scope="col">Procedimiento</th>
+            <th scope="col">Parámetros de Control</th>
+            <th scope="col">Horario</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for dato in datos_cmpc_chile %}
+          <tr>
+            <td>{{ dato.numero }}</td>
+            <td>{{ dato.dependencia }}</td>
+            <td>{{ dato.detalle }}</td>
+            <td>{{ dato.frecuencia }}</td>
+            <td>{{ dato.procedimientos }}</td>
+            <td>{{ dato.parametro_control }}</td>
+            <td>{{ dato.horario }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+</div>
+{% endblock %}

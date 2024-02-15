@@ -4,21 +4,13 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from catalog.forms import DatosCMPCChileForm
-from .models import Contrato, Asistencia, Servicio, DatosCMPCChile
-from .serializers import ContratoSerializer, AsistenciaSerializer, ServicioSerializer
+from .models import  Servicio, DatosCMPCChile
+from .serializers import ServicioSerializer
 
 # Vistas para renderizar las plantillas HTML
 
 def index_view(request):
     return render(request, 'index.html')
-
-def contratos_list_view(request):
-    contratos = Contrato.objects.all()
-    return render(request, 'Contratos/contratos_list.html', {'contratos': contratos})
-
-def asistencias_list_view(request):
-    asistencias = Asistencia.objects.all()
-    return render(request, 'Asistencia/asistencias_list.html', {'asistencias': asistencias})
 
 def servicios_list_view(request):
     servicios = Servicio.objects.all()
@@ -36,60 +28,11 @@ def bosques(request):
 
 # Vistas CMPC
 def CMPC_Chile(request):
-    if request.method == 'POST':
-        form = DatosCMPCChileForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('cmcp-chile')  # Redirige a la misma página para mostrar los datos ingresados
-    else:
-        form = DatosCMPCChileForm()
-    
-    return render(request, 'CMPC/CMCP-Chile.html', {'form': form})
+    datos_cmpc_chile = DatosCMPCChile.objects.all()
+    return render(request, 'Instalaciones/CMPC/CMPC_Chile.html', {'datos_cmpc_chile': datos_cmpc_chile})
+
 
 
 
 def ejemplo_api(request):
     return render(request, 'ejemplo.html')
-
-# Vistas para las APIs
-
-@api_view(['GET', 'POST'])
-def contrato_api(request):
-    if request.method == 'GET':
-        contratos = Contrato.objects.all()
-        serializer = ContratoSerializer(contratos, many=True)
-        return Response(serializer.data)
-    elif request.method == 'POST':
-        serializer = ContratoSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=201)
-        return Response(serializer.errors, status=400)
-
-@api_view(['GET', 'POST'])
-def asistencia_api(request):
-    if request.method == 'GET':
-        asistencias = Asistencia.objects.all()
-        serializer = AsistenciaSerializer(asistencias, many=True)
-        return Response(serializer.data)
-    elif request.method == 'POST':
-        serializer = AsistenciaSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=201)
-        return Response(serializer.errors, status=400)
-
-@api_view(['GET', 'POST'])
-def servicio_api(request):
-    if request.method == 'GET':
-        servicios = Servicio.objects.all()
-        serializer = ServicioSerializer(servicios, many=True)
-        return Response(serializer.data)
-    elif request.method == 'POST':
-        serializer = ServicioSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=201)
-        return Response(serializer.errors, status=400)
-
-
