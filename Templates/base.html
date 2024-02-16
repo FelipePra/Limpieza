@@ -10,6 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <!-- Agregar FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="static/style.css">
+
     <style>
         body {
             font-family: 'Roboto', sans-serif;
@@ -67,10 +69,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto"> <!-- Alinamiento a la izquierda -->
                 <li class="nav-item">
-                    <a class="nav-link" href="/contratos/">Contratos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/asistencias/">Asistencias</a>
+                    <a class="nav-link" href="/instalaciones/">Instalaciones</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/servicios/">Servicios</a>
@@ -82,6 +81,8 @@
                 <a href="#"><i class="fab fa-twitter"></i></a>
                 <a href="#"><i class="fab fa-instagram"></i></a>
             </div>
+            <!-- Botón para activar el modo oscuro -->
+            <button id="dark-mode-toggle" class="btn btn-dark ml-2">Modo Oscuro</button>
         </div>
     </nav>
 
@@ -104,5 +105,15 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- JavaScript para activar el modo oscuro -->
+    <script>
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+        const body = document.body;
+
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+        });
+    </script>
+    <script src="static/modo_oscuro.js"></script>
 </body>
 </html>

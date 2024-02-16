@@ -20,16 +20,21 @@ from django.urls import path
 from catalog import views
 
 urlpatterns = [
-    # Rutas para renderizar las plantillas HTML
-    path('', views.index_view, name='index'),
+    path('', views.index, name='index'),
     path('servicios/', views.servicios_list_view, name='servicios_list'),
 
-    #Rutas Instalaciones
+
+    #urls Instalaciones
     path('instalaciones/', views.instalaciones, name='instalaciones'),
+    path('cmpc_chile/', views.cmpc_chile, name='cmpc_chile'),
     path('bosques/', views.bosques, name='bosques'),
+    path('pulp/', views.pulp, name='pulp'),
+    path('biopackaging/', views.biopackaging , name='biopackaging'),
+    path('maderas/', views.maderas, name='maderas'),
 
-
-    #Rutas CMPC
-    path('cmpc-chile/', views.CMPC_Chile, name='CMPC_Chile'),
-
+    #urls Biopackaging
+    path('boxboard/', views.boxboard, name='boxboard'),
+    path('corrugados/', views.corrugados , name='corrugados'),
+    path('edipac/', views.edipac, name='edipac'),
+    path('sackkraft/', views.sackkraft, name='sackkraft'),
 ]
