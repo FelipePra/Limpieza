@@ -23,12 +23,11 @@ urlpatterns = [
     path('index/', views.index, name='index'),
     path('servicios/', views.servicios_list_view, name='servicios_list'),
 
-
     #urls CMPC
     path('cmpc_chile/', views.cmpc_chile, name='cmpc_chile'),
     path('cmpc_argentina/', views.cmpc_argentina, name='cmpc_argentina'),
     path('cmpc_brasil/', views.cmpc_brasil, name='cmpc_brasil'),
-
+    path('cmpc_mexico/', views.cmpc_mexico, name='cmpc_mexico'),
 
     #urls Instalaciones
     path('instalaciones/', views.instalaciones, name='instalaciones'),
@@ -42,4 +41,8 @@ urlpatterns = [
     path('corrugados/', views.corrugados , name='corrugados'),
     path('edipac/', views.edipac, name='edipac'),
     path('sackkraft/', views.sackkraft, name='sackkraft'),
+
+    #urls BoxBoard
+    path('maule/', views.maule, name='maule'),
+    path('valdivia/', views.valdivia, name='valdivia'),
 ]

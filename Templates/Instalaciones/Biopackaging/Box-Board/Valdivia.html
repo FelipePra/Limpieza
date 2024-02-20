@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}CMPC Mexico{% endblock %}
+{% block title %}Valdivia{% endblock %}
 
 {% block content %}
 <!DOCTYPE html>
@@ -9,12 +9,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Subir Excel</title>
-    <center><h1>CMPC Mexico</h1></center>
 </head>
 <body>
     <div style="text-align: center; margin-top: 50px;">
-        <h2>Subir Archivo Excel</h2>
-        <form action="/cmpc_mexico/" method="post" enctype="multipart/form-data">
+        <h1>Subir Archivo Excel</h1>
+        <form action="/valdivia/" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <input type="file" name="excel_file" accept=".xlsx, .xls">
             <br><br>
