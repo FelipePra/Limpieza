@@ -43,7 +43,7 @@ def sackkraft(request):
 
 # Vistas CMPC
 def cmpc_chile(request):
-    datos_cmpc_chile = DatosCMPCChile.objects.all()
+    datos_cmpc_chile_form = DatosCMPCChile.objects.all()
     if request.method == 'POST' and request.FILES[''] and request.FILES['']:
         datos_cmpc_chile_form = DatosCMPCChileForm(request.POST, request.FILES)
         
@@ -57,9 +57,6 @@ def cmpc_chile(request):
         'redirect_url': 'Instalaciones/CMPC/CMPC_Chile.html',
     }
     return render(request, 'Instalaciones/CMPC/CMPC_Chile.html', datos)
-
-
-
 
 
 def cmpc_argentina(request):

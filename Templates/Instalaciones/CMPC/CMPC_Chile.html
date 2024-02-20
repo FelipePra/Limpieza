@@ -8,6 +8,7 @@
         <h1 class="display-3">Datos CMPC Chile</h1>
         <form method="post">
             {% csrf_token %}
+            {{ datoscmpcchile }}
             <div class="form-group">
                 <label for="numero">Número:</label>
                 <input type="number" class="form-control is-invalid" id="numero" name="numero">
@@ -43,7 +44,7 @@
                 <input type="text" class="form-control is-invalid" id="horario" name="horario">
                 <div class="invalid-feedback">Este campo es obligatorio.</div>
             </div>
-            <button type="submit" class="btn btn-primary">Guardar</button>
+            <button type="submit" class="btn btn-dark">Guardar</button>
         </form>
         <button class="btn btn-secondary mt-3">Subir Excel</button>
     </div>
