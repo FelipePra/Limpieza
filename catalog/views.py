@@ -4,7 +4,7 @@ from rest_framework.response import Response
 
 from catalog.forms import DatosCMPCChileForm
 from .models import  DatosCMPCChile
-
+from django.contrib import messages as django_messages
 
 # Vistas para renderizar las plantillas HTML
 
@@ -44,7 +44,23 @@ def sackkraft(request):
 # Vistas CMPC
 def cmpc_chile(request):
     datos_cmpc_chile = DatosCMPCChile.objects.all()
-    return render(request, 'Instalaciones/CMPC/CMPC_Chile.html', {'datos_cmpc_chile': datos_cmpc_chile})
+    if request.method == 'POST' and request.FILES[''] and request.FILES['']:
+        datos_cmpc_chile_form = DatosCMPCChileForm(request.POST, request.FILES)
+        
+        if datos_cmpc_chile_form.is_valid():
+            datos_cmpc_chile_form.save()
+            django_messages.success(request, 'Formulario agregado')
+
+    datos = {
+        'formulario': datos_cmpc_chile_form,
+        'titulo': 'Agregar Formulario',
+        'redirect_url': 'Instalaciones/CMPC/CMPC_Chile.html',
+    }
+    return render(request, 'Instalaciones/CMPC/CMPC_Chile.html', datos)
+
+
+
+
 
 def cmpc_argentina(request):
     if request.method == 'POST':
