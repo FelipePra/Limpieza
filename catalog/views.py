@@ -64,3 +64,15 @@ def cmpc_argentina(request):
             excel_uploaded = True
         return render(request, 'Instalaciones/CMPC/CMPC_Argentina.html', {'excel_uploaded': excel_uploaded})
     return render(request, 'Instalaciones/CMPC/CMPC_Argentina.html', {'excel_uploaded': False})
+
+def cmpc_brasil(request):
+    if request.method == 'POST':
+        excel_uploaded = False
+        # Verificar si se ha enviado un archivo
+        if 'excel_file' in request.FILES:
+            excel_file = request.FILES['excel_file']
+            # Aquí podrías realizar el procesamiento del archivo Excel si es necesario
+            # Por ejemplo, guardar el archivo en el servidor, analizar su contenido, etc.
+            excel_uploaded = True
+        return render(request, 'Instalaciones/CMPC/CMPC_Brasil.html', {'excel_uploaded': excel_uploaded})
+    return render(request, 'Instalaciones/CMPC/CMPC_Brasil.html', {'excel_uploaded': False})

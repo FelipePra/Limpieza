@@ -27,9 +27,11 @@ urlpatterns = [
     #urls CMPC
     path('cmpc_chile/', views.cmpc_chile, name='cmpc_chile'),
     path('cmpc_argentina/', views.cmpc_argentina, name='cmpc_argentina'),
+    path('cmpc_brasil/', views.cmpc_brasil, name='cmpc_brasil'),
+
+
     #urls Instalaciones
     path('instalaciones/', views.instalaciones, name='instalaciones'),
-    
     path('bosques/', views.bosques, name='bosques'),
     path('pulp/', views.pulp, name='pulp'),
     path('biopackaging/', views.biopackaging , name='biopackaging'),
