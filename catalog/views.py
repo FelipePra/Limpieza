@@ -3,17 +3,13 @@ from django.http import JsonResponse
 from rest_framework.response import Response
 
 from catalog.forms import DatosCMPCChileForm
-from .models import  Servicio, DatosCMPCChile
-from .serializers import ServicioSerializer
+from .models import  DatosCMPCChile
+
 
 # Vistas para renderizar las plantillas HTML
 
 def index(request):
     return render(request, 'index.html')
-
-def servicios_list_view(request):
-    servicios = Servicio.objects.all()
-    return render(request, 'Servicios/servicios_list.html', {'asistencias': servicios})
 
 
 # Vistas de Instalaciones
@@ -32,8 +28,6 @@ def biopackaging(request):
 def maderas(request):
     return render(request, 'Instalaciones/Maderas.html', {})
 
-
-
 #Vistas Biopackaging
 def boxboard(request):
     return render(request, 'Instalaciones/Biopackaging/Boxboard.html', {})
@@ -46,7 +40,6 @@ def edipac(request):
 
 def sackkraft(request):
     return render(request, 'Instalaciones/Biopackaging/SackKraft.html', {})
-
 
 # Vistas CMPC
 def cmpc_chile(request):
@@ -89,8 +82,6 @@ def cmpc_mexico(request):
         return render(request, 'Instalaciones/CMPC/CMPC_Mexico.html', {'excel_uploaded': excel_uploaded})
     return render(request, 'Instalaciones/CMPC/CMPC_Mexico.html', {'excel_uploaded': False})
 
-
-
 #Biopackaging Box-Board
 
 def maule(request):
@@ -116,3 +107,113 @@ def valdivia(request):
             excel_uploaded = True
         return render(request, 'Instalaciones/Biopackaging/Box-Board/Valdivia.html', {'excel_uploaded': excel_uploaded})
     return render(request, 'Instalaciones/Biopackaging/Box-Board/Valdivia.html', {'excel_uploaded': False})
+
+#Biopackaging Corrugados
+
+def chimolsa(request):
+    if request.method == 'POST':
+        excel_uploaded = False
+        # Verificar si se ha enviado un archivo
+        if 'excel_file' in request.FILES:
+            excel_file = request.FILES['excel_file']
+            # Aquí podrías realizar el procesamiento del archivo Excel si es necesario
+            # Por ejemplo, guardar el archivo en el servidor, analizar su contenido, etc.
+            excel_uploaded = True
+        return render(request, 'Instalaciones/Biopackaging/Corrugados/Chimolsa.html', {'excel_uploaded': excel_uploaded})
+    return render(request, 'Instalaciones/Biopackaging/Corrugados/Chimolsa.html', {'excel_uploaded': False})
+
+def cordillera(request):
+    if request.method == 'POST':
+        excel_uploaded = False
+        # Verificar si se ha enviado un archivo
+        if 'excel_file' in request.FILES:
+            excel_file = request.FILES['excel_file']
+            # Aquí podrías realizar el procesamiento del archivo Excel si es necesario
+            # Por ejemplo, guardar el archivo en el servidor, analizar su contenido, etc.
+            excel_uploaded = True
+        return render(request, 'Instalaciones/Biopackaging/Corrugados/Cordillera.html', {'excel_uploaded': excel_uploaded})
+    return render(request, 'Instalaciones/Biopackaging/Corrugados/Cordillera.html', {'excel_uploaded': False})
+
+def buin(request):
+    if request.method == 'POST':
+        excel_uploaded = False
+        # Verificar si se ha enviado un archivo
+        if 'excel_file' in request.FILES:
+            excel_file = request.FILES['excel_file']
+            # Aquí podrías realizar el procesamiento del archivo Excel si es necesario
+            # Por ejemplo, guardar el archivo en el servidor, analizar su contenido, etc.
+            excel_uploaded = True
+        return render(request, 'Instalaciones/Biopackaging/Corrugados/EEIIBuin.html', {'excel_uploaded': excel_uploaded})
+    return render(request, 'Instalaciones/Biopackaging/Corrugados/EEIIBuin.html', {'excel_uploaded': False})
+
+def osorno(request):
+    if request.method == 'POST':
+        excel_uploaded = False
+        # Verificar si se ha enviado un archivo
+        if 'excel_file' in request.FILES:
+            excel_file = request.FILES['excel_file']
+            # Aquí podrías realizar el procesamiento del archivo Excel si es necesario
+            # Por ejemplo, guardar el archivo en el servidor, analizar su contenido, etc.
+            excel_uploaded = True
+        return render(request, 'Instalaciones/Biopackaging/Corrugados/EEIIOsorno.html', {'excel_uploaded': excel_uploaded})
+    return render(request, 'Instalaciones/Biopackaging/Corrugados/EEIIOsorno.html', {'excel_uploaded': False})
+
+def tiltil(request):
+    if request.method == 'POST':
+        excel_uploaded = False
+        # Verificar si se ha enviado un archivo
+        if 'excel_file' in request.FILES:
+            excel_file = request.FILES['excel_file']
+            # Aquí podrías realizar el procesamiento del archivo Excel si es necesario
+            # Por ejemplo, guardar el archivo en el servidor, analizar su contenido, etc.
+            excel_uploaded = True
+        return render(request, 'Instalaciones/Biopackaging/Corrugados/EEIITilTil.html', {'excel_uploaded': excel_uploaded})
+    return render(request, 'Instalaciones/Biopackaging/Corrugados/EEIITilTil.html', {'excel_uploaded': False})
+
+def sorepapudahuel(request):
+    if request.method == 'POST':
+        excel_uploaded = False
+        # Verificar si se ha enviado un archivo
+        if 'excel_file' in request.FILES:
+            excel_file = request.FILES['excel_file']
+            # Aquí podrías realizar el procesamiento del archivo Excel si es necesario
+            # Por ejemplo, guardar el archivo en el servidor, analizar su contenido, etc.
+            excel_uploaded = True
+        return render(request, 'Instalaciones/Biopackaging/Corrugados/SorepaPudahuel.html', {'excel_uploaded': excel_uploaded})
+    return render(request, 'Instalaciones/Biopackaging/Corrugados/SorepaPudahuel.html', {'excel_uploaded': False})
+
+def sorepapuentealto(request):
+    if request.method == 'POST':
+        excel_uploaded = False
+        # Verificar si se ha enviado un archivo
+        if 'excel_file' in request.FILES:
+            excel_file = request.FILES['excel_file']
+            # Aquí podrías realizar el procesamiento del archivo Excel si es necesario
+            # Por ejemplo, guardar el archivo en el servidor, analizar su contenido, etc.
+            excel_uploaded = True
+        return render(request, 'Instalaciones/Biopackaging/Corrugados/SorepaPuenteAlto.html', {'excel_uploaded': excel_uploaded})
+    return render(request, 'Instalaciones/Biopackaging/Corrugados/SorepaPuenteAlto.html', {'excel_uploaded': False})
+
+def sorepaofi(request):
+    if request.method == 'POST':
+        excel_uploaded = False
+        # Verificar si se ha enviado un archivo
+        if 'excel_file' in request.FILES:
+            excel_file = request.FILES['excel_file']
+            # Aquí podrías realizar el procesamiento del archivo Excel si es necesario
+            # Por ejemplo, guardar el archivo en el servidor, analizar su contenido, etc.
+            excel_uploaded = True
+        return render(request, 'Instalaciones/Biopackaging/Corrugados/SorepaRedOficinas.html', {'excel_uploaded': excel_uploaded})
+    return render(request, 'Instalaciones/Biopackaging/Corrugados/SorepaRedOficinas.html', {'excel_uploaded': False})
+
+def sorepasanjoaquin(request):
+    if request.method == 'POST':
+        excel_uploaded = False
+        # Verificar si se ha enviado un archivo
+        if 'excel_file' in request.FILES:
+            excel_file = request.FILES['excel_file']
+            # Aquí podrías realizar el procesamiento del archivo Excel si es necesario
+            # Por ejemplo, guardar el archivo en el servidor, analizar su contenido, etc.
+            excel_uploaded = True
+        return render(request, 'Instalaciones/Biopackaging/Corrugados/SorepaSanJoaquin.html', {'excel_uploaded': excel_uploaded})
+    return render(request, 'Instalaciones/Biopackaging/Corrugados/SorepaSanJoaquin.html', {'excel_uploaded': False})

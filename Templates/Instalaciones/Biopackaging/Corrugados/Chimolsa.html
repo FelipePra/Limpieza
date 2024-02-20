@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}CMPC Mexico{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subir Excel</title>
+    <center><h1>Chimolsa</h1></center>
+</head>
+<body>
+    <div style="text-align: center; margin-top: 50px;">
+        <h2>Subir Archivo Excel</h2>
+        <form action="/chimolsa/" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="file" name="excel_file" accept=".xlsx, .xls">
+            <br><br>
+            <button type="submit">Subir Excel</button>
+        </form>
+        {% if excel_uploaded %}
+            <p>¡El archivo Excel se ha subido correctamente!</p>
+        {% endif %}
+    </div>
+</body>
+</html>
+{% endblock %}

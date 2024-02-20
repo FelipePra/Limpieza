@@ -21,7 +21,6 @@ from catalog import views
 
 urlpatterns = [
     path('index/', views.index, name='index'),
-    path('servicios/', views.servicios_list_view, name='servicios_list'),
 
     #urls CMPC
     path('cmpc_chile/', views.cmpc_chile, name='cmpc_chile'),
@@ -45,4 +44,15 @@ urlpatterns = [
     #urls BoxBoard
     path('maule/', views.maule, name='maule'),
     path('valdivia/', views.valdivia, name='valdivia'),
+
+    #ursl Corrugados
+    path('chimolsa/', views.chimolsa, name='chimolsa'),
+    path('cordillera/', views.cordillera, name='cordillera'),
+    path('buin/', views.buin, name='buin'),
+    path('osorno/', views.osorno, name='osorno'),
+    path('tiltil/', views.tiltil, name='tiltil'),
+    path('sorepapudahuel/', views.sorepapudahuel, name='sorepapudahuel'),
+    path('sorepapuentealto/', views.sorepapuentealto, name='sorepapuentealto'),
+    path('sorepaofi/', views.sorepaofi, name='sorepaofi'),
+    path('sorepasanjoaquin/', views.sorepasanjoaquin, name='sorepasanjoaquin'),
 ]
