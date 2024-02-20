@@ -1,9 +1,0 @@
-/* Estilos para el modo oscuro */
-.dark-mode {
-    background-color: #333; /* Cambia el color de fondo del cuerpo */
-    color: #fff; /* Cambia el color del texto */
-}
-
-.navbar-dark .navbar-toggler-icon {
-    background-color: #fff; /* Cambia el color del icono del botón de la barra de navegación a claro */
-}

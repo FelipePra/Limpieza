@@ -1,119 +1,84 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <title>Servicio de Limpieza</title>
-    <!-- Agregar Bootstrap CSS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Agregar una fuente más limpia -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Agregar FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="static/style.css">
 
+    <link rel="shortcut icon" href="/static/images/favicon.png">
+
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.cyan-light_blue.min.css">
+    <link rel="stylesheet" href="/static/styles.css">
+    
     <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-        }
-
-        .navbar {
-            background-color: #f8f9fa; /* Fondo de la barra de navegación */
-            border-bottom: 1px solid #dee2e6; /* Borde inferior */
-        }
-
-        .navbar-brand {
-            margin-left: auto; /* Margen automático a la izquierda */
-            margin-right: auto; /* Margen automático a la derecha */
-            font-weight: bold; /* Texto en negrita */
-        }
-
-        .navbar-nav .nav-item {
-            margin-right: 15px; /* Margen a la derecha para los elementos del menú */
-        }
-
-        .nav-link {
-            color: #343a40 !important; /* Color de texto */
-            font-weight: bold; /* Texto en negrita */
-        }
-
-        .nav-link:hover {
-            color: #007bff !important; /* Cambio de color al pasar el mouse */
-        }
-
-        .social-icons a {
-            color: #000;
-            margin-left: 10px;
-        }
-
-        hr {
-            margin-top: 20px; /* Margen superior para las líneas divisorias */
-            margin-bottom: 20px; /* Margen inferior para las líneas divisorias */
-            border-top: 1px solid #dee2e6; /* Estilo de la línea divisoria */
-        }
-
-        footer {
-            background-color: #343a40; /* Fondo oscuro para el pie de página */
-            color: #fff; /* Texto blanco */
-            padding: 20px 0; /* Espaciado interior */
-        }
+    #view-source {
+      position: fixed;
+      display: block;
+      right: 0;
+      bottom: 0;
+      margin-right: 40px;
+      margin-bottom: 40px;
+      z-index: 900;
+    }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <a class="navbar-brand" href="/">Servicio de Limpieza</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto"> <!-- Alinamiento a la izquierda -->
-                <li class="nav-item">
-                    <a class="nav-link" href="/instalaciones/">Instalaciones</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/servicios/">Servicios</a>
-                </li>
-                <!-- Agrega más enlaces según sea necesario -->
-            </ul>
-            <div class="social-icons">
-                <a href="#"><i class="fab fa-facebook"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
+    <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+      <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
+        <div class="mdl-layout__header-row">
+          <span class="mdl-layout-title">Home</span>
+          <div class="mdl-layout-spacer"></div>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+            <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
+              <i class="material-icons">search</i>
+            </label>
+            <div class="mdl-textfield__expandable-holder">
+              <input class="mdl-textfield__input" type="text" id="search">
+              <label class="mdl-textfield__label" for="search">Enter your query...</label>
             </div>
-            <!-- Botón para activar el modo oscuro -->
-            <button id="dark-mode-toggle" class="btn btn-dark ml-2">Modo Oscuro</button>
+          </div>
+          <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
+            <i class="material-icons">more_vert</i>
+          </button>
+          <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="hdrbtn">
+            <li class="mdl-menu__item">About</li>
+            <li class="mdl-menu__item">Contact</li>
+            <li class="mdl-menu__item">Legal information</li>
+          </ul>
         </div>
-    </nav>
+      </header>
+      <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
+        <header class="demo-drawer-header">
+          <img src="/static/images/user.jpg" class="demo-avatar">
+          <div class="demo-avatar-dropdown">
+            <span>Ejemplo</span>
+            <div class="mdl-layout-spacer"></div>
+            <button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+              <i class="material-icons" role="presentation">arrow_drop_down</i>
+              <span class="visuallyhidden">Accounts</span>
+            </button>
+            <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="accbtn">
+              <li class="mdl-menu__item">hello@example.com</li>
+              <li class="mdl-menu__item">info@example.com</li>
+              <li class="mdl-menu__item"><i class="material-icons">add</i>Add another account...</li>
+            </ul>
+          </div>
+        </header>
+        <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
+          <a class="mdl-navigation__link" href="/index/"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Home</a>
+          <a class="mdl-navigation__link" href="/instalaciones/"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">inbox</i>Intalaciones</a>
+          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">delete</i>Contratos</a>
+        </nav>
+      </div>
 
-    <hr> <!-- Línea divisoria para separar la barra de navegación del contenido -->
-
-    <!-- Contenido principal -->
     <div class="container mt-4">
         {% block content %}
         {% endblock %}
     </div>
-
-    <hr> <!-- Línea divisoria para separar el contenido del pie de página -->
-
-    <footer class="text-center">
-        <!-- Pie de página -->
-        <p>&copy; {{ year }} Servicio de Limpieza. Todos los derechos reservados.</p>
-    </footer>
-
-    <!-- Agregar Bootstrap JS y jQuery (opcional) para funcionalidades avanzadas -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!-- JavaScript para activar el modo oscuro -->
-    <script>
-        const darkModeToggle = document.getElementById('dark-mode-toggle');
-        const body = document.body;
-
-        darkModeToggle.addEventListener('click', () => {
-            body.classList.toggle('dark-mode');
-        });
-    </script>
-    <script src="static/modo_oscuro.js"></script>
 </body>
 </html>

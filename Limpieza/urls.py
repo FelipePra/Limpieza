@@ -20,13 +20,16 @@ from django.urls import path
 from catalog import views
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('index/', views.index, name='index'),
     path('servicios/', views.servicios_list_view, name='servicios_list'),
 
 
+    #urls CMPC
+    path('cmpc_chile/', views.cmpc_chile, name='cmpc_chile'),
+    path('cmpc_argentina/', views.cmpc_argentina, name='cmpc_argentina'),
     #urls Instalaciones
     path('instalaciones/', views.instalaciones, name='instalaciones'),
-    path('cmpc_chile/', views.cmpc_chile, name='cmpc_chile'),
+    
     path('bosques/', views.bosques, name='bosques'),
     path('pulp/', views.pulp, name='pulp'),
     path('biopackaging/', views.biopackaging , name='biopackaging'),
