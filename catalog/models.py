@@ -3,7 +3,6 @@ from django.db import models
 
 class DatosCMPCChile(models.Model):
     numero = models.IntegerField()
-    area = models.CharField(max_length=100)
     dependencia = models.CharField(max_length=100)
     detalle = models.TextField()
     frecuencia = models.CharField(max_length=100)
