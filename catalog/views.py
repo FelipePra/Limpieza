@@ -185,8 +185,7 @@ def chimolsa(request):
     if request.method == 'POST':
         form = ChimolsaForm(request.POST, request.FILES)
         if form.is_valid():
-            datoschimolsa = form.save(commit=False)
-            datoschimolsa.save()
+            form.save()
             messages.success(request, 'Datos ingresados correctamente')
             return redirect('chimolsa')
         else:
@@ -194,14 +193,14 @@ def chimolsa(request):
     else:
         form = ChimolsaForm()
 
-    return render(request, 'Instalaciones/Biopackaging/Corrugados/Chimolsa.html', {'form': form})
+    chimolsa = Chimolsa.objects.all()
+    return render(request, 'Instalaciones/Biopackaging/Corrugados/Chimolsa.html', {'form': form, 'chimolsa': chimolsa})
 
 def cordillera(request):
     if request.method == 'POST':
         form = CordilleraForm(request.POST, request.FILES)
         if form.is_valid():
-            datoscordillera = form.save(commit=False)
-            datoscordillera.save()
+            form.save()
             messages.success(request, 'Datos ingresados correctamente')
             return redirect('cordillera')
         else:
@@ -209,14 +208,14 @@ def cordillera(request):
     else:
         form = CordilleraForm()
 
-    return render(request, 'Instalaciones/Biopackaging/Corrugados/Cordillera.html', {'form': form})
+    cordillera = Cordillera.objects.all()
+    return render(request, 'Instalaciones/Biopackaging/Corrugados/Cordillera.html', {'form': form, 'cordillera': cordillera})
 
 def buin(request):
     if request.method == 'POST':
         form = BuinForm(request.POST, request.FILES)
         if form.is_valid():
-            datosbuin = form.save(commit=False)
-            datosbuin.save()
+            form.save()
             messages.success(request, 'Datos ingresados correctamente')
             return redirect('buin')
         else:
@@ -224,14 +223,14 @@ def buin(request):
     else:
         form = BuinForm()
 
-    return render(request, 'Instalaciones/Biopackaging/Corrugados/EEIIBuin.html', {'form': form})
+    buin = Buin.objects.all()
+    return render(request, 'Instalaciones/Biopackaging/Corrugados/EEIIBuin.html', {'form': form, 'buin': buin})
 
 def osorno(request):
     if request.method == 'POST':
         form = OsornoForm(request.POST, request.FILES)
         if form.is_valid():
-            datososorno = form.save(commit=False)
-            datososorno.save()
+            form.save()
             messages.success(request, 'Datos ingresados correctamente')
             return redirect('osorno')
         else:
@@ -239,14 +238,14 @@ def osorno(request):
     else:
         form = OsornoForm()
 
-    return render(request, 'Instalaciones/Biopackaging/Corrugados/EEIIOsorno.html', {'form': form})
+    osorno = Osorno.objects.all()
+    return render(request, 'Instalaciones/Biopackaging/Corrugados/EEIIOsorno.html', {'form': form, 'osorno': osorno})
 
 def tiltil(request):
     if request.method == 'POST':
         form = TilTilForm(request.POST, request.FILES)
         if form.is_valid():
-            datostiltil = form.save(commit=False)
-            datostiltil.save()
+            form.save()
             messages.success(request, 'Datos ingresados correctamente')
             return redirect('tiltil')
         else:
@@ -254,14 +253,14 @@ def tiltil(request):
     else:
         form = TilTilForm()
 
-    return render(request, 'Instalaciones/Biopackaging/Corrugados/EEIITilTil.html', {'form': form})
+    tiltil = TilTil.objects.all()
+    return render(request, 'Instalaciones/Biopackaging/Corrugados/EEIITilTil.html', {'form': form, 'tiltil': tiltil})
 
 def sorepapudahuel(request):
     if request.method == 'POST':
         form = PudahuelForm(request.POST, request.FILES)
         if form.is_valid():
-            datossorepa_pudahuel = form.save(commit=False)
-            datossorepa_pudahuel.save()
+            form.save()
             messages.success(request, 'Datos ingresados correctamente')
             return redirect('sorepapudahuel')
         else:
@@ -269,14 +268,14 @@ def sorepapudahuel(request):
     else:
         form = PudahuelForm()
 
-    return render(request, 'Instalaciones/Biopackaging/Corrugados/SorepaPudahuel.html', {'form': form})
+    pudahuel = Pudahuel.objects.all()
+    return render(request, 'Instalaciones/Biopackaging/Corrugados/SorepaPudahuel.html', {'form': form, 'pudahuel': pudahuel})
 
 def sorepapuentealto(request):
     if request.method == 'POST':
         form = PuenteAltoForm(request.POST, request.FILES)
         if form.is_valid():
-            datossorepa_puentealto = form.save(commit=False)
-            datossorepa_puentealto.save()
+            form.save()
             messages.success(request, 'Datos ingresados correctamente')
             return redirect('sorepapuentealto')
         else:
@@ -284,14 +283,14 @@ def sorepapuentealto(request):
     else:
         form = PuenteAltoForm()
 
-    return render(request, 'Instalaciones/Biopackaging/Corrugados/SorepaPuenteAlto.html', {'form': form})
+    puentealto = PuenteAlto.objects.all()
+    return render(request, 'Instalaciones/Biopackaging/Corrugados/SorepaPuenteAlto.html', {'form': form, 'puentealto': puentealto})
 
 def sorepaofi(request):
     if request.method == 'POST':
         form = RedOficinasForm(request.POST, request.FILES)
         if form.is_valid():
-            datossorepa_oficinas = form.save(commit=False)
-            datossorepa_oficinas.save()
+            form.save()
             messages.success(request, 'Datos ingresados correctamente')
             return redirect('sorepaofi')
         else:
@@ -299,14 +298,14 @@ def sorepaofi(request):
     else:
         form = RedOficinasForm()
 
-    return render(request, 'Instalaciones/Biopackaging/Corrugados/SorepaRedOficinas.html', {'form': form})
+    redoficinas = RedOficinas.objects.all()
+    return render(request, 'Instalaciones/Biopackaging/Corrugados/SorepaRedOficinas.html', {'form': form, 'redoficinas': redoficinas})
 
 def sorepasanjoaquin(request):
     if request.method == 'POST':
         form = SanJoaquinForm(request.POST, request.FILES)
         if form.is_valid():
-            datossorepa_sanjoaquin = form.save(commit=False)
-            datossorepa_sanjoaquin.save()
+            form.save()
             messages.success(request, 'Datos ingresados correctamente')
             return redirect('sorepasanjoaquin')
         else:
@@ -314,7 +313,8 @@ def sorepasanjoaquin(request):
     else:
         form = SanJoaquinForm()
 
-    return render(request, 'Instalaciones/Biopackaging/Corrugados/SorepaSanJoaquin.html', {'form': form})
+    sanjoaquin = SanJoaquin.objects.all()
+    return render(request, 'Instalaciones/Biopackaging/Corrugados/SorepaSanJoaquin.html', {'form': form, 'sanjoaquin': sanjoaquin})
 
 
 #Views Edipac

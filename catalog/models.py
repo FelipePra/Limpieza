@@ -103,7 +103,7 @@ class Chimolsa(models.Model):
     parametro_control = models.CharField(max_length=100)
     horario = models.CharField(max_length=100)
     def __str__(self):
-        return self.numero
+        return f"Número: {self.numero}, Área: {self.area}, Dependencia: {self.dependencia}"
     class Meta:
         db_table = 'chimolsa'
 
@@ -117,7 +117,7 @@ class Cordillera(models.Model):
     parametro_control = models.CharField(max_length=100)
     horario = models.CharField(max_length=100)
     def __str__(self):
-        return self.numero
+        return f"Número: {self.numero}, Área: {self.area}, Dependencia: {self.dependencia}"
     class Meta:
         db_table = 'cordillera'
 
@@ -132,7 +132,7 @@ class Buin(models.Model):
     horario = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.numero
+        return f"Número: {self.numero}, Área: {self.area}, Dependencia: {self.dependencia}"
     class Meta:
         db_table = 'buin'
 
@@ -147,7 +147,7 @@ class Osorno(models.Model):
     horario = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.numero
+        return f"Número: {self.numero}, Área: {self.area}, Dependencia: {self.dependencia}"
     class Meta:
         db_table = 'osorno'
 
@@ -162,7 +162,7 @@ class TilTil(models.Model):
     horario = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.numero
+        return f"Número: {self.numero}, Área: {self.area}, Dependencia: {self.dependencia}"
     class Meta:
         db_table = 'tiltil'
 
@@ -175,9 +175,8 @@ class Pudahuel(models.Model):
     procedimientos = models.TextField()
     parametro_control = models.CharField(max_length=100)
     horario = models.CharField(max_length=100)
-
     def __str__(self):
-        return self.numero
+        return f"Número: {self.numero}, Área: {self.area}, Dependencia: {self.dependencia}"
     class Meta:
         db_table = 'pudahuel'
 
@@ -191,7 +190,7 @@ class PuenteAlto(models.Model):
     parametro_control = models.CharField(max_length=100)
     horario = models.CharField(max_length=100)
     def __str__(self):
-        return self.numero
+        return f"Número: {self.numero}, Área: {self.area}, Dependencia: {self.dependencia}"
     class Meta:
         db_table = 'puentealto'
 
@@ -206,7 +205,7 @@ class RedOficinas(models.Model):
     horario = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.numero
+        return f"Número: {self.numero}, Área: {self.area}, Dependencia: {self.dependencia}"
     class Meta:
         db_table ='redoficinas'
 
@@ -220,7 +219,7 @@ class SanJoaquin(models.Model):
     parametro_control = models.CharField(max_length=100)
     horario = models.CharField(max_length=100)
     def __str__(self):
-        return self.numero
+        return f"Número: {self.numero}, Área: {self.area}, Dependencia: {self.dependencia}"
     class Meta:
         db_table ='sanjoaquin'
 
