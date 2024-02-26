@@ -26,7 +26,7 @@ class DatosCMPCArgentina(models.Model):
     horario = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.numero
+        return f"Número: {self.numero}, Área: {self.area}, Dependencia: {self.dependencia}"
     class Meta:
         db_table = 'datosargentina'
 
@@ -41,7 +41,7 @@ class DatosCMPCMexico(models.Model):
     horario = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.numero
+        return f"Número: {self.numero}, Área: {self.area}, Dependencia: {self.dependencia}"
     class Meta:
         db_table = 'datosmexico'
 
@@ -56,7 +56,7 @@ class DatosCMPCBrasil(models.Model):
     horario = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.numero
+        return f"Número: {self.numero}, Área: {self.area}, Dependencia: {self.dependencia}"
     class Meta:
         db_table = 'datosbrasil'
 

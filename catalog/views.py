@@ -107,8 +107,7 @@ def cmpc_argentina(request):
     if request.method == 'POST':
         form = DatosCMPCArgentinaForm(request.POST, request.FILES)
         if form.is_valid():
-            datosargentina = form.save(commit=False)
-            datosargentina.save()
+            form.save()
             messages.success(request, 'Datos ingresados correctamente')
             return redirect('cmpc_argentina')
         else:
@@ -116,35 +115,38 @@ def cmpc_argentina(request):
     else:
         form = DatosCMPCArgentinaForm()
 
-    return render(request, 'Instalaciones/CMPC/CMPC_Argentina.html', {'form':form})
+    datosargentina = DatosCMPCArgentina.objects.all()
+    return render(request, 'Instalaciones/CMPC/CMPC_Argentina.html', {'form':form, 'datosargentina':datosargentina})
 
 def cmpc_brasil(request):
     if request.method == 'POST':
-            form = DatosCMPCBrasilForm(request.POST, request.FILES)
-            if form.is_valid():
-                datosbrasil = form.save(commit=False)
-                datosbrasil.save()
-                messages.success(request, 'Datos ingresados correctamente')
-                return redirect('cmpc_argentina')
-            else:
-                messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+        form = DatosCMPCBrasilForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Datos ingresados correctamente')
+            return redirect('cmpc_argentina')
+        else:
+            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
-            form = DatosCMPCBrasilForm()
-    return render(request, 'Instalaciones/CMPC/CMPC_Brasil.html', {'form': form})
+        form = DatosCMPCBrasilForm()
+
+    datosbrasil = DatosCMPCBrasil.objects.all()
+    return render(request, 'Instalaciones/CMPC/CMPC_Brasil.html', {'form': form, 'datosbrasil': datosbrasil})
 
 def cmpc_mexico(request):
     if request.method == 'POST':
-            form = DatosCMPCMexicoForm(request.POST, request.FILES)
-            if form.is_valid():
-                datosbrasil = form.save(commit=False)
-                datosbrasil.save()
-                messages.success(request, 'Datos ingresados correctamente')
-                return redirect('cmpc_argentina')
-            else:
-                messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+        form = DatosCMPCMexicoForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Datos ingresados correctamente')
+            return redirect('cmpc_mexico')
+        else:
+            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
-            form = DatosCMPCMexicoForm()
-    return render(request, 'Instalaciones/CMPC/CMPC_Mexico.html', {'form': form})
+        form = DatosCMPCMexicoForm()
+
+    datosmexico = DatosCMPCMexico.objects.all()
+    return render(request, 'Instalaciones/CMPC/CMPC_Mexico.html', {'form': form, 'datosmexico': datosmexico})
 
 
 #Biopackaging Box Board
