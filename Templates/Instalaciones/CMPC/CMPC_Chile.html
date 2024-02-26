@@ -49,15 +49,10 @@
                 <input type="text" class="form-control is-invalid" id="horario" name="horario">
                 <div class="invalid-feedback">Este campo es obligatorio.</div>
             </div>
-
-            <div class="form-group">
-                <label for="archivo_excel">Archivo Excel:</label>
-                <input type="file" class="form-control-file" id="archivo_excel" name="archivo_excel">
-            </div>
             <button type="submit" class="btn btn-dark">Guardar</button>
 
         </form>
-        
+        <a href="{% url 'descargar_excel' %}" class="btn btn-secondary mt-3">Descargar Excel</a>
         
     </div>
 </div>
@@ -90,11 +85,11 @@
                 <td>{{ dato.parametro_control }}</td>
                 <td>{{ dato.horario }}</td>
                 <td>
-                    <button class="btn btn-primary btn-sm" onclick="window.location.href='{% url 'modificar_dato' dato.id %}'">Modificar</button>
-                    <form method="post" action="{% url 'eliminar_dato' dato.id %}" style="display: inline;">
+                    <button class="btn btn-primary btn-sm" onclick="window.location.href=''">Modificar</button>
+                    <form method="post" style="display: inline;">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas eliminar este dato?')">Eliminar</button>
-                    </form>                    
+                    </form>
                 </td>
             </tr>
             {% endfor %}

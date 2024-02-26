@@ -59,17 +59,14 @@ def cmpc_chile(request):
 
     datoschile = DatosCMPCChile.objects.all()
     return render(request, 'Instalaciones/CMPC/CMPC_Chile.html', {'form': form, 'datoschile': datoschile})
-
 def eliminar_dato(request, dato_id):
     if request.method == 'POST':
         dato = DatosCMPCChile.objects.get(pk=dato_id)
         dato.delete()
-        return redirect('cmpc_chile')
+    return redirect('cmpc_chile')
 
 def modificar_dato(request, dato_id):
-    # Recuperar el objeto de datos existente
-    dato = get_object_or_404(DatosCMPCChile, pk=dato_id)
-    
+    dato = DatosCMPCChile.objects.get(pk=dato_id)
     if request.method == 'POST':
         form = DatosCMPCChileForm(request.POST, instance=dato)
         if form.is_valid():
@@ -77,8 +74,7 @@ def modificar_dato(request, dato_id):
             return redirect('cmpc_chile')
     else:
         form = DatosCMPCChileForm(instance=dato)
-
-    return render(request, 'Instalaciones/CMPC/CMPC_Chile.html', {'form': form})
+    return render(request, 'tu_template_para_modificar.html', {'form': form})
 
 def descargar_excel(request):
     response = HttpResponse(content_type='application/ms-excel')
@@ -107,7 +103,6 @@ def descargar_excel(request):
 
     wb.save(response)
     return response
-
 def cmpc_argentina(request):
     if request.method == 'POST':
         form = DatosCMPCArgentinaForm(request.POST, request.FILES)
