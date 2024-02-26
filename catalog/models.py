@@ -7,11 +7,11 @@ class DatosCMPCChile(models.Model):
     detalle = models.TextField()
     frecuencia = models.CharField(max_length=100)
     procedimientos = models.TextField()
-    parametro_control = models.CharField(max_length=100)
+    parametro_control = models.CharField(max_length=100, blank=True)
     horario = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.numero
+        return f"Número: {self.numero}, Área: {self.area}, Dependencia: {self.dependencia}"
     class Meta:
         db_table = 'datoschile'
 

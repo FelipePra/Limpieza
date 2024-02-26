@@ -46,11 +46,12 @@ def sackkraft(request):
 def cmpc_chile(request):
     if request.method == 'POST':
         form = DatosCMPCChileForm(request.POST, request.FILES)
+        print(form.errors)
         if form.is_valid():
             datoschile = form.save(commit=False)
             datoschile.save()
             messages.success(request, 'Datos ingresados correctamente')
-            return redirect('cmpc_chile')
+            return redirect('/cmpc_chile/')
         else:
             messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
