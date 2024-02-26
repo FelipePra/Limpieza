@@ -538,7 +538,7 @@ def viverocd(request):
             messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
         form = ViveroForm()
-    return render(request, 'Instalaciones/Bosques/ViverosCD.html', {'form': form})
+    return render(request, 'Instalaciones/Bosques/ViveroCD.html', {'form': form})
 
 #Maderas
 
@@ -668,7 +668,7 @@ def casahuespedes(request):
             messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
         form = CasaHuespedesForm()
-    return render(request, 'Instalaciones/Pulp/Casadehuespedes.html', {'form': form})
+    return render(request, 'Instalaciones/Pulp/Casasdehuespedes.html', {'form': form})
 
 def guaiba(request):
     if request.method == 'POST':
@@ -682,7 +682,7 @@ def guaiba(request):
             messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
         form = GuaibaForm()
-    return render(request, 'Instalaciones/Pulp/PlantaGuaiba.html', {'form': form})
+    return render(request, 'Instalaciones/Pulp/PlantaGuaíba.html', {'form': form})
 
 def laja(request):
     if request.method == 'POST':

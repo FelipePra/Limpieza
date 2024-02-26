@@ -91,7 +91,7 @@ urlpatterns = [
 
     #Urls Pulp
     path('balneariolaja/', views.balneariolaja, name='balneariolaja'),
-    path('casahuespede/', views.casahuespedes, name='casahuesped'),
+    path('casahuespedes/', views.casahuespedes, name='casahuespedes'),
     path('guaiba/', views.guaiba, name='guaiba'),
     path('laja/', views.laja, name='laja'),
     path('pacifico/', views.pacifico, name='pacifico'),
