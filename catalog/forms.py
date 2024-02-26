@@ -1,8 +1,5 @@
 from django import forms
 from .models import *
-
-
-
 #Forms CMPC
 class DatosCMPCChileForm(forms.ModelForm):
     class Meta:

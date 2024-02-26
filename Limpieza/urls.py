@@ -45,6 +45,21 @@ urlpatterns = [
     path('maule/', views.maule, name='maule'),
     path('valdivia/', views.valdivia, name='valdivia'),
 
+    #urls Edipac
+    path('oficoncepcion/', views.oficinas_concepcion, name='oficonce'),
+    path('ofitemuco/', views.oficinas_temuco, name='ofitemuco'),
+    path('quilicura/', views.quilicura, name='quilicura'),
+
+    #urls SacKraft
+    path('camposnovos/', views.camposnovos, name='camposnovos'),
+    path('chillan/', views.chillan, name='chillan'),
+    path('fabi/', views.fabi, name='fabi'),
+    path('guadalajara/', views.guadalajara, name='guadalajara'),
+    path('irapuato/', views.irapuato, name='irapuato'),
+    path('peru/', views.peru, name='peru'),
+    path('piraidosul/', views.piraidosul,name='piraidosul'),
+    path('sanjose/', views.sanjose, name='sanjose'),
+
     #ursl Corrugados
     path('chimolsa/', views.chimolsa, name='chimolsa'),
     path('cordillera/', views.cordillera, name='cordillera'),
@@ -55,4 +70,30 @@ urlpatterns = [
     path('sorepapuentealto/', views.sorepapuentealto, name='sorepapuentealto'),
     path('sorepaofi/', views.sorepaofi, name='sorepaofi'),
     path('sorepasanjoaquin/', views.sorepasanjoaquin, name='sorepasanjoaquin'),
+
+    #Urls Bosques
+    path('balnearios/', views.balnearios, name='balnearios'),
+    path('villaforest/', views.villaforest, name='villaforest'),
+    path('bosquesplata/', views.bosquesplata, name='bosquesplata'),
+    path('edicorpo/', views.edicorpo, name='edicorpo'),
+    path('transito/', views.transito, name='transito'),
+    path('coyhaique/',views.coyhaique, name='coyhaique'),
+    path('vivero/', views.vivero, name='vivero'),
+
+    #Ursl Maderas
+    path('bucalemu/',views.bucalemu, name='bucalemu'),
+    path('mulchen/',views.mulchen, name='mulchen'),
+    path('nacimiento/',views.nacimiento,name='nacimiento'),
+    path('niuform/',views.niuform, name='niuform'),
+    path('plywood/',views.plywood, name='plywood'),
+    path('coronel/',views.coronel, name='coronel'),
+    path('remLA/',views.remLA, name='remLA'),
+
+    #Urls Pulp
+    path('balneariolaja/', views.balneariolaja, name='balneariolaja'),
+    path('casahuespede/', views.casahuespede, name='casahuesped'),
+    path('guaiba/', views.guaiba, name='guaiba'),
+    path('laja/', views.laja, name='laja'),
+    path('pacifico/', views.pacifico, name='pacifico'),
+    path('santafe/', views.santafe, name='santafe'),
 ]

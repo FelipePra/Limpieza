@@ -1,6 +1,4 @@
 from django.db import models
-
-
 #Models CMPC
 class DatosCMPCChile(models.Model):
     numero = models.IntegerField()
@@ -270,7 +268,6 @@ class Quilicura(models.Model):
         db_table = 'quilicura'
        
 #Models Sack Kraft
-
 class CamposNovos(models.Model):
     numero = models.IntegerField()
     area = models.CharField(max_length=100, default='')
