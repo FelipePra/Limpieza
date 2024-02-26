@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 
-{% block title %}CMPC Valdivia{% endblock %}
+{% block title %}BoxBoard Valdivia{% endblock %}
 
 {% block content %}
 <div class="container">
     <div class="card p-4">
-        <h1 class="display-3">Datos Valdivia</h1>
+        <h1 class="display-3">BoxBoard Valdivia</h1>
         <form method="post">
             {% csrf_token %}
-            {{ datos_cmpc_chile }}
+            {{ valdivia }}
             <div class="form-group">
                 <label for="numero">Número:</label>
                 <input type="number" class="form-control is-invalid" id="numero" name="numero">

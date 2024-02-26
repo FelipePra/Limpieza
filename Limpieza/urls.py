@@ -78,7 +78,7 @@ urlpatterns = [
     path('edicorpo/', views.edicorpo, name='edicorpo'),
     path('transito/', views.transito, name='transito'),
     path('coyhaique/',views.coyhaique, name='coyhaique'),
-    path('vivero/', views.vivero, name='vivero'),
+    path('viverocd/', views.viverocd, name='viverocd'),
 
     #Ursl Maderas
     path('bucalemu/',views.bucalemu, name='bucalemu'),
@@ -91,7 +91,7 @@ urlpatterns = [
 
     #Urls Pulp
     path('balneariolaja/', views.balneariolaja, name='balneariolaja'),
-    path('casahuespede/', views.casahuespede, name='casahuesped'),
+    path('casahuespede/', views.casahuespedes, name='casahuesped'),
     path('guaiba/', views.guaiba, name='guaiba'),
     path('laja/', views.laja, name='laja'),
     path('pacifico/', views.pacifico, name='pacifico'),

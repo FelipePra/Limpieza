@@ -626,7 +626,7 @@ def coronel(request):
         form = CoronelForm()
     return render(request, 'Instalaciones/Maderas/Rem_Coronel.html', {'form': form})
 
-def RemLA(request):
+def remLA(request):
     if request.method == 'POST':
         form = RemLAForm(request.POST, request.FILES)
         if form.is_valid():

@@ -179,7 +179,7 @@ class Pudahuel(models.Model):
     def __str__(self):
         return self.numero
     class Meta:
-        db_table = 'puudahuel'
+        db_table = 'pudahuel'
 
 class PuenteAlto(models.Model):
     numero = models.IntegerField()
