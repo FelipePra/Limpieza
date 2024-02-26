@@ -40,8 +40,8 @@
                 <div class="invalid-feedback">Este campo es obligatorio.</div>
             </div>
             <div class="form-group">
-                <label for="parametros_control">Parámetros de Control:</label>
-                <input type="text" class="form-control is-invalid" id="parametros_control" name="parametros_control">
+                <label for="parametro_control">Parámetros de Control:</label>
+                <input type="text" class="form-control is-invalid" id="parametros_control" name="parametro_control">
                 <div class="invalid-feedback">Este campo es obligatorio.</div>
             </div>            
             <div class="form-group">
@@ -49,10 +49,15 @@
                 <input type="text" class="form-control is-invalid" id="horario" name="horario">
                 <div class="invalid-feedback">Este campo es obligatorio.</div>
             </div>
+
+            <div class="form-group">
+                <label for="archivo_excel">Archivo Excel:</label>
+                <input type="file" class="form-control-file" id="archivo_excel" name="archivo_excel">
+            </div>
             <button type="submit" class="btn btn-dark">Guardar</button>
 
         </form>
-        <button class="btn btn-secondary mt-3">Subir Excel</button>
+        
         
     </div>
 </div>
@@ -70,19 +75,27 @@
                 <th scope="col">Procedimiento</th>
                 <th scope="col">Parámetros de Control</th>
                 <th scope="col">Horario</th>
+                <th scope="col">Acciones</th>
             </tr>
         </thead>
         <tbody>
             {% for dato in datoschile %}
             <tr>
                 <td>{{ dato.numero }}</td>
-                <td>{{ dato.area}}</td>
+                <td>{{ dato.area }}</td>
                 <td>{{ dato.dependencia }}</td>
                 <td>{{ dato.detalle }}</td>
                 <td>{{ dato.frecuencia }}</td>
                 <td>{{ dato.procedimientos }}</td>
                 <td>{{ dato.parametro_control }}</td>
                 <td>{{ dato.horario }}</td>
+                <td>
+                    <button class="btn btn-primary btn-sm" onclick="window.location.href='{% url 'modificar_dato' dato.id %}'">Modificar</button>
+                    <form method="post" action="{% url 'eliminar_dato' dato.id %}" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas eliminar este dato?')">Eliminar</button>
+                    </form>                    
+                </td>
             </tr>
             {% endfor %}
         </tbody>

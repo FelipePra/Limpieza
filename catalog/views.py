@@ -1,7 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from rest_framework.response import Response
 from django.contrib import messages
+from django.http import HttpResponse
+import xlwt
 
 from catalog.forms import *
 from .models import  DatosCMPCChile
@@ -46,19 +48,65 @@ def sackkraft(request):
 def cmpc_chile(request):
     if request.method == 'POST':
         form = DatosCMPCChileForm(request.POST, request.FILES)
-        print(form.errors)
         if form.is_valid():
-            datoschile = form.save(commit=False)
-            datoschile.save()
+            form.save()
             messages.success(request, 'Datos ingresados correctamente')
-            return redirect('/cmpc_chile/')
+            return redirect('cmpc_chile')
         else:
             messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
         form = DatosCMPCChileForm()
 
+    datoschile = DatosCMPCChile.objects.all()
+    return render(request, 'Instalaciones/CMPC/CMPC_Chile.html', {'form': form, 'datoschile': datoschile})
+
+def eliminar_dato(request, dato_id):
+    if request.method == 'POST':
+        dato = DatosCMPCChile.objects.get(pk=dato_id)
+        dato.delete()
+        return redirect('cmpc_chile')
+
+def modificar_dato(request, dato_id):
+    # Recuperar el objeto de datos existente
+    dato = get_object_or_404(DatosCMPCChile, pk=dato_id)
+    
+    if request.method == 'POST':
+        form = DatosCMPCChileForm(request.POST, instance=dato)
+        if form.is_valid():
+            form.save()
+            return redirect('cmpc_chile')
+    else:
+        form = DatosCMPCChileForm(instance=dato)
+
     return render(request, 'Instalaciones/CMPC/CMPC_Chile.html', {'form': form})
 
+def descargar_excel(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="datos_cmpc_chile.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Datos CMPC Chile')
+
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Número', 'Área', 'Dependencia', 'Detalle', 'Frecuencia', 'Procedimiento', 'Parámetros de Control', 'Horario']
+
+    for col_num, column_title in enumerate(columns):
+        ws.write(row_num, col_num, column_title, font_style)
+
+    font_style = xlwt.XFStyle()
+
+    datos = DatosCMPCChile.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
+
+    for row in datos:
+        row_num += 1
+        for col_num, value in enumerate(row):
+            ws.write(row_num, col_num, value, font_style)
+
+    wb.save(response)
+    return response
 
 def cmpc_argentina(request):
     if request.method == 'POST':

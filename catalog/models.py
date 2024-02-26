@@ -7,7 +7,7 @@ class DatosCMPCChile(models.Model):
     detalle = models.TextField()
     frecuencia = models.CharField(max_length=100)
     procedimientos = models.TextField()
-    parametro_control = models.CharField(max_length=100, blank=True)
+    parametro_control = models.CharField(max_length=100)
     horario = models.CharField(max_length=100)
 
     def __str__(self):

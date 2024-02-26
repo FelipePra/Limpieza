@@ -21,6 +21,9 @@ from catalog import views
 
 urlpatterns = [
     path('index/', views.index, name='index'),
+    path('eliminar/<int:dato_id>/', views.eliminar_dato, name='eliminar_dato'),
+    path('modificar/<int:dato_id>/', views.modificar_dato, name='modificar_dato'),
+    path('descargar_excel/', views.descargar_excel, name='descargar_excel'),
 
     #urls CMPC
     path('cmpc_chile/', views.cmpc_chile, name='cmpc_chile'),
