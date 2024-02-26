@@ -2,7 +2,6 @@ from django import forms
 from .models import *
 #Forms CMPC
 class DatosCMPCChileForm(forms.ModelForm):
-    archivo_excel = forms.FileField()
     class Meta:
         model = DatosCMPCChile
         fields = '__all__'

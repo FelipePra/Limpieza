@@ -86,7 +86,7 @@
                 <td>{{ dato.horario }}</td>
                 <td>
                     <button class="btn btn-primary btn-sm" onclick="window.location.href=''">Modificar</button>
-                    <form method="post" style="display: inline;">
+                    <form method="post" action="{% url 'eliminar_dato' dato.id %}" style="display: inline;">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas eliminar este dato?')">Eliminar</button>
                     </form>
@@ -99,7 +99,4 @@
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-<!-- Script de validación de campos vacíos -->
-
 {% endblock %}
