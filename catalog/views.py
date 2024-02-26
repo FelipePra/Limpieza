@@ -154,23 +154,21 @@ def maule(request):
     if request.method == 'POST':
         form = MauleForm(request.POST, request.FILES)
         if form.is_valid():
-            datosmaule = form.save(commit=False)
-            datosmaule.save()
+            form.save()
             messages.success(request, 'Datos ingresados correctamente')
             return redirect('maule')
         else:
             messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
         form = MauleForm()
-
-    return render(request, 'Instalaciones/Biopackaging/Box-Board/Maule.html', {'form': form})
+    maule = Maule.objects.all()
+    return render(request, 'Instalaciones/Biopackaging/Box-Board/Maule.html', {'form': form, 'maule': maule})
 
 def valdivia(request):
     if request.method == 'POST':
         form = ValdiviaForm(request.POST, request.FILES)
         if form.is_valid():
-            datosvaldivia = form.save(commit=False)
-            datosvaldivia.save()
+            form.save()
             messages.success(request, 'Datos ingresados correctamente')
             return redirect('valdivia')
         else:
@@ -178,7 +176,8 @@ def valdivia(request):
     else:
         form = ValdiviaForm()
 
-    return render(request, 'Instalaciones/Biopackaging/Box-Board/Valdivia.html', {'form': form})
+    valdivia = Valdivia.objects.all()
+    return render(request, 'Instalaciones/Biopackaging/Box-Board/Valdivia.html', {'form': form, 'valdivia': valdivia})
 
 # Biopackaging Corrugados
 
