@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 
-{% block title %}Maderas Plywood {endblock %}
+{% block title %} Maderas Plywood{% endblock %}
 
 {% block content %}
 <div class="container">
     <div class="card p-4">
-        <h1 class="display-3">Datos Maderas Plwood</h1>
+        <h1 class="display-3">Datos Maderas Plywood</h1>
         <form method="post">
             {% csrf_token %}
-            {{ datos_cmpc_chile }}
+            {{ bucalemu }}
             <div class="form-group">
                 <label for="numero">Número:</label>
                 <input type="number" class="form-control is-invalid" id="numero" name="numero">

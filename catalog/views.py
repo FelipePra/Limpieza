@@ -596,7 +596,7 @@ def niuform(request):
             messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
         form = NiuformForm()
-    return render(request, 'Instalaciones/Maderas/Niform_Los_Angeles.html', {'form': form})
+    return render(request, 'Instalaciones/Maderas/Niuform_Los_Angeles.html', {'form': form})
 
 def plywood(request):
     if request.method == 'POST':
