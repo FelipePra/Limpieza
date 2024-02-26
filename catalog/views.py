@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from rest_framework.response import Response
+from django.contrib import messages
 
 from catalog.forms import DatosCMPCChileForm
 from .models import  DatosCMPCChile
@@ -43,20 +44,20 @@ def sackkraft(request):
 
 # Vistas CMPC
 def cmpc_chile(request):
-    datos_cmpc_chile_form = DatosCMPCChile.objects.all()
-    if request.method == 'POST' and request.FILES[''] and request.FILES['']:
-        datos_cmpc_chile_form = DatosCMPCChileForm(request.POST, request.FILES)
-        
-        if datos_cmpc_chile_form.is_valid():
-            datos_cmpc_chile_form.save()
-            django_messages.success(request, 'Formulario agregado')
+    if request.method == 'POST':
+        form = DatosCMPCChileForm(request.POST, request.FILES)
+        if form.is_valid():
+            datoschile = form.save(commit=False)
+            datoschile.save()
+            messages.success(request, 'Datos ingresados correctamente')
+            return redirect('cmpc_chile')
+        else:
+            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+    else:
+        form = DatosCMPCChileForm()
 
-    datos = {
-        'formulario': datos_cmpc_chile_form,
-        'titulo': 'Agregar Formulario',
-        'redirect_url': 'Instalaciones/CMPC/CMPC_Chile.html',
-    }
-    return render(request, 'Instalaciones/CMPC/CMPC_Chile.html', datos)
+
+    return render(request, 'Instalaciones/CMPC/CMPC_Chile.html', {'form': form})
 
 
 def cmpc_argentina(request):

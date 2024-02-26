@@ -8,10 +8,15 @@
         <h1 class="display-3">Datos CMPC Chile</h1>
         <form method="post">
             {% csrf_token %}
-            {{ datoscmpcchile }}
+            {{ datos_cmpc_chile }}
             <div class="form-group">
                 <label for="numero">Número:</label>
                 <input type="number" class="form-control is-invalid" id="numero" name="numero">
+                <div class="invalid-feedback">Este campo es obligatorio.</div>
+            </div>
+            <div class="form-group">
+                <label for="numero">Area:</label>
+                <input type="text" class="form-control is-invalid" id="area" name="area">
                 <div class="invalid-feedback">Este campo es obligatorio.</div>
             </div>
             <div class="form-group">
@@ -45,8 +50,10 @@
                 <div class="invalid-feedback">Este campo es obligatorio.</div>
             </div>
             <button type="submit" class="btn btn-dark">Guardar</button>
+
         </form>
         <button class="btn btn-secondary mt-3">Subir Excel</button>
+        
     </div>
 </div>
 
@@ -56,6 +63,7 @@
         <thead>
             <tr>
                 <th scope="col">N°</th>
+                <th scope="col">Area</th>
                 <th scope="col">Dependencia</th>
                 <th scope="col">Detalle</th>
                 <th scope="col">Frecuencia</th>
@@ -68,6 +76,7 @@
             {% for dato in datos_cmpc_chile %}
             <tr>
                 <td>{{ dato.numero }}</td>
+                <td>{{ dato.area}}</td>
                 <td>{{ dato.dependencia }}</td>
                 <td>{{ dato.detalle }}</td>
                 <td>{{ dato.frecuencia }}</td>
