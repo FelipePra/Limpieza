@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% block title %}Bosques Balnearios{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="card p-4">
+        <h1 class="display-3">Datos Bosques Balnearios y casas H</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ balenarios }}
+            <div class="form-group">
+                <label for="numero">Número:</label>
+                <input type="number" class="form-control is-invalid" id="numero" name="numero">
+                <div class="invalid-feedback">Este campo es obligatorio.</div>
+            </div>
+            <div class="form-group">
+                <label for="numero">Area:</label>
+                <input type="text" class="form-control is-invalid" id="area" name="area">
+                <div class="invalid-feedback">Este campo es obligatorio.</div>
+            </div>
+            <div class="form-group">
+                <label for="dependencia">Dependencia:</label>
+                <input type="text" class="form-control is-invalid" id="dependencia" name="dependencia">
+                <div class="invalid-feedback">Este campo es obligatorio.</div>
+            </div>
+            <div class="form-group">
+                <label for="detalle">Detalle:</label>
+                <input type="text" class="form-control is-invalid" id="detalle" name="detalle">
+                <div class="invalid-feedback">Este campo es obligatorio.</div>
+            </div>
+            <div class="form-group">
+                <label for="frecuencia">Frecuencia:</label>
+                <input type="text" class="form-control is-invalid" id="frecuencia" name="frecuencia">
+                <div class="invalid-feedback">Este campo es obligatorio.</div>
+            </div>
+            <div class="form-group">
+                <label for="procedimientos">Procedimientos:</label>
+                <input type="text" class="form-control is-invalid" id="procedimientos" name="procedimientos">
+                <div class="invalid-feedback">Este campo es obligatorio.</div>
+            </div>
+            <div class="form-group">
+                <label for="parametros_control">Parámetros de Control:</label>
+                <input type="text" class="form-control is-invalid" id="parametros_control" name="parametros_control">
+                <div class="invalid-feedback">Este campo es obligatorio.</div>
+            </div>
+            <div class="form-group">
+                <label for="horario">Horario:</label>
+                <input type="text" class="form-control is-invalid" id="horario" name="horario">
+                <div class="invalid-feedback">Este campo es obligatorio.</div>
+            </div>
+            <button type="submit" class="btn btn-dark">Guardar</button>
+
+        </form>
+        <button class="btn btn-secondary mt-3">Subir Excel</button>
+        
+    </div>
+</div>
+
+<div class="container mt-5">
+    <h2>Tabla de Bosques Balnearios y casas H</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">N°</th>
+                <th scope="col">Area</th>
+                <th scope="col">Dependencia</th>
+                <th scope="col">Detalle</th>
+                <th scope="col">Frecuencia</th>
+                <th scope="col">Procedimiento</th>
+                <th scope="col">Parámetros de Control</th>
+                <th scope="col">Horario</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for dato in balnearios %}
+            <tr>
+                <td>{{ dato.numero }}</td>
+                <td>{{ dato.area}}</td>
+                <td>{{ dato.dependencia }}</td>
+                <td>{{ dato.detalle }}</td>
+                <td>{{ dato.frecuencia }}</td>
+                <td>{{ dato.procedimientos }}</td>
+                <td>{{ dato.parametro_control }}</td>
+                <td>{{ dato.horario }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<!-- Script de validación de campos vacíos -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelector("form").addEventListener("submit", function(event) {
+            const inputs = document.querySelectorAll("input[type='text'], input[type='number']");
+            let isValid = true;
+
+            inputs.forEach(input => {
+                if (input.value.trim() === "") {
+                    isValid = false;
+                    input.classList.add("is-invalid");
+                } else {
+                    input.classList.remove("is-invalid");
+                }
+            });
+
+            if (!isValid) {
+                event.preventDefault();
+            }
+        });
+    });
+</script>
+{% endblock %}
