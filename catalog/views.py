@@ -323,8 +323,7 @@ def oficinas_concepcion(request):
     if request.method == 'POST':
         form = OfiConcepcionForm(request.POST, request.FILES)
         if form.is_valid():
-            datosofi_concepcion = form.save(commit=False)
-            datosofi_concepcion.save()
+            form.save()
             messages.success(request, 'Datos ingresados correctamente')
             return redirect('oficoncenpcion')
         else:
@@ -332,14 +331,14 @@ def oficinas_concepcion(request):
     else:
         form = DatosCMPCMexicoForm()
 
-    return render(request, 'Instalaciones/Biopackaging/Edipac/OficinasConcepcion.html', {'form': form})
+    oficinasconcepcion = OfiConcepcion.objects.all()
+    return render(request, 'Instalaciones/Biopackaging/Edipac/OficinasConcepcion.html', {'form': form, 'oficinasconcepcion': oficinasconcepcion})
 
 def oficinas_temuco(request):
     if request.method == 'POST':
         form = OfiTemucoForm(request.POST, request.FILES)
         if form.is_valid():
-            datosofi_temuco = form.save(commit=False)
-            datosofi_temuco.save()
+            form.save()
             messages.success(request, 'Datos ingresados correctamente')
             return redirect('ofitemuco')
         else:
@@ -347,22 +346,23 @@ def oficinas_temuco(request):
     else:
         form = OfiTemucoForm()
 
-    return render(request, 'Instalaciones/Biopackaging/Edipac/OficinasTemuco.html', {'form': form})
+    ofitemuco = OfiTemuco.objects.all()
+    return render(request, 'Instalaciones/Biopackaging/Edipac/OficinasTemuco.html', {'form': form, 'ofitemuco': ofitemuco})
 
 def quilicura(request):
     if request.method == 'POST':
         form = QuilicuraForm(request.POST, request.FILES)
         if form.is_valid():
-            datosquilicura = form.save(commit=False)
-            datosquilicura.save()
+            form.save()
             messages.success(request, 'Datos ingresados correctamente')
             return redirect('quilicura')
         else:
             messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
-        form =QuilicuraForm()
+        form = QuilicuraForm()
 
-    return render(request, 'Instalaciones/Biopackaging/Edipac/PlantaQuilicura.html', {'form': form})
+    quilicura = Quilicura.objects.all()
+    return render(request, 'Instalaciones/Biopackaging/Edipac/PlantaQuilicura.html', {'form': form, 'quilicura': quilicura})
 
 #Views SackKraft
 
