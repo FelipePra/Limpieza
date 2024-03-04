@@ -592,6 +592,487 @@ def descargar_excel_quilicura(request):
     return response
 
 
+#Views SackKraft
+
+def camposnovos(request):
+    if request.method == 'POST':
+        form = CamposNovosForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Datos ingresados correctamente')
+            return redirect('camposnovos')
+        else:
+            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+    else:
+        form = CamposNovosForm()
+
+    camposnovos = CamposNovos.objects.all()
+    return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/CamposNovos.html', {'form': form, 'camposnovos':camposnovos})
+
+def eliminar_camposnovos(request, dato_id):
+    if request.method == 'POST':
+        dato = CamposNovos.objects.get(pk=dato_id)
+        dato.delete()
+    return redirect('camposnovos')
+
+def modificar_camposnovos(request, dato_id):
+    dato = CamposNovos.objects.get(pk=dato_id)
+    if request.method == 'POST':
+        form = CamposNovosForm(request.POST, instance=dato)
+        if form.is_valid():
+            form.save()
+            return redirect('camposnovos')
+    else:
+        form = CamposNovosForm(instance=dato)
+    return render(request, 'tu_template_para_modificar.html', {'form': form})
+
+def descargar_excel_camposnovos(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="datos_camposnovos.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Datos CamposNovos')
+
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Número', 'Área', 'Dependencia', 'Detalle', 'Frecuencia', 'Procedimiento', 'Parámetros de Control', 'Horario']
+
+    for col_num, column_title in enumerate(columns):
+        ws.write(row_num, col_num, column_title, font_style)
+
+    font_style = xlwt.XFStyle()
+
+    datos = CamposNovos.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
+
+    for row in datos:
+        row_num += 1
+        for col_num, value in enumerate(row):
+            ws.write(row_num, col_num, value, font_style)
+
+    wb.save(response)
+    return response
+
+def chillan(request):
+    if request.method == 'POST':
+        form = ChillanForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Datos ingresados correctamente')
+            return redirect('chillan')
+        else:
+            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+    else:
+        form = ChillanForm()
+
+    chillan = Chillan.objects.all()
+    return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/Chillan.html', {'form': form, 'chillan': chillan})
+
+def eliminar_chillan(request, dato_id):
+    if request.method == 'POST':
+        dato = Chillan.objects.get(pk=dato_id)
+        dato.delete()
+    return redirect('chillan')
+
+def modificar_chillan(request, dato_id):
+    dato = Chillan.objects.get(pk=dato_id)
+    if request.method == 'POST':
+        form = ChillanForm(request.POST, instance=dato)
+        if form.is_valid():
+            form.save()
+            return redirect('chillan')
+    else:
+        form = ChillanForm(instance=dato)
+    return render(request, 'tu_template_para_modificar.html', {'form': form})
+
+def descargar_excel_chillan(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="datos_chillan.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Datos Chillan')
+
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Número', 'Área', 'Dependencia', 'Detalle', 'Frecuencia', 'Procedimiento', 'Parámetros de Control', 'Horario']
+
+    for col_num, column_title in enumerate(columns):
+        ws.write(row_num, col_num, column_title, font_style)
+
+    font_style = xlwt.XFStyle()
+
+    datos = Chillan.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
+
+    for row in datos:
+        row_num += 1
+        for col_num, value in enumerate(row):
+            ws.write(row_num, col_num, value, font_style)
+
+    wb.save(response)
+    return response
+
+def fabi(request):
+    if request.method == 'POST':
+        form = FabiForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Datos ingresados correctamente')
+            return redirect('fabi')
+        else:
+            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+    else:
+        form = FabiForm()
+
+    fabi = Fabi.objects.all()
+    return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/Fabi.html', {'form': form, 'fabi': fabi})
+
+def eliminar_fabi(request, dato_id):
+    if request.method == 'POST':
+        dato = Fabi.objects.get(pk=dato_id)
+        dato.delete()
+    return redirect('fabi')
+
+def modificar_fabi(request, dato_id):
+    dato = Fabi.objects.get(pk=dato_id)
+    if request.method == 'POST':
+        form = FabiForm(request.POST, instance=dato)
+        if form.is_valid():
+            form.save()
+            return redirect('fabi')
+    else:
+        form = FabiForm(instance=dato)
+    return render(request, 'tu_template_para_modificar.html', {'form': form})
+
+def descargar_excel_fabi(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="datos_fabi.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Datos Fabi')
+
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Número', 'Área', 'Dependencia', 'Detalle', 'Frecuencia', 'Procedimiento', 'Parámetros de Control', 'Horario']
+
+    for col_num, column_title in enumerate(columns):
+        ws.write(row_num, col_num, column_title, font_style)
+
+    font_style = xlwt.XFStyle()
+
+    datos = Fabi.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
+
+    for row in datos:
+        row_num += 1
+        for col_num, value in enumerate(row):
+            ws.write(row_num, col_num, value, font_style)
+
+    wb.save(response)
+    return response
+
+def guadalajara(request):
+    if request.method == 'POST':
+        form = GuadalajaraForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Datos ingresados correctamente')
+            return redirect('guadalajara')
+        else:
+            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+    else:
+        form = GuadalajaraForm()
+
+    guadalajara = Guadalajara.objects.all()
+    return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/Guadalajara.html', {'form': form, 'guadalajara': guadalajara})
+
+def eliminar_guadalajara(request, dato_id):
+    if request.method == 'POST':
+        dato = Guadalajara.objects.get(pk=dato_id)
+        dato.delete()
+    return redirect('guadalajara')
+
+def modificar_guadalajara(request, dato_id):
+    dato = Guadalajara.objects.get(pk=dato_id)
+    if request.method == 'POST':
+        form = GuadalajaraForm(request.POST, instance=dato)
+        if form.is_valid():
+            form.save()
+            return redirect('guadalajara')
+    else:
+        form = GuadalajaraForm(instance=dato)
+    return render(request, 'tu_template_para_modificar.html', {'form': form})
+
+def descargar_excel_guadalajara(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="datos_guadalajara.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Datos Guadalajara')
+
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Número', 'Área', 'Dependencia', 'Detalle', 'Frecuencia', 'Procedimiento', 'Parámetros de Control', 'Horario']
+
+    for col_num, column_title in enumerate(columns):
+        ws.write(row_num, col_num, column_title, font_style)
+
+    font_style = xlwt.XFStyle()
+
+    datos = Guadalajara.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
+
+    for row in datos:
+        row_num += 1
+        for col_num, value in enumerate(row):
+            ws.write(row_num, col_num, value, font_style)
+
+    wb.save(response)
+    return response
+
+def irapuato(request):
+    if request.method == 'POST':
+        form = IrapuatoForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Datos ingresados correctamente')
+            return redirect('irapuato')
+        else:
+            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+    else:
+        form = IrapuatoForm()
+
+    irapuato = Irapuato.objects.all()
+    return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/Irapuato.html', {'form': form, 'irapuato': irapuato})
+
+def eliminar_irapuato(request, dato_id):
+    if request.method == 'POST':
+        dato = Irapuato.objects.get(pk=dato_id)
+        dato.delete()
+    return redirect('irapuato')
+
+def modificar_irapuato(request, dato_id):
+    dato = Irapuato.objects.get(pk=dato_id)
+    if request.method == 'POST':
+        form = IrapuatoForm(request.POST, instance=dato)
+        if form.is_valid():
+            form.save()
+            return redirect('irapuato')
+    else:
+        form = IrapuatoForm(instance=dato)
+    return render(request, 'tu_template_para_modificar.html', {'form': form})
+
+def descargar_excel_irapuato(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="datos_irapuato.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Datos Irapuato')
+
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Número', 'Área', 'Dependencia', 'Detalle', 'Frecuencia', 'Procedimiento', 'Parámetros de Control', 'Horario']
+
+    for col_num, column_title in enumerate(columns):
+        ws.write(row_num, col_num, column_title, font_style)
+
+    font_style = xlwt.XFStyle()
+
+    datos = Irapuato.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
+
+    for row in datos:
+        row_num += 1
+        for col_num, value in enumerate(row):
+            ws.write(row_num, col_num, value, font_style)
+
+    wb.save(response)
+    return response
+
+def peru(request):
+    if request.method == 'POST':
+        form = PeruForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Datos ingresados correctamente')
+            return redirect('peru')
+        else:
+            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+    else:
+        form = PeruForm()
+
+    peru = Peru.objects.all()
+    return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/Peru.html', {'form': form, 'peru': peru})
+
+def eliminar_peru(request, dato_id):
+    if request.method == 'POST':
+        dato = Peru.objects.get(pk=dato_id)
+        dato.delete()
+    return redirect('peru')
+
+def modificar_peru(request, dato_id):
+    dato = Peru.objects.get(pk=dato_id)
+    if request.method == 'POST':
+        form = PeruForm(request.POST, instance=dato)
+        if form.is_valid():
+            form.save()
+            return redirect('peru')
+    else:
+        form = PeruForm(instance=dato)
+    return render(request, 'tu_template_para_modificar.html', {'form': form})
+
+def descargar_excel_peru(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="datos_peru.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Datos Peru')
+
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Número', 'Área', 'Dependencia', 'Detalle', 'Frecuencia', 'Procedimiento', 'Parámetros de Control', 'Horario']
+
+    for col_num, column_title in enumerate(columns):
+        ws.write(row_num, col_num, column_title, font_style)
+
+    font_style = xlwt.XFStyle()
+
+    datos = Peru.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
+
+    for row in datos:
+        row_num += 1
+        for col_num, value in enumerate(row):
+            ws.write(row_num, col_num, value, font_style)
+
+    wb.save(response)
+    return response
+
+def piraidosul(request):
+    if request.method == 'POST':
+        form = PiraidoSulForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Datos ingresados correctamente')
+            return redirect('piraidosul')
+        else:
+            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+    else:
+        form = PiraidoSulForm()
+
+    piraidosul = PiraidoSul.objects.all()
+    return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/PiraidoSul.html', {'form': form, 'piraidosul':piraidosul})
+
+def eliminar_piraidosul(request, dato_id):
+    if request.method == 'POST':
+        dato = PiraidoSul.objects.get(pk=dato_id)
+        dato.delete()
+    return redirect('piraidosul')
+
+def modificar_piraidosul(request, dato_id):
+    dato = PiraidoSul.objects.get(pk=dato_id)
+    if request.method == 'POST':
+        form = PiraidoSulForm(request.POST, instance=dato)
+        if form.is_valid():
+            form.save()
+            return redirect('piraidosul')
+    else:
+        form = PiraidoSulForm(instance=dato)
+    return render(request, 'tu_template_para_modificar.html', {'form': form})
+
+def descargar_excel_piraidosul(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="datos_piraidosul.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Datos PiraidoSul')
+
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Número', 'Área', 'Dependencia', 'Detalle', 'Frecuencia', 'Procedimiento', 'Parámetros de Control', 'Horario']
+
+    for col_num, column_title in enumerate(columns):
+        ws.write(row_num, col_num, column_title, font_style)
+
+    font_style = xlwt.XFStyle()
+
+    datos = PiraidoSul.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
+
+    for row in datos:
+        row_num += 1
+        for col_num, value in enumerate(row):
+            ws.write(row_num, col_num, value, font_style)
+
+    wb.save(response)
+    return response
+
+def sanjose(request):
+    if request.method == 'POST':
+        form = SanJoseForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Datos ingresados correctamente')
+            return redirect('sanjose')
+        else:
+            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+    else:
+        form = SanJoseForm()
+
+    sanjose = SanJose.objects.all()
+    return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/SanJose.html', {'form': form, 'sanjose': sanjose})
+
+def eliminar_sanjose(request, dato_id):
+    if request.method == 'POST':
+        dato = SanJose.objects.get(pk=dato_id)
+        dato.delete()
+    return redirect('sanjose')
+
+def modificar_sanjose(request, dato_id):
+    dato = SanJose.objects.get(pk=dato_id)
+    if request.method == 'POST':
+        form = SanJoseForm(request.POST, instance=dato)
+        if form.is_valid():
+            form.save()
+            return redirect('sanjose')
+    else:
+        form = SanJoseForm(instance=dato)
+    return render(request, 'tu_template_para_modificar.html', {'form': form})
+
+def descargar_excel_sanjose(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="datos_sanjose.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Datos SanJose')
+
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Número', 'Área', 'Dependencia', 'Detalle', 'Frecuencia', 'Procedimiento', 'Parámetros de Control', 'Horario']
+
+    for col_num, column_title in enumerate(columns):
+        ws.write(row_num, col_num, column_title, font_style)
+
+    font_style = xlwt.XFStyle()
+
+    datos = SanJose.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
+
+    for row in datos:
+        row_num += 1
+        for col_num, value in enumerate(row):
+            ws.write(row_num, col_num, value, font_style)
+
+    wb.save(response)
+    return response
 
 # Biopackaging Corrugados
 
@@ -732,127 +1213,6 @@ def sorepasanjoaquin(request):
 
 
 
-#Views SackKraft
-
-def camposnovos(request):
-    if request.method == 'POST':
-        form = CamposNovosForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('camposnovos')
-        else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
-    else:
-        form = CamposNovosForm()
-
-    camposnovos = CamposNovos.objects.all()
-    return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/CamposNovos.html', {'form': form, 'camposnovos':camposnovos})
-
-def chillan(request):
-    if request.method == 'POST':
-        form = ChillanForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('chillan')
-        else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
-    else:
-        form = ChillanForm()
-
-    chillan = Chillan.objects.all()
-    return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/Chillan.html', {'form': form, 'chillan': chillan})
-
-def fabi(request):
-    if request.method == 'POST':
-        form = FabiForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('fabi')
-        else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
-    else:
-        form = FabiForm()
-
-    fabi = Fabi.objects.all()
-    return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/Fabi.html', {'form': form, 'fabi': fabi})
-
-def guadalajara(request):
-    if request.method == 'POST':
-        form = GuadalajaraForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('guadalajara')
-        else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
-    else:
-        form = GuadalajaraForm()
-
-    guadalajara = Guadalajara.objects.all()
-    return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/Guadalajara.html', {'form': form, 'guadalajara': guadalajara})
-
-def irapuato(request):
-    if request.method == 'POST':
-        form = IrapuatoForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('irapuato')
-        else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
-    else:
-        form = IrapuatoForm()
-
-    irapuato = Irapuato.objects.all()
-    return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/Irapuato.html', {'form': form, 'irapuato': irapuato})
-
-def peru(request):
-    if request.method == 'POST':
-        form = PeruForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('peru')
-        else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
-    else:
-        form = PeruForm()
-
-    peru = Peru.objects.all()
-    return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/Peru.html', {'form': form, 'peru': peru})
-
-def piraidosul(request):
-    if request.method == 'POST':
-        form = PiraidoSulForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('piraidosul')
-        else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
-    else:
-        form = PiraidoSulForm()
-
-    piraidosul = PiraidoSul.objects.all()
-    return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/PiraidoSul.html', {'form': form, 'piraidosul':piraidosul})
-
-def sanjose(request):
-    if request.method == 'POST':
-        form = SanJoseForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('sanjose')
-        else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
-    else:
-        form = SanJoseForm()
-
-    sanjose = SanJose.objects.all()
-    return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/SanJose.html', {'form': form, 'sanjose': sanjose})
 
 #Bosques
 def balnearios(request):

@@ -90,7 +90,7 @@ urlpatterns = [
     path('modificar_quilicura/<int:dato_id>/', views.modificar_quilicura, name='modificar_quilicura'),
 
     #ursl Eliminar
-    path('eliminar_oficoncepcion/<int:dato_id>', views.eliminar_oficoncepcion, name='eliminar_oficoncepcion'),
+    path('eliminar_oficoncepcion/<int:dato_id>/', views.eliminar_oficoncepcion, name='eliminar_oficoncepcion'),
     path('eliminar_ofitemuco/<int:dato_id>/', views.eliminar_ofitemuco, name='eliminar_ofitemuco'),
     path('eliminar_quilicura/<int:dato_id>/', views.eliminar_quilicura, name='eliminar_quilicura'),
 
@@ -108,6 +108,37 @@ urlpatterns = [
     path('peru/', views.peru, name='peru'),
     path('piraidosul/', views.piraidosul,name='piraidosul'),
     path('sanjose/', views.sanjose, name='sanjose'),
+
+    #ursl Modificar
+    path('modificar_camposnovos/<int:dato_id>/', views.modificar_camposnovos, name='modificar_camposnovos'),
+    path('modificar_chillan/<int:dato_id>/', views.modificar_chillan, name='modificar_chillan'),
+    path('modificar_fabi/<int:dato_id>/', views.modificar_fabi, name='modificar_fabi'),
+    path('modificar_guadalajara/<int:dato_id>/', views.modificar_guadalajara, name='modificar_guadalajara'),
+    path('modificar_irapuato/<int:dato_id>/', views.modificar_irapuato, name='modificar_irapuato'),
+    path('modificar_peru/<int:dato_id>/', views.modificar_peru, name='modificar_peru'),
+    path('modificar_piraidosul/<int:dato_id>/', views.modificar_piraidosul, name='modificar_piraidosul'),
+    path('modificar_sanjose/<int:dato_id>/', views.modificar_sanjose, name='modificar_sanjose'),
+
+    #ursl Eliminar
+    path('eliminar_camposnovos/<int:dato_id>/', views.eliminar_camposnovos, name='eliminar_camposnovos'),
+    path('eliminar_chillan/<int:dato_id>/', views.eliminar_chillan, name='eliminar_chillan'),
+    path('eliminar_fabi/<int:dato_id>/', views.eliminar_fabi, name='eliminar_fabi'),
+    path('eliminar_guadalajara/<int:dato_id>/', views.eliminar_guadalajara, name='eliminar_guadalajara'),
+    path('eliminar_irapuato/<int:dato_id>/', views.eliminar_irapuato, name='eliminar_irapuato'),
+    path('eliminar_peru/<int:dato_id>/', views.eliminar_peru, name='eliminar_peru'),
+    path('eliminar_piraidosul/<int:dato_id>/', views.eliminar_piraidosul, name='eliminar_piraidosul'),
+    path('eliminar_sanjose/<int:dato_id>', views.eliminar_sanjose, name='eliminar_sanjose'),
+
+    #ursl Descargar excel
+
+    path('descargar_excel_camposnovos/', views.descargar_excel_camposnovos, name='descargar_excel_camposnovos'),
+    path('descargar_excel_chillan/', views.descargar_excel_chillan, name='descargar_excel_chillan'),
+    path('descargar_excel_fabi/', views.descargar_excel_fabi, name='descargar_excel_fabi'),
+    path('descargar_excel_guadalajara/', views.descargar_excel_guadalajara, name='descargar_excel_guadalajara'),
+    path('descargar_excel_irapuato/', views.descargar_excel_irapuato, name='descargar_excel_irapuato'),
+    path('descargar_excel_peru/', views.descargar_excel_peru, name='descargar_excel_peru'),
+    path('descargar_excel_piraidosul/', views.descargar_excel_piraidosul, name='descargar_excel_piraidosul'),
+    path('descargar_excel_sanjose/', views.descargar_excel_sanjose, name='descargar_excel_sanjose'),
 
     #ursl Corrugados
     path('chimolsa/', views.chimolsa, name='chimolsa'),
