@@ -118,6 +118,51 @@ def cmpc_argentina(request):
     datosargentina = DatosCMPCArgentina.objects.all()
     return render(request, 'Instalaciones/CMPC/CMPC_Argentina.html', {'form':form, 'datosargentina':datosargentina})
 
+def eliminar_datoarg(request, dato_id):
+    if request.method == 'POST':
+        dato = DatosCMPCArgentina.objects.get(pk=dato_id)
+        dato.delete()
+    return redirect('cmpc_argentina')
+
+def modificar_datoarg(request, dato_id):
+    dato = DatosCMPCArgentina.objects.get(pk=dato_id)
+    if request.method == 'POST':
+        form = DatosCMPCArgentinaForm(request.POST, instance=dato)
+        if form.is_valid():
+            form.save()
+            return redirect('cmpc_argentina')
+    else:
+        form = DatosCMPCArgentinaForm(instance=dato)
+    return render(request, 'tu_template_para_modificar.html', {'form': form})
+
+def descargar_excelarg(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="datos_cmpc_argentina.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Datos CMPC Argentina')
+
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Número', 'Área', 'Dependencia', 'Detalle', 'Frecuencia', 'Procedimiento', 'Parámetros de Control', 'Horario']
+
+    for col_num, column_title in enumerate(columns):
+        ws.write(row_num, col_num, column_title, font_style)
+
+    font_style = xlwt.XFStyle()
+
+    datos = DatosCMPCChile.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
+
+    for row in datos:
+        row_num += 1
+        for col_num, value in enumerate(row):
+            ws.write(row_num, col_num, value, font_style)
+
+    wb.save(response)
+    return response
+
 def cmpc_brasil(request):
     if request.method == 'POST':
         form = DatosCMPCBrasilForm(request.POST, request.FILES)
@@ -132,6 +177,52 @@ def cmpc_brasil(request):
 
     datosbrasil = DatosCMPCBrasil.objects.all()
     return render(request, 'Instalaciones/CMPC/CMPC_Brasil.html', {'form': form, 'datosbrasil': datosbrasil})
+
+
+def eliminar_datonbra(request, dato_id):
+    if request.method == 'POST':
+        dato = DatosCMPCArgentina.objects.get(pk=dato_id)
+        dato.delete()
+    return redirect('cmpc_argentina')
+
+def modificar_datobra(request, dato_id):
+    dato = DatosCMPCArgentina.objects.get(pk=dato_id)
+    if request.method == 'POST':
+        form = DatosCMPCArgentinaForm(request.POST, instance=dato)
+        if form.is_valid():
+            form.save()
+            return redirect('cmpc_argentina')
+    else:
+        form = DatosCMPCArgentinaForm(instance=dato)
+    return render(request, 'tu_template_para_modificar.html', {'form': form})
+
+def descargar_excel(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="datos_cmpc_argentina.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Datos CMPC Argentina')
+
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Número', 'Área', 'Dependencia', 'Detalle', 'Frecuencia', 'Procedimiento', 'Parámetros de Control', 'Horario']
+
+    for col_num, column_title in enumerate(columns):
+        ws.write(row_num, col_num, column_title, font_style)
+
+    font_style = xlwt.XFStyle()
+
+    datos = DatosCMPCChile.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
+
+    for row in datos:
+        row_num += 1
+        for col_num, value in enumerate(row):
+            ws.write(row_num, col_num, value, font_style)
+
+    wb.save(response)
+    return response
 
 def cmpc_mexico(request):
     if request.method == 'POST':
@@ -705,82 +796,88 @@ def balneariolaja(request):
     if request.method == 'POST':
         form = BalnearioLajaForm(request.POST, request.FILES)
         if form.is_valid():
-            datobalneariolaja = form.save(commit=False)
-            datobalneariolaja.save()
+            form.save()
             messages.success(request, 'Datos ingresados correctamente')
             return redirect('balneariolaja')
         else:
             messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
         form = BalnearioLajaForm()
-    return render(request, 'Instalaciones/Pulp/Balneariolaja.html', {'form': form})
+
+    balneariolaja = BalnearioLaja.objects.all()
+    return render(request, 'Instalaciones/Pulp/Balneariolaja.html', {'form': form, 'balneariolaja': balneariolaja})
 
 def casahuespedes(request):
     if request.method == 'POST':
         form = CasaHuespedesForm(request.POST, request.FILES)
         if form.is_valid():
-            datocasahuespedes = form.save(commit=False)
-            datocasahuespedes.save()
+            form.save()
             messages.success(request, 'Datos ingresados correctamente')
             return redirect('casauhuespedes')
         else:
             messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
         form = CasaHuespedesForm()
-    return render(request, 'Instalaciones/Pulp/Casasdehuespedes.html', {'form': form})
+
+    casahuespedes = CasaHuespedes.objects.all()
+    return render(request, 'Instalaciones/Pulp/Casasdehuespedes.html', {'form': form,'casahuespedes': casahuespedes})
 
 def guaiba(request):
     if request.method == 'POST':
         form = GuaibaForm(request.POST, request.FILES)
         if form.is_valid():
-            datoguaiba = form.save(commit=False)
-            datoguaiba.save()
+            form.save()
             messages.success(request, 'Datos ingresados correctamente')
             return redirect('guaiba')
         else:
             messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
         form = GuaibaForm()
-    return render(request, 'Instalaciones/Pulp/PlantaGuaíba.html', {'form': form})
+
+    guaiba = Guaiba.objects.all()
+    return render(request, 'Instalaciones/Pulp/PlantaGuaíba.html', {'form': form, 'guaiba': guaiba})
 
 def laja(request):
     if request.method == 'POST':
         form = LajaForm(request.POST, request.FILES)
         if form.is_valid():
-            datolaja = form.save(commit=False)
-            datolaja.save()
+            form.save()
             messages.success(request, 'Datos ingresados correctamente')
             return redirect('laja')
         else:
             messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
         form = LajaForm()
-    return render(request, 'Instalaciones/Pulp/PlantaLaja.html', {'form': form})
+
+    laja = Laja.objects.all()
+    return render(request, 'Instalaciones/Pulp/PlantaLaja.html', {'form': form, 'laja': laja})
 
 def pacifico(request):
     if request.method == 'POST':
         form = PacificoForm(request.POST, request.FILES)
         if form.is_valid():
-            datopacifico = form.save(commit=False)
-            datopacifico.save()
+            form.save()
             messages.success(request, 'Datos ingresados correctamente')
             return redirect('pacifico')
         else:
             messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
         form = PacificoForm()
-    return render(request, 'Instalaciones/Pulp/PlantaPacifico.html', {'form': form})
+
+    pacifico = Pacifico.objects.all()
+    return render(request, 'Instalaciones/Pulp/PlantaPacifico.html', {'form': form, 'pacifico': pacifico})
 
 def santafe(request):
     if request.method == 'POST':
         form = SantaFeForm(request.POST, request.FILES)
         if form.is_valid():
-            datosantafe = form.save(commit=False)
-            datosantafe.save()
+            form.save()
             messages.success(request, 'Datos ingresados correctamente')
             return redirect('santafe')
         else:
             messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
         form = SantaFeForm()
-    return render(request, 'Instalaciones/Pulp/PlantaSantaFe.html', {'form': form})
+
+    santafe = SantaFe.objects.all()
+    return render(request, 'Instalaciones/Pulp/PlantaSantaFe.html', {'form': form, 'santafe': santafe})

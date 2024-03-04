@@ -585,7 +585,7 @@ class BalnearioLaja(models.Model):
     parametro_control = models.CharField(max_length=100)
     horario = models.CharField(max_length=100)
     def __str__(self):
-        return self.numero
+        return f""
     class Meta:
         db_table = 'balneariolaja'
 
@@ -599,7 +599,7 @@ class CasaHuespedes(models.Model):
     parametro_control = models.CharField(max_length=100)
     horario = models.CharField(max_length=100)
     def __str__(self):
-        return self.numero
+        return f""
     class Meta:
         db_table = 'casahuespedes'
 
@@ -614,7 +614,7 @@ class Guaiba(models.Model):
     horario = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.numero
+        return f""
     class Meta:
         db_table = 'guaiba'
 
@@ -628,7 +628,7 @@ class Laja(models.Model):
     parametro_control = models.CharField(max_length=100)
     horario = models.CharField(max_length=100)
     def __str__(self):
-        return self.numero
+        return f""
     class Meta:
         db_table = 'laja'
 
@@ -642,7 +642,7 @@ class Pacifico(models.Model):
     parametro_control = models.CharField(max_length=100)
     horario = models.CharField(max_length=100)
     def __str__(self):
-        return self.numero
+        return f""
     class Meta:
         db_table = 'pacifico'
 
@@ -656,7 +656,7 @@ class SantaFe(models.Model):
     parametro_control = models.CharField(max_length=100)
     horario = models.CharField(max_length=100)
     def __str__(self):
-        return self.numero
+        return f""
     class Meta:
         db_table ='santafe'
 
