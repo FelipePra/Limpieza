@@ -1,0 +1,13 @@
+/* styles.css */
+
+.installation-link {
+    color: black;
+    text-decoration: underline;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.installation-description {
+    border: none;
+    font-size: 16px;
+}

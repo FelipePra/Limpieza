@@ -1,0 +1,54 @@
+/* styles.css */
+
+.card {
+    border-radius: 15px;
+}
+
+.form-control {
+    border-radius: 10px;
+    border-color: #ccc;
+}
+
+.btn {
+    border-radius: 20px;
+    padding: 8px 20px;
+}
+
+.btn-primary {
+    background-color: #336699;
+    border-color: #336699;
+}
+
+.btn-primary:hover {
+    background-color: #285e8e;
+    border-color: #285e8e;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    border-color: #5a6268;
+}
+
+.table {
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.table th,
+.table td {
+    vertical-align: middle;
+}
+
+.table th {
+    background-color: #336699;
+    color: #fff;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f9f9f9;
+}

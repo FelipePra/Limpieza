@@ -59,13 +59,13 @@ def cmpc_chile(request):
 
     datoschile = DatosCMPCChile.objects.all()
     return render(request, 'Instalaciones/CMPC/CMPC_Chile.html', {'form': form, 'datoschile': datoschile})
-def eliminar_dato(request, dato_id):
+def eliminar_dato_chile(request, dato_id):
     if request.method == 'POST':
         dato = DatosCMPCChile.objects.get(pk=dato_id)
         dato.delete()
     return redirect('cmpc_chile')
 
-def modificar_dato(request, dato_id):
+def modificar_dato_chile(request, dato_id):
     dato = DatosCMPCChile.objects.get(pk=dato_id)
     if request.method == 'POST':
         form = DatosCMPCChileForm(request.POST, instance=dato)
@@ -74,9 +74,9 @@ def modificar_dato(request, dato_id):
             return redirect('cmpc_chile')
     else:
         form = DatosCMPCChileForm(instance=dato)
-    return render(request, 'tu_template_para_modificar.html', {'form': form})
+    return render(request, 'Instalaciones/CMPC/CMPC_Chile.html', {'form': form})
 
-def descargar_excel(request):
+def descargar_excel_chile(request):
     response = HttpResponse(content_type='application/ms-excel')
     response['Content-Disposition'] = 'attachment; filename="datos_cmpc_chile.xls"'
 
@@ -118,13 +118,13 @@ def cmpc_argentina(request):
     datosargentina = DatosCMPCArgentina.objects.all()
     return render(request, 'Instalaciones/CMPC/CMPC_Argentina.html', {'form':form, 'datosargentina':datosargentina})
 
-def eliminar_datoarg(request, dato_id):
+def eliminar_dato_argentina(request, dato_id):
     if request.method == 'POST':
         dato = DatosCMPCArgentina.objects.get(pk=dato_id)
         dato.delete()
     return redirect('cmpc_argentina')
 
-def modificar_datoarg(request, dato_id):
+def modificar_dato_argentina(request, dato_id):
     dato = DatosCMPCArgentina.objects.get(pk=dato_id)
     if request.method == 'POST':
         form = DatosCMPCArgentinaForm(request.POST, instance=dato)
@@ -135,7 +135,7 @@ def modificar_datoarg(request, dato_id):
         form = DatosCMPCArgentinaForm(instance=dato)
     return render(request, 'tu_template_para_modificar.html', {'form': form})
 
-def descargar_excelarg(request):
+def descargar_excel_argentina(request):
     response = HttpResponse(content_type='application/ms-excel')
     response['Content-Disposition'] = 'attachment; filename="datos_cmpc_argentina.xls"'
 
@@ -153,7 +153,7 @@ def descargar_excelarg(request):
 
     font_style = xlwt.XFStyle()
 
-    datos = DatosCMPCChile.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
+    datos = DatosCMPCArgentina.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
 
     for row in datos:
         row_num += 1
@@ -179,29 +179,29 @@ def cmpc_brasil(request):
     return render(request, 'Instalaciones/CMPC/CMPC_Brasil.html', {'form': form, 'datosbrasil': datosbrasil})
 
 
-def eliminar_datonbra(request, dato_id):
+def eliminar_dato_brasil(request, dato_id):
     if request.method == 'POST':
-        dato = DatosCMPCArgentina.objects.get(pk=dato_id)
+        dato = DatosCMPCBrasil.objects.get(pk=dato_id)
         dato.delete()
-    return redirect('cmpc_argentina')
+    return redirect('cmpc_brasil')
 
-def modificar_datobra(request, dato_id):
-    dato = DatosCMPCArgentina.objects.get(pk=dato_id)
+def modificar_dato_brasil(request, dato_id):
+    dato = DatosCMPCBrasil.objects.get(pk=dato_id)
     if request.method == 'POST':
-        form = DatosCMPCArgentinaForm(request.POST, instance=dato)
+        form = DatosCMPCBrasilForm(request.POST, instance=dato)
         if form.is_valid():
             form.save()
-            return redirect('cmpc_argentina')
+            return redirect('cmpc_brasil')
     else:
-        form = DatosCMPCArgentinaForm(instance=dato)
+        form = DatosCMPCBrasilForm(instance=dato)
     return render(request, 'tu_template_para_modificar.html', {'form': form})
 
-def descargar_excel(request):
+def descargar_excel_brasil(request):
     response = HttpResponse(content_type='application/ms-excel')
-    response['Content-Disposition'] = 'attachment; filename="datos_cmpc_argentina.xls"'
+    response['Content-Disposition'] = 'attachment; filename="datos_cmpc_brasil.xls"'
 
     wb = xlwt.Workbook(encoding='utf-8')
-    ws = wb.add_sheet('Datos CMPC Argentina')
+    ws = wb.add_sheet('Datos CMPC Brasil')
 
     row_num = 0
     font_style = xlwt.XFStyle()
@@ -214,7 +214,7 @@ def descargar_excel(request):
 
     font_style = xlwt.XFStyle()
 
-    datos = DatosCMPCChile.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
+    datos = DatosCMPCBrasil.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
 
     for row in datos:
         row_num += 1
@@ -225,6 +225,7 @@ def descargar_excel(request):
     return response
 
 def cmpc_mexico(request):
+    
     if request.method == 'POST':
         form = DatosCMPCMexicoForm(request.POST, request.FILES)
         if form.is_valid():
@@ -238,6 +239,50 @@ def cmpc_mexico(request):
 
     datosmexico = DatosCMPCMexico.objects.all()
     return render(request, 'Instalaciones/CMPC/CMPC_Mexico.html', {'form': form, 'datosmexico': datosmexico})
+def eliminar_dato_mexico(request, dato_id):
+    if request.method == 'POST':
+        dato = DatosCMPCMexico.objects.get(pk=dato_id)
+        dato.delete()
+    return redirect('cmpc_bmexico')
+
+def modificar_dato_mexico(request, dato_id):
+    dato = DatosCMPCMexico.objects.get(pk=dato_id)
+    if request.method == 'POST':
+        form = DatosCMPCMexicoForm(request.POST, instance=dato)
+        if form.is_valid():
+            form.save()
+            return redirect('cmpc_mexico')
+    else:
+        form = DatosCMPCBrasilForm(instance=dato)
+    return render(request, 'tu_template_para_modificar.html', {'form': form})
+
+def descargar_excel_mexico(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="datos_cmpc_mexico.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Datos CMPC Mexico')
+
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Número', 'Área', 'Dependencia', 'Detalle', 'Frecuencia', 'Procedimiento', 'Parámetros de Control', 'Horario']
+
+    for col_num, column_title in enumerate(columns):
+        ws.write(row_num, col_num, column_title, font_style)
+
+    font_style = xlwt.XFStyle()
+
+    datos = DatosCMPCMexico.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
+
+    for row in datos:
+        row_num += 1
+        for col_num, value in enumerate(row):
+            ws.write(row_num, col_num, value, font_style)
+
+    wb.save(response)
+    return response
 
 
 #Biopackaging Box Board
@@ -255,6 +300,52 @@ def maule(request):
     maule = Maule.objects.all()
     return render(request, 'Instalaciones/Biopackaging/Box-Board/Maule.html', {'form': form, 'maule': maule})
 
+def eliminar_maule(request, dato_id):
+    if request.method == 'POST':
+        dato = Maule.objects.get(pk=dato_id)
+        dato.delete()
+    return redirect('maule')
+
+def modificar_maule(request, dato_id):
+    dato = Maule.objects.get(pk=dato_id)
+    if request.method == 'POST':
+        form = MauleForm(request.POST, instance=dato)
+        if form.is_valid():
+            form.save()
+            return redirect('maule')
+    else:
+        form = MauleForm(instance=dato)
+    return render(request, 'tu_template_para_modificar.html', {'form': form})
+
+def descargar_excel_maule(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="datos_maule.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Datos Maule')
+
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Número', 'Área', 'Dependencia', 'Detalle', 'Frecuencia', 'Procedimiento', 'Parámetros de Control', 'Horario']
+
+    for col_num, column_title in enumerate(columns):
+        ws.write(row_num, col_num, column_title, font_style)
+
+    font_style = xlwt.XFStyle()
+
+    datos = Maule.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
+
+    for row in datos:
+        row_num += 1
+        for col_num, value in enumerate(row):
+            ws.write(row_num, col_num, value, font_style)
+
+    wb.save(response)
+    return response
+
+
 def valdivia(request):
     if request.method == 'POST':
         form = ValdiviaForm(request.POST, request.FILES)
@@ -269,6 +360,52 @@ def valdivia(request):
 
     valdivia = Valdivia.objects.all()
     return render(request, 'Instalaciones/Biopackaging/Box-Board/Valdivia.html', {'form': form, 'valdivia': valdivia})
+
+def eliminar_valdivia(request, dato_id):
+    if request.method == 'POST':
+        dato = Valdivia.objects.get(pk=dato_id)
+        dato.delete()
+    return redirect('valdivia')
+
+def modificar_valdivia(request, dato_id):
+    dato = Valdivia.objects.get(pk=dato_id)
+    if request.method == 'POST':
+        form = ValdiviaForm(request.POST, instance=dato)
+        if form.is_valid():
+            form.save()
+            return redirect('valdivia')
+    else:
+        form = ValdiviaForm(instance=dato)
+    return render(request, 'tu_template_para_modificar.html', {'form': form})
+
+def descargar_excel_valdivia(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="datos_valdivia.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Datos Valdivia')
+
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Número', 'Área', 'Dependencia', 'Detalle', 'Frecuencia', 'Procedimiento', 'Parámetros de Control', 'Horario']
+
+    for col_num, column_title in enumerate(columns):
+        ws.write(row_num, col_num, column_title, font_style)
+
+    font_style = xlwt.XFStyle()
+
+    datos = Valdivia.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
+
+    for row in datos:
+        row_num += 1
+        for col_num, value in enumerate(row):
+            ws.write(row_num, col_num, value, font_style)
+
+    wb.save(response)
+    return response
+
 
 # Biopackaging Corrugados
 

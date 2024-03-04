@@ -20,23 +20,7 @@ from django.urls import path
 from catalog import views
 
 urlpatterns = [
-    path('index/', views.index, name='index'),
-    path('eliminar/<int:dato_id>/', views.eliminar_dato, name='eliminar_dato'),
-    path('descargar_excel/', views.descargar_excel, name='descargar_excel'),
-
-
-    #urls Modificar
-    path('modificar/<int:dato_id>/', views.modificar_dato, name='modificar_dato'),
-    path('modificararg/<int:dato_id>/', views.modificar_datoarg, name='modificar_datoarg'),
-    #ursl Eliminar
-
-    #ursl Descargar excel
-
-    #urls CMPC
-    path('cmpc_chile/', views.cmpc_chile, name='cmpc_chile'),
-    path('cmpc_argentina/', views.cmpc_argentina, name='cmpc_argentina'),
-    path('cmpc_brasil/', views.cmpc_brasil, name='cmpc_brasil'),
-    path('cmpc_mexico/', views.cmpc_mexico, name='cmpc_mexico'),
+    path('', views.index, name='index'),
 
     #urls Instalaciones
     path('instalaciones/', views.instalaciones, name='instalaciones'),
@@ -51,9 +35,49 @@ urlpatterns = [
     path('edipac/', views.edipac, name='edipac'),
     path('sackkraft/', views.sackkraft, name='sackkraft'),
 
+   #urls CMPC
+    path('cmpc_chile/', views.cmpc_chile, name='cmpc_chile'),
+    path('cmpc_argentina/', views.cmpc_argentina, name='cmpc_argentina'),
+    path('cmpc_brasil/', views.cmpc_brasil, name='cmpc_brasil'),
+    path('cmpc_mexico/', views.cmpc_mexico, name='cmpc_mexico'),
+
+    #urls Modificar
+    path('modificar_chile/<int:dato_id>/', views.modificar_dato_chile, name='modificar_dato_chile'),
+    path('modificar_argentina/<int:dato_id>/', views.modificar_dato_argentina, name='modificar_dato_argentina'),
+    path('modificar_brasil/<int:dato_id>/', views.modificar_dato_brasil, name='modificar_dato_brasil'),
+    path('modificar_mexico/<int:dato_id>/', views.modificar_dato_mexico, name='modificar_dato_mexico'),
+    #ursl Eliminar
+    path('eliminar_dato_chile/<int:dato_id>/', views.eliminar_dato_chile, name='eliminar_dato_chile'),
+    path('eliminar_dato_argentina/<int:dato_id>/', views.eliminar_dato_argentina, name='eliminar_dato_argentina'),
+    path('eliminar_dato_brasil/<int:dato_id>/', views.eliminar_dato_brasil, name='eliminar_dato_brasil'),
+    path('eliminar_dato_mexico/<int:dato_id>/', views.eliminar_dato_mexico, name='eliminar_dato_mexico'),
+
+    #ursl Descargar excel
+    path('descargar_excel_chile/', views.descargar_excel_chile, name='descargar_excel_chile'),
+    path('descargar_excel_argentina/', views.descargar_excel_argentina, name='descargar_excel_argentina'),
+    path('descargar_excel_brasil/', views.descargar_excel_brasil, name='descargar_excel_brasil'),
+    path('descargar_excel_mexico/', views.descargar_excel_mexico, name='descargar_excel_mexico'),
+
+
     #urls BoxBoard
     path('maule/', views.maule, name='maule'),
     path('valdivia/', views.valdivia, name='valdivia'),
+
+    #urls Modificar
+
+    path('modificar_maule/<int:dato_id>/', views.modificar_maule, name='modificar_maule'),
+    path('modificar_valdivia/<int:dato_id>/', views.modificar_valdivia, name='modificar_valdivia'),
+
+    #urls Eliminar
+
+    path('eliminar_maule/<int:dato_id>/', views.eliminar_maule, name='eliminar_maule'),
+    path('eliminar_valdivia/<int:dato_id>/', views.eliminar_valdivia, name='eliminar_valdivia'),
+
+    #urls Descargar excel
+
+    path('descargar_excel_maule/', views.descargar_excel_maule, name='descargar_excel_maule'),
+    path('descargar_excel_valdivia/', views.descargar_excel_valdivia, name='descargar_excel_valdivia'),
+
 
     #urls Edipac
     path('oficoncepcion/', views.oficoncepcion, name='oficoncepcion'),
