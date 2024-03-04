@@ -109,13 +109,13 @@ class Chimolsa(models.Model):
 
 class Cordillera(models.Model):
     numero = models.IntegerField()
-    area = models.CharField(max_length=100, default='')
-    dependencia = models.CharField(max_length=100)
+    area = models.CharField(max_length=1000, default='')
+    dependencia = models.CharField(max_length=1000)
     detalle = models.TextField()
-    frecuencia = models.CharField(max_length=100)
+    frecuencia = models.CharField(max_length=1000)
     procedimientos = models.TextField()
-    parametro_control = models.CharField(max_length=100)
-    horario = models.CharField(max_length=100)
+    parametro_control = models.CharField(max_length=1000)
+    horario = models.CharField(max_length=1000)
     def __str__(self):
         return f"Número: {self.numero}, Área: {self.area}, Dependencia: {self.dependencia}"
     class Meta:
@@ -277,23 +277,22 @@ class CamposNovos(models.Model):
     parametro_control = models.CharField(max_length=100)
     horario = models.CharField(max_length=100)
     def __str__(self):
-        return self.numero
+        return f""
     class Meta:
         db_table = 'camposnovos'
 class Chillan(models.Model):
     numero = models.IntegerField()
-    area = models.CharField(max_length=100, default='')
-    dependencia = models.CharField(max_length=100)
+    area = models.CharField(max_length=1000, default='')
+    dependencia = models.CharField(max_length=1000)
     detalle = models.TextField()
-    frecuencia = models.CharField(max_length=100)
+    frecuencia = models.CharField(max_length=1000)
     procedimientos = models.TextField()
-    parametro_control = models.CharField(max_length=100)
-    horario = models.CharField(max_length=100)
+    parametro_control = models.CharField(max_length=1000)
+    horario = models.CharField(max_length=1000)
     def __str__(self):
-        return self.numero
+        return f""
     class Meta:
         db_table = 'chillan'
-
 class Fabi(models.Model):
     numero = models.IntegerField()
     area = models.CharField(max_length=100, default='')
@@ -304,10 +303,9 @@ class Fabi(models.Model):
     parametro_control = models.CharField(max_length=100)
     horario = models.CharField(max_length=100)
     def __str__(self):
-        return self.numero
+        return f""
     class Meta:
         db_table = 'fabi'
-
 class Guadalajara(models.Model):
     numero = models.IntegerField()
     area = models.CharField(max_length=100, default='')
@@ -318,10 +316,9 @@ class Guadalajara(models.Model):
     parametro_control = models.CharField(max_length=100)
     horario = models.CharField(max_length=100)
     def __str__(self):
-        return self.numero
+        return f""
     class Meta:
-        db_table = 'guadalajara'
-    
+        db_table = 'guadalajara' 
 class Irapuato(models.Model):
     numero = models.IntegerField()
     area = models.CharField(max_length=100, default='')
@@ -332,10 +329,9 @@ class Irapuato(models.Model):
     parametro_control = models.CharField(max_length=100)
     horario = models.CharField(max_length=100)
     def __str__(self):
-        return self.numero
+        return f""
     class Meta:
         db_table = 'irapuato'
-
 class Peru(models.Model):
     numero = models.IntegerField()
     area = models.CharField(max_length=100, default='')
@@ -346,10 +342,9 @@ class Peru(models.Model):
     parametro_control = models.CharField(max_length=100)
     horario = models.CharField(max_length=100)
     def __str__(self):
-        return self.numero
+        return f""
     class Meta:
         db_table = 'peru'
-
 class PiraidoSul(models.Model):
     numero = models.IntegerField()
     area = models.CharField(max_length=100, default='')
@@ -360,10 +355,9 @@ class PiraidoSul(models.Model):
     parametro_control = models.CharField(max_length=100)
     horario = models.CharField(max_length=100)
     def __str__(self):
-        return self.numero
+        return f""
     class Meta:
-        db_table = 'piraiosul'
-
+        db_table = 'piraidosul'
 class SanJose(models.Model):
     numero = models.IntegerField()
     area = models.CharField(max_length=100, default='')
@@ -374,7 +368,7 @@ class SanJose(models.Model):
     parametro_control = models.CharField(max_length=100)
     horario = models.CharField(max_length=100)
     def __str__(self):
-        return self.numero
+        return f""
     class Meta:
         db_table ='sanjose'
         

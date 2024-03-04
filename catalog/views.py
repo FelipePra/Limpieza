@@ -370,8 +370,7 @@ def camposnovos(request):
     if request.method == 'POST':
         form = CamposNovosForm(request.POST, request.FILES)
         if form.is_valid():
-            datoscampos_novos = form.save(commit=False)
-            datoscampos_novos.save()
+            form.save()
             messages.success(request, 'Datos ingresados correctamente')
             return redirect('camposnovos')
         else:
@@ -379,14 +378,14 @@ def camposnovos(request):
     else:
         form = CamposNovosForm()
 
-    return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/CamposNovos.html', {'form': form})
+    camposnovos = CamposNovos.objects.all()
+    return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/CamposNovos.html', {'form': form, 'camposnovos':camposnovos})
 
 def chillan(request):
     if request.method == 'POST':
         form = ChillanForm(request.POST, request.FILES)
         if form.is_valid():
-            datoschillan = form.save(commit=False)
-            datoschillan.save()
+            form.save()
             messages.success(request, 'Datos ingresados correctamente')
             return redirect('chillan')
         else:
@@ -394,14 +393,14 @@ def chillan(request):
     else:
         form = ChillanForm()
 
-    return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/Chillan.html', {'form': form})
+    chillan = Chillan.objects.all()
+    return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/Chillan.html', {'form': form, 'chillan': chillan})
 
 def fabi(request):
     if request.method == 'POST':
         form = FabiForm(request.POST, request.FILES)
         if form.is_valid():
-            datosfabi = form.save(commit=False)
-            datosfabi.save()
+            form.save()
             messages.success(request, 'Datos ingresados correctamente')
             return redirect('fabi')
         else:
@@ -409,14 +408,14 @@ def fabi(request):
     else:
         form = FabiForm()
 
-    return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/Fabi.html', {'form': form})
+    fabi = Fabi.objects.all()
+    return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/Fabi.html', {'form': form, 'fabi': fabi})
 
 def guadalajara(request):
     if request.method == 'POST':
         form = GuadalajaraForm(request.POST, request.FILES)
         if form.is_valid():
-            datosguadalajara = form.save(commit=False)
-            datosguadalajara.save()
+            form.save()
             messages.success(request, 'Datos ingresados correctamente')
             return redirect('guadalajara')
         else:
@@ -424,14 +423,14 @@ def guadalajara(request):
     else:
         form = GuadalajaraForm()
 
-    return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/Guadalajara.html', {'form': form})
+    guadalajara = Guadalajara.objects.all()
+    return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/Guadalajara.html', {'form': form, 'guadalajara': guadalajara})
 
 def irapuato(request):
     if request.method == 'POST':
         form = IrapuatoForm(request.POST, request.FILES)
         if form.is_valid():
-            datosirapuato = form.save(commit=False)
-            datosirapuato.save()
+            form.save()
             messages.success(request, 'Datos ingresados correctamente')
             return redirect('irapuato')
         else:
@@ -439,14 +438,14 @@ def irapuato(request):
     else:
         form = IrapuatoForm()
 
-    return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/Irapuato.html', {'form': form})
+    irapuato = Irapuato.objects.all()
+    return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/Irapuato.html', {'form': form, 'irapuato': irapuato})
 
 def peru(request):
     if request.method == 'POST':
         form = PeruForm(request.POST, request.FILES)
         if form.is_valid():
-            datosperu = form.save(commit=False)
-            datosperu.save()
+            form.save()
             messages.success(request, 'Datos ingresados correctamente')
             return redirect('peru')
         else:
@@ -454,29 +453,29 @@ def peru(request):
     else:
         form = PeruForm()
 
-    return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/Peru.html', {'form': form})
+    peru = Peru.objects.all()
+    return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/Peru.html', {'form': form, 'peru': peru})
 
 def piraidosul(request):
     if request.method == 'POST':
         form = PiraidoSulForm(request.POST, request.FILES)
         if form.is_valid():
-            datospiraido_sul = form.save(commit=False)
-            datospiraido_sul.save()
+            form.save()
             messages.success(request, 'Datos ingresados correctamente')
-            return redirect('piradosul')
+            return redirect('piraidosul')
         else:
             messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
         form = PiraidoSulForm()
 
-    return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/PiraidoSul.html', {'form': form})
+    piraidosul = PiraidoSul.objects.all()
+    return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/PiraidoSul.html', {'form': form, 'piraidosul':piraidosul})
 
 def sanjose(request):
     if request.method == 'POST':
         form = SanJoseForm(request.POST, request.FILES)
         if form.is_valid():
-            datossanjose = form.save(commit=False)
-            datossanjose.save()
+            form.save()
             messages.success(request, 'Datos ingresados correctamente')
             return redirect('sanjose')
         else:
@@ -484,7 +483,8 @@ def sanjose(request):
     else:
         form = SanJoseForm()
 
-    return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/SanJose.html', {'form': form})
+    sanjose = SanJose.objects.all()
+    return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/SanJose.html', {'form': form, 'sanjose': sanjose})
 
 #Bosques
 def balnearios(request):
