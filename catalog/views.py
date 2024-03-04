@@ -406,6 +406,192 @@ def descargar_excel_valdivia(request):
     wb.save(response)
     return response
 
+#Views Edipac
+
+def oficoncepcion(request):
+    if request.method == 'POST':
+        form = OfiConcepcionForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Datos ingresados correctamente')
+            return redirect('oficoncepcion')
+        else:
+            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+    else:
+        form = OfiConcepcionForm()
+
+    oficoncepcion = OfiConcepcion.objects.all()
+    return render(request, 'Instalaciones/Biopackaging/Edipac/OficinasConcepcion.html', {'form': form, 'oficoncepcion': oficoncepcion})
+
+
+def eliminar_oficoncepcion(request, dato_id):
+    if request.method == 'POST':
+        dato =OfiConcepcion.objects.get(pk=dato_id)
+        dato.delete()
+    return redirect('oficoncepcion')
+
+def modificar_oficoncepcion(request, dato_id):
+    dato = OfiConcepcion.objects.get(pk=dato_id)
+    if request.method == 'POST':
+        form = OfiConcepcionForm(request.POST, instance=dato)
+        if form.is_valid():
+            form.save()
+            return redirect('oficoncepcion')
+    else:
+        form = ValdiviaForm(instance=dato)
+    return render(request, 'tu_template_para_modificar.html', {'form': form})
+
+def descargar_excel_oficoncepcion(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="datos_oficoncepcion.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Datos OfiConcepcion')
+
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Número', 'Área', 'Dependencia', 'Detalle', 'Frecuencia', 'Procedimiento', 'Parámetros de Control', 'Horario']
+
+    for col_num, column_title in enumerate(columns):
+        ws.write(row_num, col_num, column_title, font_style)
+
+    font_style = xlwt.XFStyle()
+
+    datos = OfiConcepcion.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
+
+    for row in datos:
+        row_num += 1
+        for col_num, value in enumerate(row):
+            ws.write(row_num, col_num, value, font_style)
+
+    wb.save(response)
+    return response
+
+def oficinas_temuco(request):
+    if request.method == 'POST':
+        form = OfiTemucoForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Datos ingresados correctamente')
+            return redirect('ofitemuco')
+        else:
+            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+    else:
+        form = OfiTemucoForm()
+
+    ofitemuco = OfiTemuco.objects.all()
+    return render(request, 'Instalaciones/Biopackaging/Edipac/OficinasTemuco.html', {'form': form, 'ofitemuco': ofitemuco})
+
+
+def eliminar_ofitemuco(request, dato_id):
+    if request.method == 'POST':
+        dato = OfiTemuco.objects.get(pk=dato_id)
+        dato.delete()
+    return redirect('ofitemuco')
+
+def modificar_ofitemuco(request, dato_id):
+    dato = OfiTemuco.objects.get(pk=dato_id)
+    if request.method == 'POST':
+        form = OfiTemucoForm(request.POST, instance=dato)
+        if form.is_valid():
+            form.save()
+            return redirect('ofitemuco')
+    else:
+        form = OfiTemucoForm(instance=dato)
+    return render(request, 'tu_template_para_modificar.html', {'form': form})
+
+def descargar_excel_ofitemuco(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="datos_ofitemuco.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Datos OfiTemuco')
+
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Número', 'Área', 'Dependencia', 'Detalle', 'Frecuencia', 'Procedimiento', 'Parámetros de Control', 'Horario']
+
+    for col_num, column_title in enumerate(columns):
+        ws.write(row_num, col_num, column_title, font_style)
+
+    font_style = xlwt.XFStyle()
+
+    datos = OfiTemuco.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
+
+    for row in datos:
+        row_num += 1
+        for col_num, value in enumerate(row):
+            ws.write(row_num, col_num, value, font_style)
+
+    wb.save(response)
+    return response
+
+def quilicura(request):
+    if request.method == 'POST':
+        form = QuilicuraForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Datos ingresados correctamente')
+            return redirect('quilicura')
+        else:
+            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+    else:
+        form = QuilicuraForm()
+
+    quilicura = Quilicura.objects.all()
+    return render(request, 'Instalaciones/Biopackaging/Edipac/PlantaQuilicura.html', {'form': form, 'quilicura': quilicura})
+
+
+def eliminar_quilicura(request, dato_id):
+    if request.method == 'POST':
+        dato = Quilicura.objects.get(pk=dato_id)
+        dato.delete()
+    return redirect('quilicura')
+
+def modificar_quilicura(request, dato_id):
+    dato = Quilicura.objects.get(pk=dato_id)
+    if request.method == 'POST':
+        form = QuilicuraForm(request.POST, instance=dato)
+        if form.is_valid():
+            form.save()
+            return redirect('quilicura')
+    else:
+        form = QuilicuraForm(instance=dato)
+    return render(request, 'tu_template_para_modificar.html', {'form': form})
+
+def descargar_excel_quilicura(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="datos_quilicura.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Datos Quilicura')
+
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Número', 'Área', 'Dependencia', 'Detalle', 'Frecuencia', 'Procedimiento', 'Parámetros de Control', 'Horario']
+
+    for col_num, column_title in enumerate(columns):
+        ws.write(row_num, col_num, column_title, font_style)
+
+    font_style = xlwt.XFStyle()
+
+    datos = Quilicura.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
+
+    for row in datos:
+        row_num += 1
+        for col_num, value in enumerate(row):
+            ws.write(row_num, col_num, value, font_style)
+
+    wb.save(response)
+    return response
+
+
 
 # Biopackaging Corrugados
 
@@ -545,52 +731,6 @@ def sorepasanjoaquin(request):
     return render(request, 'Instalaciones/Biopackaging/Corrugados/SorepaSanJoaquin.html', {'form': form, 'sanjoaquin': sanjoaquin})
 
 
-#Views Edipac
-
-def oficoncepcion(request):
-    if request.method == 'POST':
-        form = OfiConcepcionForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('oficoncepcion')
-        else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
-    else:
-        form = OfiConcepcionForm()
-
-    oficoncepcion = OfiConcepcion.objects.all()
-    return render(request, 'Instalaciones/Biopackaging/Edipac/OficinasConcepcion.html', {'form': form, 'oficoncepcion': oficoncepcion})
-
-def oficinas_temuco(request):
-    if request.method == 'POST':
-        form = OfiTemucoForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('ofitemuco')
-        else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
-    else:
-        form = OfiTemucoForm()
-
-    ofitemuco = OfiTemuco.objects.all()
-    return render(request, 'Instalaciones/Biopackaging/Edipac/OficinasTemuco.html', {'form': form, 'ofitemuco': ofitemuco})
-
-def quilicura(request):
-    if request.method == 'POST':
-        form = QuilicuraForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('quilicura')
-        else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
-    else:
-        form = QuilicuraForm()
-
-    quilicura = Quilicura.objects.all()
-    return render(request, 'Instalaciones/Biopackaging/Edipac/PlantaQuilicura.html', {'form': form, 'quilicura': quilicura})
 
 #Views SackKraft
 

@@ -84,6 +84,21 @@ urlpatterns = [
     path('ofitemuco/', views.oficinas_temuco, name='ofitemuco'),
     path('quilicura/', views.quilicura, name='quilicura'),
 
+    #ursl Modificar
+    path('modificar_oficoncepcion/<int:dato_id>/', views.modificar_oficoncepcion, name='modificar_oficoncepcion'),
+    path('modificar_ofitemuco/<int:dato_id>', views.modificar_ofitemuco, name='modificar_ofitemuco'),
+    path('modificar_quilicura/<int:dato_id>/', views.modificar_quilicura, name='modificar_quilicura'),
+
+    #ursl Eliminar
+    path('eliminar_oficoncepcion/<int:dato_id>', views.eliminar_oficoncepcion, name='eliminar_oficoncepcion'),
+    path('eliminar_ofitemuco/<int:dato_id>/', views.eliminar_ofitemuco, name='eliminar_ofitemuco'),
+    path('eliminar_quilicura/<int:dato_id>/', views.eliminar_quilicura, name='eliminar_quilicura'),
+
+    #ursl Descargar excel
+    path('descargar_excel_oficoncepcion/', views.descargar_excel_oficoncepcion, name='descargar_excel_oficoncepcion'),
+    path('descargar_excel_ofitemuco/', views.descargar_excel_ofitemuco, name='descargar_excel_ofitemuco'),
+    path('descargar_excel_quilicura/', views.descargar_excel_quilicura, name='descargar_excel_quilicura'),
+
     #urls SacKraft
     path('camposnovos/', views.camposnovos, name='camposnovos'),
     path('chillan/', views.chillan, name='chillan'),

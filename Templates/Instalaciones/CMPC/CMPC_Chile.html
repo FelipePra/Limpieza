@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}CMPC Chile{% endblock %}
-{% load static %}
+{% load static%}
 
 {% block content %}
 <div class="container">
@@ -91,12 +91,7 @@
                     <td>{{ dato.horario }}</td>
                     <td>
                         <a href="{% url 'modificar_dato_chile' dato.id %}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>
-                        <form method="post" action="{% url 'eliminar_dato_chil<!-- Bootstrap CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<!-- Font Awesome -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-<!-- CSS personalizado -->
-<link rel="stylesheet" href="{% static 'stylecmpc.css' %}">e' dato.id %}" style="display: inline;">
+                        <form method="post" action="{% url 'eliminar_dato_chile' dato.id %}" style="display: inline;">
                             {% csrf_token %}
                             <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas eliminar este dato?')"><i class="fas fa-trash-alt"></i></button>
                         </form>
@@ -108,5 +103,10 @@
     </div>
 </div>
 
-
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<!-- CSS personalizado -->
+<link rel="stylesheet" href="{% static 'stylecmpc.css' %}">
 {% endblock %}
