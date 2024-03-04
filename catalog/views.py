@@ -598,99 +598,106 @@ def bucalemu(request):
     if request.method == 'POST':
         form = BucalemuForm(request.POST, request.FILES)
         if form.is_valid():
-            datobucalemu = form.save(commit=False)
-            datobucalemu.save()
+            form.save()
             messages.success(request, 'Datos ingresados correctamente')
             return redirect('bucalemu')
         else:
             messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
         form = BucalemuForm()
-    return render(request, 'Instalaciones/Maderas/AS_Bucalemu.html', {'form': form})
+
+    bucalemu = Bucalemu.objects.all()
+    return render(request, 'Instalaciones/Maderas/AS_Bucalemu.html', {'form': form, 'bucalemu': bucalemu})
 
 def mulchen(request):
     if request.method == 'POST':
         form = MulchenForm(request.POST, request.FILES)
         if form.is_valid():
-            datomulchen = form.save(commit=False)
-            datomulchen.save()
+            form.save()
             messages.success(request, 'Datos ingresados correctamente')
             return redirect('mulchen')
         else:
             messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
         form = MulchenForm()
-    return render(request, 'Instalaciones/Maderas/AS_Mulchen.html', {'form': form})
+
+    mulchen = Mulchen.objects.all()
+    return render(request, 'Instalaciones/Maderas/AS_Mulchen.html', {'form': form, 'mulchen': mulchen})
 
 def nacimiento(request):
     if request.method == 'POST':
         form = NacimientoForm(request.POST, request.FILES)
         if form.is_valid():
-            datonacimiento = form.save(commit=False)
-            datonacimiento.save()
+            form.save()
             messages.success(request, 'Datos ingresados correctamente')
             return redirect('nacimiento')
         else:
             messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
         form = NacimientoForm()
-    return render(request, 'Instalaciones/Maderas/AS_Nacimiento.html', {'form': form})
+
+    nacimiento = Nacimiento.objects.all()
+    return render(request, 'Instalaciones/Maderas/AS_Nacimiento.html', {'form': form, 'nacimiento': nacimiento})
 
 def niuform(request):
     if request.method == 'POST':
         form = NiuformForm(request.POST, request.FILES)
         if form.is_valid():
-            datoniuform = form.save(commit=False)
-            datoniuform.save()
+            form.save()
             messages.success(request, 'Datos ingresados correctamente')
-            return redirect('niform')
+            return redirect('niuform')
         else:
             messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
         form = NiuformForm()
-    return render(request, 'Instalaciones/Maderas/Niuform_Los_Angeles.html', {'form': form})
+    
+    niuform = Niuform.objects.all()
+    return render(request, 'Instalaciones/Maderas/Niuform_Los_Angeles.html', {'form': form, 'niuform': niuform})
 
 def plywood(request):
     if request.method == 'POST':
         form = PlywoodForm(request.POST, request.FILES)
         if form.is_valid():
-            datoplywood = form.save(commit=False)
-            datoplywood.save()
+            form.save()
             messages.success(request, 'Datos ingresados correctamente')
             return redirect('plywood')
         else:
             messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
         form = PlywoodForm()
-    return render(request, 'Instalaciones/Maderas/Plywood.html', {'form': form})
+
+    plywood = Plywood.objects.all()
+    return render(request, 'Instalaciones/Maderas/Plywood.html', {'form': form, 'plywood': plywood})
 
 def coronel(request):
     if request.method == 'POST':
         form = CoronelForm(request.POST, request.FILES)
         if form.is_valid():
-            datocoronel = form.save(commit=False)
-            datocoronel.save()
+            form.save()
             messages.success(request, 'Datos ingresados correctamente')
             return redirect('coronel')
         else:
             messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
         form = CoronelForm()
-    return render(request, 'Instalaciones/Maderas/Rem_Coronel.html', {'form': form})
+
+    coronel = Coronel.objects.all()
+    return render(request, 'Instalaciones/Maderas/Rem_Coronel.html', {'form': form, 'coronel': coronel})
 
 def remLA(request):
     if request.method == 'POST':
         form = RemLAForm(request.POST, request.FILES)
         if form.is_valid():
-            datoremLA = form.save(commit=False)
-            datoremLA.save()
+            form.save()
             messages.success(request, 'Datos ingresados correctamente')
             return redirect('remLA')
         else:
             messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
         form = RemLAForm()
-    return render(request, 'Instalaciones/Maderas/Rem_Los_Angeles.html', {'form': form})
+
+    remLA = RemLA.objects.all()
+    return render(request, 'Instalaciones/Maderas/Rem_Los_Angeles.html', {'form': form, 'remLA': remLA})
 
 #Pulp
 

@@ -8,7 +8,6 @@
         <h1 class="display-3">Datos Maderas Plywood</h1>
         <form method="post">
             {% csrf_token %}
-            {{ bucalemu }}
             <div class="form-group">
                 <label for="numero">Número:</label>
                 <input type="number" class="form-control is-invalid" id="numero" name="numero">
@@ -40,8 +39,8 @@
                 <div class="invalid-feedback">Este campo es obligatorio.</div>
             </div>
             <div class="form-group">
-                <label for="parametros_control">Parámetros de Control:</label>
-                <input type="text" class="form-control is-invalid" id="parametros_control" name="parametros_control">
+                <label for="parametro_control">Parámetros de Control:</label>
+                <input type="text" class="form-control is-invalid" id="parametro_control" name="parametro_control">
                 <div class="invalid-feedback">Este campo es obligatorio.</div>
             </div>
             <div class="form-group">
@@ -93,25 +92,5 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
 <!-- Script de validación de campos vacíos -->
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        document.querySelector("form").addEventListener("submit", function(event) {
-            const inputs = document.querySelectorAll("input[type='text'], input[type='number']");
-            let isValid = true;
 
-            inputs.forEach(input => {
-                if (input.value.trim() === "") {
-                    isValid = false;
-                    input.classList.add("is-invalid");
-                } else {
-                    input.classList.remove("is-invalid");
-                }
-            });
-
-            if (!isValid) {
-                event.preventDefault();
-            }
-        });
-    });
-</script>
 {% endblock %}

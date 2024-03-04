@@ -484,7 +484,7 @@ class Bucalemu(models.Model):
     parametro_control = models.CharField(max_length=100)
     horario = models.CharField(max_length=100)
     def __str__(self):
-        return self.numero
+        return f''
     class Meta:
         db_table = 'bucalemu'
 
@@ -498,7 +498,7 @@ class Mulchen(models.Model):
     parametro_control = models.CharField(max_length=100)
     horario = models.CharField(max_length=100)
     def __str__(self):
-        return self.numero
+        return f""
     class Meta:
         db_table ='mulchen'
 
@@ -512,7 +512,7 @@ class Nacimiento(models.Model):
     parametro_control = models.CharField(max_length=100)
     horario = models.CharField(max_length=100)
     def __str__(self):
-        return self.numero
+        return f""
     class Meta:
         db_table = 'nacimiento'
 
@@ -526,7 +526,7 @@ class Niuform(models.Model):
     parametro_control = models.CharField(max_length=100)
     horario = models.CharField(max_length=100)
     def __str__(self):
-        return self.numero
+        return f""
     class Meta:
         db_table = 'niuform'
 
@@ -540,7 +540,7 @@ class Plywood(models.Model):
     parametro_control = models.CharField(max_length=100)
     horario = models.CharField(max_length=100)
     def __str__(self):
-        return self.numero
+        return f""
     class Meta:
         db_table = 'plywood'
 
@@ -554,7 +554,7 @@ class Coronel(models.Model):
     parametro_control = models.CharField(max_length=100)
     horario = models.CharField(max_length=100)
     def __str__(self):
-        return self.numero
+        return f""
     class Meta:
         db_table = 'coronel'
     
@@ -568,7 +568,7 @@ class RemLA(models.Model):
     parametro_control = models.CharField(max_length=100)
     horario = models.CharField(max_length=100)
     def __str__(self):
-        return self.numero
+        return f""
     class Meta:
         db_table ='remla'
 
