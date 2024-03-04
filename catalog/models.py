@@ -234,7 +234,7 @@ class OfiConcepcion(models.Model):
     parametro_control = models.CharField(max_length=100)
     horario = models.CharField(max_length=100)
     def __str__(self):
-        return f"Número: {self.numero}, Área: {self.area}, Dependencia: {self.dependencia}"
+        return f""
     class Meta:
         db_table = 'oficoncepcion'
 
@@ -248,7 +248,7 @@ class OfiTemuco(models.Model):
     parametro_control = models.CharField(max_length=100)
     horario = models.CharField(max_length=100)
     def __str__(self):
-        return f"Número: {self.numero}, Área: {self.area}, Dependencia: {self.dependencia}"
+        return f""
     class Meta:
         db_table = 'ofitemuco'
 
@@ -262,7 +262,7 @@ class Quilicura(models.Model):
     parametro_control = models.CharField(max_length=100)
     horario = models.CharField(max_length=100)
     def __str__(self):
-        return f"Número: {self.numero}, Área: {self.area}, Dependencia: {self.dependencia}"
+        return f""
     class Meta:
         db_table = 'quilicura'
        
@@ -384,7 +384,7 @@ class Balnearios(models.Model):
     parametro_control = models.CharField(max_length=100)
     horario = models.CharField(max_length=100)
     def __str__(self):
-        return self.numero
+        return f""
     class Meta:
         db_table = 'balnearios'
 
@@ -398,7 +398,7 @@ class VillaForest(models.Model):
     parametro_control = models.CharField(max_length=100)
     horario = models.CharField(max_length=100)
     def __str__(self):
-        return self.numero
+        return f""
     class Meta:
         db_table = 'villaforest'
 
@@ -412,7 +412,7 @@ class BosquesPlata(models.Model):
     parametro_control = models.CharField(max_length=100)
     horario = models.CharField(max_length=100)
     def __str__(self):
-        return self.numero
+        return f""
     class Meta:
         db_table = 'bosquesplata'
 
@@ -426,7 +426,7 @@ class EdiCorpo(models.Model):
     parametro_control = models.CharField(max_length=100)
     horario = models.CharField(max_length=100)
     def __str__(self):
-        return self.numero
+        return f""
     class Meta:
         db_table = 'edicorpo'
 
@@ -440,7 +440,7 @@ class Transito(models.Model):
     parametro_control = models.CharField(max_length=100)
     horario = models.CharField(max_length=100)
     def __str__(self):
-        return self.numero
+        return f""
     class Meta:
         db_table = 'transito'
 
@@ -454,7 +454,7 @@ class Coyhaique(models.Model):
     parametro_control = models.CharField(max_length=100)
     horario = models.CharField(max_length=100)
     def __str__(self):
-        return self.numero
+        return f""
     class Meta:
         db_table = 'coyhaique'
 
@@ -468,7 +468,7 @@ class Vivero(models.Model):
     parametro_control = models.CharField(max_length=100)
     horario = models.CharField(max_length=100)
     def __str__(self):
-        return self.numero
+        return f""
     class Meta:
         db_table = 'vivero'
 

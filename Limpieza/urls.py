@@ -49,7 +49,7 @@ urlpatterns = [
     path('valdivia/', views.valdivia, name='valdivia'),
 
     #urls Edipac
-    path('oficoncepcion/', views.oficinas_concepcion, name='oficoncepcion'),
+    path('oficoncepcion/', views.oficoncepcion, name='oficoncepcion'),
     path('ofitemuco/', views.oficinas_temuco, name='ofitemuco'),
     path('quilicura/', views.quilicura, name='quilicura'),
 

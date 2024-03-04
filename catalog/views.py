@@ -319,20 +319,20 @@ def sorepasanjoaquin(request):
 
 #Views Edipac
 
-def oficinas_concepcion(request):
+def oficoncepcion(request):
     if request.method == 'POST':
         form = OfiConcepcionForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             messages.success(request, 'Datos ingresados correctamente')
-            return redirect('oficoncenpcion')
+            return redirect('oficoncepcion')
         else:
             messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
-        form = DatosCMPCMexicoForm()
+        form = OfiConcepcionForm()
 
-    oficinasconcepcion = OfiConcepcion.objects.all()
-    return render(request, 'Instalaciones/Biopackaging/Edipac/OficinasConcepcion.html', {'form': form, 'oficinasconcepcion': oficinasconcepcion})
+    oficoncepcion = OfiConcepcion.objects.all()
+    return render(request, 'Instalaciones/Biopackaging/Edipac/OficinasConcepcion.html', {'form': form, 'oficoncepcion': oficoncepcion})
 
 def oficinas_temuco(request):
     if request.method == 'POST':
@@ -491,99 +491,106 @@ def balnearios(request):
     if request.method == 'POST':
         form = BalneariosForm(request.POST, request.FILES)
         if form.is_valid():
-            datosbalnearios = form.save(commit=False)
-            datosbalnearios.save()
+            form.save()
             messages.success(request, 'Datos ingresados correctamente')
             return redirect('balnearios')
         else:
             messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
         form = BalneariosForm()
-    return render(request, 'Instalaciones/Bosques/Balnearios-y-casas-H.html', {'form': form})
+
+    balnearios = Balnearios.objects.all()
+    return render(request, 'Instalaciones/Bosques/Balnearios-y-casas-H.html', {'form': form, 'balnearios': balnearios})
 
 def villaforest(request):
     if request.method == 'POST':
         form = VillaForestForm(request.POST, request.FILES)
         if form.is_valid():
-            datosvilla_forest = form.save(commit=False)
-            datosvilla_forest.save()
+            form.save()
             messages.success(request, 'Datos ingresados correctamente')
             return redirect('villaforest')
         else:
             messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
         form = VillaForestForm()
-    return render(request, 'Instalaciones/Bosques/Bases-y-Villas-Forest.html', {'form': form})
+
+    villaforest = VillaForest.objects.all()
+    return render(request, 'Instalaciones/Bosques/Bases-y-Villas-Forest.html', {'form': form, 'villaforest': villaforest})
 
 def bosquesplata(request):
     if request.method == 'POST':
         form = BosquesPlataForm(request.POST, request.FILES)
         if form.is_valid():
-            datobosques_plata = form.save(commit=False)
-            datobosques_plata.save()
+            form.save()
             messages.success(request, 'Datos ingresados correctamente')
             return redirect('bosquesplata')
         else:
             messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
         form = BosquesPlataForm()
-    return render(request, 'Instalaciones/Bosques/Bosques-del-Plata.html', {'form': form})
+
+    bosquesplata = BosquesPlata.objects.all()
+    return render(request, 'Instalaciones/Bosques/Bosques-del-Plata.html', {'form': form, 'bosquesplata':bosquesplata})
 
 def edicorpo(request):
     if request.method == 'POST':
         form = EdiCorpoForm(request.POST, request.FILES)
         if form.is_valid():
-            datoedicorpo = form.save(commit=False)
-            datoedicorpo.save()
+            form.save()
             messages.success(request, 'Datos ingresados correctamente')
             return redirect('edicorpo')
         else:
             messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
         form = EdiCorpoForm()
-    return render(request, 'Instalaciones/Bosques/Edificio-Corporativo.html', {'form': form})
+
+    edicorpo = EdiCorpo.objects.all()
+    return render(request, 'Instalaciones/Bosques/Edificio-Corporativo.html', {'form': form, 'edicorpo': edicorpo})
 
 def transito(request):
     if request.method == 'POST':
         form = TransitoForm(request.POST, request.FILES)
         if form.is_valid():
-            datotransito = form.save(commit=False)
-            datotransito.save()
+            form.save()
             messages.success(request, 'Datos ingresados correctamente')
             return redirect('transito')
         else:
             messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
         form = TransitoForm()
-    return render(request, 'Instalaciones/Bosques/Oficina-Transito.html', {'form': form})
+
+    transito = Transito.objects.all()
+    return render(request, 'Instalaciones/Bosques/Oficina-Transito.html', {'form': form, 'transito': transito})
 
 def coyhaique(request):
     if request.method == 'POST':
         form = CoyhaiqueForm(request.POST, request.FILES)
         if form.is_valid():
-            datocoyhaique = form.save(commit=False)
-            datocoyhaique.save()
+            form.save()
             messages.success(request, 'Datos ingresados correctamente')
             return redirect('coyhaique')
         else:
             messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
         form = CoyhaiqueForm()
-    return render(request, 'Instalaciones/Bosques/Vivero-Coyhaique.html', {'form': form})
+    
+    coyhaique = Coyhaique.objects.all()
+    return render(request, 'Instalaciones/Bosques/Vivero-Coyhaique.html', {'form': form, 'coyhaique': coyhaique})
 
 def viverocd(request):
     if request.method == 'POST':
         form = ViveroForm(request.POST, request.FILES)
         if form.is_valid():
-            datovivero = form.save(commit=False)
-            datovivero.save()
+            form.save()
             messages.success(request, 'Datos ingresados correctamente')
             return redirect('viverocd')
         else:
             messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
         form = ViveroForm()
-    return render(request, 'Instalaciones/Bosques/ViveroCD.html', {'form': form})
+
+    viverocd = Vivero.objects.all()
+    return render(request, 'Instalaciones/Bosques/ViveroCD.html', {'form': form, 'viverocd': viverocd})
 
 #Maderas
 
