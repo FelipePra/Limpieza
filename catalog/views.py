@@ -2102,8 +2102,6 @@ def descargar_excel_bucalemu(request):
     wb.save(response)
     return response
 
-
-
 def mulchen(request):
     if request.method == 'POST':
         form = MulchenForm(request.POST, request.FILES)
@@ -2163,7 +2161,6 @@ def descargar_excel_mulchen(request):
 
     wb.save(response)
     return response
-
 
 def nacimiento(request):
     if request.method == 'POST':
@@ -2225,7 +2222,6 @@ def descargar_excel_nacimiento(request):
     wb.save(response)
     return response
 
-
 def niuform(request):
     if request.method == 'POST':
         form = NiuformForm(request.POST, request.FILES)
@@ -2285,7 +2281,6 @@ def descargar_excel_niuform(request):
 
     wb.save(response)
     return response
-
 
 def plywood(request):
     if request.method == 'POST':
@@ -2347,7 +2342,6 @@ def descargar_excel_plywood(request):
     wb.save(response)
     return response
 
-
 def coronel(request):
     if request.method == 'POST':
         form = CoronelForm(request.POST, request.FILES)
@@ -2408,7 +2402,6 @@ def descargar_excel_coronel(request):
     wb.save(response)
     return response
 
-
 def remLA(request):
     if request.method == 'POST':
         form = RemLAForm(request.POST, request.FILES)
@@ -2431,7 +2424,7 @@ def eliminar_remLA(request, dato_id):
     return redirect('remLA')
 
 def modificar_remLA(request, dato_id):
-    dato = Bucalemu.objects.get(pk=dato_id)
+    dato = RemLA.objects.get(pk=dato_id)
     if request.method == 'POST':
         form = RemLAForm(request.POST, instance=dato)
         if form.is_valid():
@@ -2469,9 +2462,7 @@ def descargar_excel_remLA(request):
     wb.save(response)
     return response
 
-
 #Pulp
-
 def balneariolaja(request):
     if request.method == 'POST':
         form = BalnearioLajaForm(request.POST, request.FILES)
@@ -2487,13 +2478,58 @@ def balneariolaja(request):
     balneariolaja = BalnearioLaja.objects.all()
     return render(request, 'Instalaciones/Pulp/Balneariolaja.html', {'form': form, 'balneariolaja': balneariolaja})
 
+def eliminar_balneariolaja(request, dato_id):
+    if request.method == 'POST':
+        dato = BalnearioLaja.objects.get(pk=dato_id)
+        dato.delete()
+    return redirect('balneariolaja')
+
+def modificar_balneariolaja(request, dato_id):
+    dato = BalnearioLaja.objects.get(pk=dato_id)
+    if request.method == 'POST':
+        form = BalnearioLajaForm(request.POST, instance=dato)
+        if form.is_valid():
+            form.save()
+            return redirect('balneariolaja')
+    else:
+        form = BalnearioLajaForm(instance=dato)
+    return render(request, 'tu_template_para_modificar.html', {'form': form})
+
+def descargar_excel_balneariolaja(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="datos_balneario_laja.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Datos BalnearioLaja')
+
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Número', 'Área', 'Dependencia', 'Detalle', 'Frecuencia', 'Procedimiento', 'Parámetros de Control', 'Horario']
+
+    for col_num, column_title in enumerate(columns):
+        ws.write(row_num, col_num, column_title, font_style)
+
+    font_style = xlwt.XFStyle()
+
+    datos = BalnearioLaja.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
+
+    for row in datos:
+        row_num += 1
+        for col_num, value in enumerate(row):
+            ws.write(row_num, col_num, value, font_style)
+
+    wb.save(response)
+    return response
+
 def casahuespedes(request):
     if request.method == 'POST':
         form = CasaHuespedesForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             messages.success(request, 'Datos ingresados correctamente')
-            return redirect('casauhuespedes')
+            return redirect('casahuespedes')
         else:
             messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
@@ -2501,6 +2537,51 @@ def casahuespedes(request):
 
     casahuespedes = CasaHuespedes.objects.all()
     return render(request, 'Instalaciones/Pulp/Casasdehuespedes.html', {'form': form,'casahuespedes': casahuespedes})
+
+def eliminar_casahuespedes(request, dato_id):
+    if request.method == 'POST':
+        dato = CasaHuespedes.objects.get(pk=dato_id)
+        dato.delete()
+    return redirect('casahuespedes')
+
+def modificar_casahuespedes(request, dato_id):
+    dato =  CasaHuespedes.objects.get(pk=dato_id)
+    if request.method == 'POST':
+        form = CasaHuespedesForm(request.POST, instance=dato)
+        if form.is_valid():
+            form.save()
+            return redirect('casahuespedes')
+    else:
+        form = CasaHuespedesForm(instance=dato)
+    return render(request, 'tu_template_para_modificar.html', {'form': form})
+
+def descargar_excel_casahuespedes(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="datos_casa_huespedes.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Datos CasaHuespedes')
+
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Número', 'Área', 'Dependencia', 'Detalle', 'Frecuencia', 'Procedimiento', 'Parámetros de Control', 'Horario']
+
+    for col_num, column_title in enumerate(columns):
+        ws.write(row_num, col_num, column_title, font_style)
+
+    font_style = xlwt.XFStyle()
+
+    datos = CasaHuespedes.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
+
+    for row in datos:
+        row_num += 1
+        for col_num, value in enumerate(row):
+            ws.write(row_num, col_num, value, font_style)
+
+    wb.save(response)
+    return response
 
 def guaiba(request):
     if request.method == 'POST':
@@ -2517,6 +2598,53 @@ def guaiba(request):
     guaiba = Guaiba.objects.all()
     return render(request, 'Instalaciones/Pulp/PlantaGuaíba.html', {'form': form, 'guaiba': guaiba})
 
+def eliminar_guaiba(request, dato_id):
+    if request.method == 'POST':
+        dato = Guaiba.objects.get(pk=dato_id)
+        dato.delete()
+    return redirect('guaiba')
+
+def modificar_guaiba(request, dato_id):
+    dato = Guaiba.objects.get(pk=dato_id)
+    if request.method == 'POST':
+        form = GuaibaForm(request.POST, instance=dato)
+        if form.is_valid():
+            form.save()
+            return redirect('guaiba')
+    else:
+        form = GuaibaForm(instance=dato)
+    return render(request, 'tu_template_para_modificar.html', {'form': form})
+
+def descargar_excel_guaiba(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="datos_guaiba.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Datos RemLA')
+
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Número', 'Área', 'Dependencia', 'Detalle', 'Frecuencia', 'Procedimiento', 'Parámetros de Control', 'Horario']
+
+    for col_num, column_title in enumerate(columns):
+        ws.write(row_num, col_num, column_title, font_style)
+
+    font_style = xlwt.XFStyle()
+
+    datos = Guaiba.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
+
+    for row in datos:
+        row_num += 1
+        for col_num, value in enumerate(row):
+            ws.write(row_num, col_num, value, font_style)
+
+    wb.save(response)
+    return response
+
+
+
 def laja(request):
     if request.method == 'POST':
         form = LajaForm(request.POST, request.FILES)
@@ -2531,6 +2659,51 @@ def laja(request):
 
     laja = Laja.objects.all()
     return render(request, 'Instalaciones/Pulp/PlantaLaja.html', {'form': form, 'laja': laja})
+
+def eliminar_laja(request, dato_id):
+    if request.method == 'POST':
+        dato = Laja.objects.get(pk=dato_id)
+        dato.delete()
+    return redirect('laja')
+
+def modificar_laja(request, dato_id):
+    dato = Laja.objects.get(pk=dato_id)
+    if request.method == 'POST':
+        form = LajaForm(request.POST, instance=dato)
+        if form.is_valid():
+            form.save()
+            return redirect('laja')
+    else:
+        form = LajaForm(instance=dato)
+    return render(request, 'tu_template_para_modificar.html', {'form': form})
+
+def descargar_excel_laja(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="datos_laja.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Datos RemLA')
+
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Número', 'Área', 'Dependencia', 'Detalle', 'Frecuencia', 'Procedimiento', 'Parámetros de Control', 'Horario']
+
+    for col_num, column_title in enumerate(columns):
+        ws.write(row_num, col_num, column_title, font_style)
+
+    font_style = xlwt.XFStyle()
+
+    datos = Laja.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
+
+    for row in datos:
+        row_num += 1
+        for col_num, value in enumerate(row):
+            ws.write(row_num, col_num, value, font_style)
+
+    wb.save(response)
+    return response
 
 def pacifico(request):
     if request.method == 'POST':
@@ -2547,6 +2720,51 @@ def pacifico(request):
     pacifico = Pacifico.objects.all()
     return render(request, 'Instalaciones/Pulp/PlantaPacifico.html', {'form': form, 'pacifico': pacifico})
 
+def eliminar_pacifico(request, dato_id):
+    if request.method == 'POST':
+        dato = Pacifico.objects.get(pk=dato_id)
+        dato.delete()
+    return redirect('pacifico')
+
+def modificar_pacifico(request, dato_id):
+    dato = Pacifico.objects.get(pk=dato_id)
+    if request.method == 'POST':
+        form = PacificoForm(request.POST, instance=dato)
+        if form.is_valid():
+            form.save()
+            return redirect('pacifico')
+    else:
+        form = PacificoForm(instance=dato)
+    return render(request, 'tu_template_para_modificar.html', {'form': form})
+
+def descargar_excel_pacifico(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="datos_pacifico.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Datos RemLA')
+
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Número', 'Área', 'Dependencia', 'Detalle', 'Frecuencia', 'Procedimiento', 'Parámetros de Control', 'Horario']
+
+    for col_num, column_title in enumerate(columns):
+        ws.write(row_num, col_num, column_title, font_style)
+
+    font_style = xlwt.XFStyle()
+
+    datos = Pacifico.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
+
+    for row in datos:
+        row_num += 1
+        for col_num, value in enumerate(row):
+            ws.write(row_num, col_num, value, font_style)
+
+    wb.save(response)
+    return response
+
 def santafe(request):
     if request.method == 'POST':
         form = SantaFeForm(request.POST, request.FILES)
@@ -2561,3 +2779,48 @@ def santafe(request):
 
     santafe = SantaFe.objects.all()
     return render(request, 'Instalaciones/Pulp/PlantaSantaFe.html', {'form': form, 'santafe': santafe})
+
+def eliminar_santafe(request, dato_id):
+    if request.method == 'POST':
+        dato = SantaFe.objects.get(pk=dato_id)
+        dato.delete()
+    return redirect('santafe')
+
+def modificar_santafe(request, dato_id):
+    dato = SantaFe.objects.get(pk=dato_id)
+    if request.method == 'POST':
+        form = SantaFe.Form(request.POST, instance=dato)
+        if form.is_valid():
+            form.save()
+            return redirect('santafe')
+    else:
+        form = SantaFe.Form(instance=dato)
+    return render(request, 'tu_template_para_modificar.html', {'form': form})
+
+def descargar_excel_santafe(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="datos_santafe.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Datos RemLA')
+
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Número', 'Área', 'Dependencia', 'Detalle', 'Frecuencia', 'Procedimiento', 'Parámetros de Control', 'Horario']
+
+    for col_num, column_title in enumerate(columns):
+        ws.write(row_num, col_num, column_title, font_style)
+
+    font_style = xlwt.XFStyle()
+
+    datos = SantaFe.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
+
+    for row in datos:
+        row_num += 1
+        for col_num, value in enumerate(row):
+            ws.write(row_num, col_num, value, font_style)
+
+    wb.save(response)
+    return response

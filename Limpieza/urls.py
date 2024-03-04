@@ -265,4 +265,29 @@ urlpatterns = [
     path('laja/', views.laja, name='laja'),
     path('pacifico/', views.pacifico, name='pacifico'),
     path('santafe/', views.santafe, name='santafe'),
+
+    #ursl Modificar
+    path('modificar_balneariolaja/<int:dato_id>/', views.modificar_balneariolaja, name='modificar_balneariolaja'),
+    path('modificar_casahuespedes/<int:dato_id>/', views.modificar_casahuespedes, name='modificar_casahuespedes'),
+    path('modificar_guaiba/<int:dato_id>/', views.modificar_guaiba, name='modificar_guaiba'),
+    path('modificar_laja/<int:dato_id>/', views.modificar_laja, name='modificar_laja'),
+    path('modificar_pacifico/<int:dato_id>/', views.modificar_pacifico, name='modificar_pacifico'),
+    path('modificar_santafe/<int:dato_id>/', views.modificar_santafe, name='modificar_santafe'),
+
+    #ursl Eliminar
+    path('eliminar_balneariolaja/<int:dato_id>/',views.eliminar_balneariolaja, name='eliminar_balneariolaja'),
+    path('eliminar_casahuespedes/<int:dato_id>/', views.eliminar_casahuespedes, name='eliminar_casahuespedes'),
+    path('eliminar_guaiba/<int:dato_id>', views.eliminar_guaiba, name='eliminar_guaiba'),
+    path('eliminar_laja/<int:dato_id>/', views.eliminar_laja, name='eliminar_laja'),
+    path('eliminar_pacifico/<int:dato_id>/', views.eliminar_pacifico, name='eliminar_pacifico'),
+    path('eliminar_santafe/<int:dato_id>/', views.eliminar_santafe, name='eliminar_santafe'),
+
+    #urls Descargar excel
+    path('descargar_excel_balneariolaja/',views.descargar_excel_balneariolaja, name='descargar_excel_balneariolaja'),
+    path('descargar_excel_casahuespedes/', views.descargar_excel_casahuespedes, name='descargar_excel_casahuespedes'),
+    path('descargar_excel_guaiba/', views.descargar_excel_guaiba, name='descargar_excel_guaiba'),
+    path('descargar_excel_laja/', views.descargar_excel_laja,name='descargar_excel_laja'),
+    path('descargar_excel_pacifico/', views.descargar_excel_pacifico, name='descargar_excel_pacifico'),
+    path('descargar_excel_santafe/', views.descargar_excel_santafe, name='descargar_excel_santafe'),
+
 ]
