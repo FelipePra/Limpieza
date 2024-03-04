@@ -1496,7 +1496,7 @@ def descargar_excel_sorepapuentealto(request):
     wb.save(response)
     return response
 
-def redoficinas(request):
+def redoficinas(request, dato_id):
     if request.method == 'POST':
         form = RedOficinasForm(request.POST, request.FILES)
         if form.is_valid():
@@ -1635,6 +1635,51 @@ def balnearios(request):
     balnearios = Balnearios.objects.all()
     return render(request, 'Instalaciones/Bosques/Balnearios-y-casas-H.html', {'form': form, 'balnearios': balnearios})
 
+def eliminar_balnearios(request, dato_id):
+    if request.method == 'POST':
+        dato = Balnearios.objects.get(pk=dato_id)
+        dato.delete()
+    return redirect('balnearios')
+
+def modificar_balnearios(request, dato_id):
+    dato = Balnearios.objects.get(pk=dato_id)
+    if request.method == 'POST':
+        form = BalneariosForm(request.POST, instance=dato)
+        if form.is_valid():
+            form.save()
+            return redirect('balnearios')
+    else:
+        form = BalneariosForm(instance=dato)
+    return render(request, 'tu_template_para_modificar.html', {'form': form})
+
+def descargar_excel_balnearios(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="datos_balnearios_y_casas.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Datos Balnearios')
+
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Número', 'Área', 'Dependencia', 'Detalle', 'Frecuencia', 'Procedimiento', 'Parámetros de Control', 'Horario']
+
+    for col_num, column_title in enumerate(columns):
+        ws.write(row_num, col_num, column_title, font_style)
+
+    font_style = xlwt.XFStyle()
+
+    datos = Balnearios.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
+
+    for row in datos:
+        row_num += 1
+        for col_num, value in enumerate(row):
+            ws.write(row_num, col_num, value, font_style)
+
+    wb.save(response)
+    return response
+
 def villaforest(request):
     if request.method == 'POST':
         form = VillaForestForm(request.POST, request.FILES)
@@ -1649,6 +1694,51 @@ def villaforest(request):
 
     villaforest = VillaForest.objects.all()
     return render(request, 'Instalaciones/Bosques/Bases-y-Villas-Forest.html', {'form': form, 'villaforest': villaforest})
+
+def eliminar_villaforest(request, dato_id):
+    if request.method == 'POST':
+        dato = VillaForest.objects.get(pk=dato_id)
+        dato.delete()
+    return redirect('villaforest')
+
+def modificar_villaforest(request, dato_id):
+    dato = VillaForest.objects.get(pk=dato_id)
+    if request.method == 'POST':
+        form = VillaForestForm(request.POST, instance=dato)
+        if form.is_valid():
+            form.save()
+            return redirect('villaforest')
+    else:
+        form = VillaForestForm(instance=dato)
+    return render(request, 'tu_template_para_modificar.html', {'form': form})
+
+def descargar_excel_villaforest(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="datos_villa_forest.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Datos VillaForest')
+
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Número', 'Área', 'Dependencia', 'Detalle', 'Frecuencia', 'Procedimiento', 'Parámetros de Control', 'Horario']
+
+    for col_num, column_title in enumerate(columns):
+        ws.write(row_num, col_num, column_title, font_style)
+
+    font_style = xlwt.XFStyle()
+
+    datos = VillaForest.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
+
+    for row in datos:
+        row_num += 1
+        for col_num, value in enumerate(row):
+            ws.write(row_num, col_num, value, font_style)
+
+    wb.save(response)
+    return response
 
 def bosquesplata(request):
     if request.method == 'POST':
@@ -1665,6 +1755,51 @@ def bosquesplata(request):
     bosquesplata = BosquesPlata.objects.all()
     return render(request, 'Instalaciones/Bosques/Bosques-del-Plata.html', {'form': form, 'bosquesplata':bosquesplata})
 
+def eliminar_bosquesplata(request, dato_id):
+    if request.method == 'POST':
+        dato = BosquesPlata.objects.get(pk=dato_id)
+        dato.delete()
+    return redirect('bosquesplata')
+
+def modificar_bosquesplata(request, dato_id):
+    dato = BosquesPlata.objects.get(pk=dato_id)
+    if request.method == 'POST':
+        form = BosquesPlataForm(request.POST, instance=dato)
+        if form.is_valid():
+            form.save()
+            return redirect('bosquesplata')
+    else:
+        form = BosquesPlataForm(instance=dato)
+    return render(request, 'tu_template_para_modificar.html', {'form': form})
+
+def descargar_excel_bosquesplata(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="datos_bosques_plata.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Datos BosquesPlata')
+
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Número', 'Área', 'Dependencia', 'Detalle', 'Frecuencia', 'Procedimiento', 'Parámetros de Control', 'Horario']
+
+    for col_num, column_title in enumerate(columns):
+        ws.write(row_num, col_num, column_title, font_style)
+
+    font_style = xlwt.XFStyle()
+
+    datos = BosquesPlata.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
+
+    for row in datos:
+        row_num += 1
+        for col_num, value in enumerate(row):
+            ws.write(row_num, col_num, value, font_style)
+
+    wb.save(response)
+    return response
+
 def edicorpo(request):
     if request.method == 'POST':
         form = EdiCorpoForm(request.POST, request.FILES)
@@ -1679,6 +1814,51 @@ def edicorpo(request):
 
     edicorpo = EdiCorpo.objects.all()
     return render(request, 'Instalaciones/Bosques/Edificio-Corporativo.html', {'form': form, 'edicorpo': edicorpo})
+
+def eliminar_edicorpo(request, dato_id):
+    if request.method == 'POST':
+        dato = EdiCorpo.objects.get(pk=dato_id)
+        dato.delete()
+    return redirect('edicorpo')
+
+def modificar_edicorpo(request, dato_id):
+    dato = EdiCorpo.objects.get(pk=dato_id)
+    if request.method == 'POST':
+        form = EdiCorpoForm(request.POST, instance=dato)
+        if form.is_valid():
+            form.save()
+            return redirect('edicorpo')
+    else:
+        form = EdiCorpoForm(instance=dato)
+    return render(request, 'tu_template_para_modificar.html', {'form': form})
+
+def descargar_excel_edicorpo(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="datos_edificio_corporativo.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Datos Edifioio Corporativo')
+
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Número', 'Área', 'Dependencia', 'Detalle', 'Frecuencia', 'Procedimiento', 'Parámetros de Control', 'Horario']
+
+    for col_num, column_title in enumerate(columns):
+        ws.write(row_num, col_num, column_title, font_style)
+
+    font_style = xlwt.XFStyle()
+
+    datos = EdiCorpo.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
+
+    for row in datos:
+        row_num += 1
+        for col_num, value in enumerate(row):
+            ws.write(row_num, col_num, value, font_style)
+
+    wb.save(response)
+    return response
 
 def transito(request):
     if request.method == 'POST':
@@ -1695,6 +1875,51 @@ def transito(request):
     transito = Transito.objects.all()
     return render(request, 'Instalaciones/Bosques/Oficina-Transito.html', {'form': form, 'transito': transito})
 
+def eliminar_transito(request, dato_id):
+    if request.method == 'POST':
+        dato = Transito.objects.get(pk=dato_id)
+        dato.delete()
+    return redirect('transito')
+
+def modificar_transito(request, dato_id):
+    dato = Transito.objects.get(pk=dato_id)
+    if request.method == 'POST':
+        form = TransitoForm(request.POST, instance=dato)
+        if form.is_valid():
+            form.save()
+            return redirect('transito')
+    else:
+        form = TransitoForm(instance=dato)
+    return render(request, 'tu_template_para_modificar.html', {'form': form})
+
+def descargar_excel_transito(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="datos_transito.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Datos Transito')
+
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Número', 'Área', 'Dependencia', 'Detalle', 'Frecuencia', 'Procedimiento', 'Parámetros de Control', 'Horario']
+
+    for col_num, column_title in enumerate(columns):
+        ws.write(row_num, col_num, column_title, font_style)
+
+    font_style = xlwt.XFStyle()
+
+    datos = Transito.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
+
+    for row in datos:
+        row_num += 1
+        for col_num, value in enumerate(row):
+            ws.write(row_num, col_num, value, font_style)
+
+    wb.save(response)
+    return response
+
 def coyhaique(request):
     if request.method == 'POST':
         form = CoyhaiqueForm(request.POST, request.FILES)
@@ -1710,6 +1935,51 @@ def coyhaique(request):
     coyhaique = Coyhaique.objects.all()
     return render(request, 'Instalaciones/Bosques/Vivero-Coyhaique.html', {'form': form, 'coyhaique': coyhaique})
 
+def eliminar_coyhaique(request, dato_id):
+    if request.method == 'POST':
+        dato = Coyhaique.objects.get(pk=dato_id)
+        dato.delete()
+    return redirect('coyhaique')
+
+def modificar_coyhaique(request, dato_id):
+    dato = Coyhaique.objects.get(pk=dato_id)
+    if request.method == 'POST':
+        form = CoyhaiqueForm(request.POST, instance=dato)
+        if form.is_valid():
+            form.save()
+            return redirect('coyhaique')
+    else:
+        form = CoyhaiqueForm(instance=dato)
+    return render(request, 'tu_template_para_modificar.html', {'form': form})
+
+def descargar_excel_coyhaique(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="datos_Vivero_Coyhaique.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Datos Coyhaique')
+
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Número', 'Área', 'Dependencia', 'Detalle', 'Frecuencia', 'Procedimiento', 'Parámetros de Control', 'Horario']
+
+    for col_num, column_title in enumerate(columns):
+        ws.write(row_num, col_num, column_title, font_style)
+
+    font_style = xlwt.XFStyle()
+
+    datos = Coyhaique.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
+
+    for row in datos:
+        row_num += 1
+        for col_num, value in enumerate(row):
+            ws.write(row_num, col_num, value, font_style)
+
+    wb.save(response)
+    return response
+
 def viverocd(request):
     if request.method == 'POST':
         form = ViveroForm(request.POST, request.FILES)
@@ -1724,6 +1994,51 @@ def viverocd(request):
 
     viverocd = Vivero.objects.all()
     return render(request, 'Instalaciones/Bosques/ViveroCD.html', {'form': form, 'viverocd': viverocd})
+
+def eliminar_viverocd(request, dato_id):
+    if request.method == 'POST':
+        dato = Vivero.objects.get(pk=dato_id)
+        dato.delete()
+    return redirect('viverocd')
+
+def modificar_viverocd(request, dato_id):
+    dato = Vivero.objects.get(pk=dato_id)
+    if request.method == 'POST':
+        form = ViveroForm(request.POST, instance=dato)
+        if form.is_valid():
+            form.save()
+            return redirect('viverocd')
+    else:
+        form = ViveroForm(instance=dato)
+    return render(request, 'tu_template_para_modificar.html', {'form': form})
+
+def descargar_excel_viverocd(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="datos_vivero_cd.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Datos Vivero')
+
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Número', 'Área', 'Dependencia', 'Detalle', 'Frecuencia', 'Procedimiento', 'Parámetros de Control', 'Horario']
+
+    for col_num, column_title in enumerate(columns):
+        ws.write(row_num, col_num, column_title, font_style)
+
+    font_style = xlwt.XFStyle()
+
+    datos = Vivero.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
+
+    for row in datos:
+        row_num += 1
+        for col_num, value in enumerate(row):
+            ws.write(row_num, col_num, value, font_style)
+
+    wb.save(response)
+    return response
 
 #Maderas
 

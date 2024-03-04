@@ -193,6 +193,34 @@ urlpatterns = [
     path('coyhaique/',views.coyhaique, name='coyhaique'),
     path('viverocd/', views.viverocd, name='viverocd'),
 
+    #ursl Modificar
+    path('modificar_balnearios/<int:dato_id>', views.modificar_balnearios, name='modificar_balnearios'),
+    path('modificar_villaforest/<int:dato_id>', views.modificar_villaforest, name='modificar_villaforest'),
+    path('modificar_bosquesplata/<int:dato_id>', views.modificar_bosquesplata, name='modificar_bosquesplata'),
+    path('modificar_edicorpo/<int:dato_id>', views.modificar_edicorpo, name='modificar_edicorpo'),
+    path('modificar_transito/<int:dato_id>', views.modificar_transito, name='modificar_transito'),
+    path('modificar_coyhaique/<int:dato_id>', views.modificar_coyhaique, name='modificar_coyhaique'),
+    path('modificar_viverocd/<int:dato_id>', views.modificar_viverocd, name='modificar_viverocd'),
+
+    #ursl Eliminar
+    path('eliminar_balnearios/<int:dato_id>', views.eliminar_balnearios, name='eliminar_balnearios'),
+    path('eliminar_villaforest/<int:dato_id>', views.eliminar_villaforest, name='eliminar_villaforest'),
+    path('eliminar_bosquesplata/<int:dato_id>', views.eliminar_bosquesplata, name='eliminar_bosquesplata'),
+    path('eliminar_edicorpo/<int:dato_id>', views.eliminar_edicorpo, name='eliminar_edicorpo'),
+    path('eliminar_transito/<int:dato_id>', views.eliminar_transito, name='eliminar_transito'),
+    path('eliminar_coyhaique/<int:dato_id>', views.eliminar_coyhaique, name='eliminar_coyhaique'),
+    path('eliminar_viverocd/<int:dato_id>', views.eliminar_viverocd, name='eliminar_viverocd'),
+
+    #urls Descargar excel
+    path('descargar_excel_balnearios/', views.descargar_excel_balnearios, name='descargar_excel_balnearios'),
+    path('descargar_excel_villaforest/', views.descargar_excel_villaforest, name='descargar_excel_villaforest'),
+    path('descargar_excel_bosquesplata/', views.descargar_excel_bosquesplata, name='descargar_excel_bosquesplata'),
+    path('descargar_excel_edicorpo/', views.descargar_excel_edicorpo, name='descargar_excel_edicorpo'),
+    path('descargar_excel_transito/', views.descargar_excel_transito, name='descargar_excel_transito'),
+    path('descargar_excel_coyhaique/', views.descargar_excel_coyhaique, name='descargar_excel_coyhaique'),
+    path('descargar_excel_viverocd/', views.descargar_excel_viverocd, name='descargar_excel_viverocd'),
+
+
     #Ursl Maderas
     path('bucalemu/',views.bucalemu, name='bucalemu'),
     path('mulchen/',views.mulchen, name='mulchen'),
