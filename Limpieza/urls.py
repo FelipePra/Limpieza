@@ -148,8 +148,41 @@ urlpatterns = [
     path('tiltil/', views.tiltil, name='tiltil'),
     path('sorepapudahuel/', views.sorepapudahuel, name='sorepapudahuel'),
     path('sorepapuentealto/', views.sorepapuentealto, name='sorepapuentealto'),
-    path('sorepaofi/', views.sorepaofi, name='sorepaofi'),
+    path('redoficinas/', views.redoficinas, name='redoficinas'),
     path('sorepasanjoaquin/', views.sorepasanjoaquin, name='sorepasanjoaquin'),
+
+    #urls Modificar
+    path('modificar_chimolsa/<int:dato_id>/', views.modificar_chimolsa, name='modificar_chimolsa'),
+    path('modificar_cordillera/<int:dato_id>/', views.modificar_cordillera, name='modificar_cordillera'),
+    path('modificar_buin/<int:dato_id>/', views.modificar_buin, name='modificar_buin'),
+    path('modificar_osorno/<int:dato_id>/', views.modificar_osorno, name='modificar_osorno'),
+    path('modificar_tiltil/<int:dato_id>/', views.modificar_tiltil, name='modificar_tiltil'),
+    path('modificar_sorepapudahuel/<int:dato_id>/', views.modificar_sorepapudahuel, name='modificar_sorepapudahuel'),
+    path('modificar_sorepapuentealto/<int:dato_id>/', views.modificar_sorepapuentealto, name='modificar_sorepapuentealto'),
+    path('modificar_redoficinas/<int:dato_id>/', views.modificar_redoficinas, name='modificar_redoficinas'),
+    path('modificar_sorepasanjoaquin/<int:dato_id>/', views.modificar_sorepasanjoaquin, name='modificar_sorepasanjoaquin'),
+
+    #urls Eliminar
+    path('eliminar_chimolsa/<int:dato_id>/', views.eliminar_chimolsa, name='eliminar_chimolsa'),
+    path('eliminar_cordillera/<int:dato_id>/', views.eliminar_cordillera, name='eliminar_cordillera'),
+    path('eliminar_buin/<int:dato_id>/', views.eliminar_buin, name='eliminar_buin'),
+    path('eliminar_osorno/<int:dato_id>/', views.eliminar_osorno, name='eliminar_osorno'),
+    path('eliminar_tiltil/<int:dato_id>/', views.eliminar_tiltil, name='eliminar_tiltil'),
+    path('eliminar_sorepapudahuel/<int:dato_id>/', views.eliminar_sorepapudahuel, name='eliminar_sorepapudahuel'),
+    path('eliminar_sorepapuentealto/<int:dato_id>/', views.eliminar_sorepapuentealto, name='eliminar_sorepapuentealto'),
+    path('eliminar_redoficinas/<int:dato_id>', views.redoficinas, name='eliminar_redoficinas'),
+    path('eliminar_sorepasanjoaquin/<int:dato_id>/', views.eliminar_sorepasanjoaquin, name='eliminar_sorepasanjoaquin'),
+
+    #urls Descargar excel
+    path('descargar_excel_chimolsa/', views.descargar_excel_chimolsa, name='descargar_excel_chimolsa'),
+    path('descargar_excel_cordillera/', views.descargar_excel_cordillera, name='descargar_excel_cordillera'),
+    path('descargar_excel_buin/', views.descargar_excel_buin, name='descargar_excel_buin'),
+    path('descargar_excel_osorno/', views.descargar_excel_osorno, name='descargar_excel_osorno'),
+    path('descargar_excel_tiltil/', views.descargar_excel_tiltil, name='descargar_excel_tiltil'),
+    path('descargar_excel_sorepapudahuel/', views.descargar_excel_sorepapudahuel, name='descargar_excel_sorepapudahuel'),
+    path('descargar_excel_sorepapuentealto/', views.descargar_excel_sorepapuentealto, name='descargar_excel_sorepapuentealto'),
+    path('descargar_excel_redoficinas/', views.descargar_excel_redoficinas, name='descargar_excel_redoficinas'),
+    path('descargar_excel_sorepasanjoaquin/', views.descargar_excel_sorepasanjoaquin, name='descargar_excel_sorepasanjoaquin'),
 
     #Urls Bosques
     path('balnearios/', views.balnearios, name='balnearios'),

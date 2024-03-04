@@ -1091,6 +1091,51 @@ def chimolsa(request):
     chimolsa = Chimolsa.objects.all()
     return render(request, 'Instalaciones/Biopackaging/Corrugados/Chimolsa.html', {'form': form, 'chimolsa': chimolsa})
 
+def eliminar_chimolsa(request, dato_id):
+    if request.method == 'POST':
+        dato = Chimolsa.objects.get(pk=dato_id)
+        dato.delete()
+    return redirect('chimolsa')
+
+def modificar_chimolsa(request, dato_id):
+    dato = Chimolsa.objects.get(pk=dato_id)
+    if request.method == 'POST':
+        form = ChimolsaForm(request.POST, instance=dato)
+        if form.is_valid():
+            form.save()
+            return redirect('chimolsa')
+    else:
+        form = ChimolsaForm(instance=dato)
+    return render(request, 'tu_template_para_modificar.html', {'form': form})
+
+def descargar_excel_chimolsa(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="datos_chimolsa.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Datos Chimolsa')
+
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Número', 'Área', 'Dependencia', 'Detalle', 'Frecuencia', 'Procedimiento', 'Parámetros de Control', 'Horario']
+
+    for col_num, column_title in enumerate(columns):
+        ws.write(row_num, col_num, column_title, font_style)
+
+    font_style = xlwt.XFStyle()
+
+    datos = Chimolsa.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
+
+    for row in datos:
+        row_num += 1
+        for col_num, value in enumerate(row):
+            ws.write(row_num, col_num, value, font_style)
+
+    wb.save(response)
+    return response
+
 def cordillera(request):
     if request.method == 'POST':
         form = CordilleraForm(request.POST, request.FILES)
@@ -1105,6 +1150,51 @@ def cordillera(request):
 
     cordillera = Cordillera.objects.all()
     return render(request, 'Instalaciones/Biopackaging/Corrugados/Cordillera.html', {'form': form, 'cordillera': cordillera})
+
+def eliminar_cordillera(request, dato_id):
+    if request.method == 'POST':
+        dato = Cordillera.objects.get(pk=dato_id)
+        dato.delete()
+    return redirect('cordillera')
+
+def modificar_cordillera(request, dato_id):
+    dato = Cordillera.objects.get(pk=dato_id)
+    if request.method == 'POST':
+        form = CordilleraForm(request.POST, instance=dato)
+        if form.is_valid():
+            form.save()
+            return redirect('cordillera')
+    else:
+        form = CordilleraForm(instance=dato)
+    return render(request, 'tu_template_para_modificar.html', {'form': form})
+
+def descargar_excel_cordillera(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="datos_cordillera.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Datos Cordillera')
+
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Número', 'Área', 'Dependencia', 'Detalle', 'Frecuencia', 'Procedimiento', 'Parámetros de Control', 'Horario']
+
+    for col_num, column_title in enumerate(columns):
+        ws.write(row_num, col_num, column_title, font_style)
+
+    font_style = xlwt.XFStyle()
+
+    datos = Cordillera.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
+
+    for row in datos:
+        row_num += 1
+        for col_num, value in enumerate(row):
+            ws.write(row_num, col_num, value, font_style)
+
+    wb.save(response)
+    return response
 
 def buin(request):
     if request.method == 'POST':
@@ -1121,6 +1211,51 @@ def buin(request):
     buin = Buin.objects.all()
     return render(request, 'Instalaciones/Biopackaging/Corrugados/EEIIBuin.html', {'form': form, 'buin': buin})
 
+def eliminar_buin(request, dato_id):
+    if request.method == 'POST':
+        dato = Buin.objects.get(pk=dato_id)
+        dato.delete()
+    return redirect('buin')
+
+def modificar_buin(request, dato_id):
+    dato = Buin.objects.get(pk=dato_id)
+    if request.method == 'POST':
+        form = BuinForm(request.POST, instance=dato)
+        if form.is_valid():
+            form.save()
+            return redirect('buin')
+    else:
+        form = BuinForm(instance=dato)
+    return render(request, 'tu_template_para_modificar.html', {'form': form})
+
+def descargar_excel_buin(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="datos_buin.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Datos Buin')
+
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Número', 'Área', 'Dependencia', 'Detalle', 'Frecuencia', 'Procedimiento', 'Parámetros de Control', 'Horario']
+
+    for col_num, column_title in enumerate(columns):
+        ws.write(row_num, col_num, column_title, font_style)
+
+    font_style = xlwt.XFStyle()
+
+    datos = Buin.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
+
+    for row in datos:
+        row_num += 1
+        for col_num, value in enumerate(row):
+            ws.write(row_num, col_num, value, font_style)
+
+    wb.save(response)
+    return response
+
 def osorno(request):
     if request.method == 'POST':
         form = OsornoForm(request.POST, request.FILES)
@@ -1135,6 +1270,51 @@ def osorno(request):
 
     osorno = Osorno.objects.all()
     return render(request, 'Instalaciones/Biopackaging/Corrugados/EEIIOsorno.html', {'form': form, 'osorno': osorno})
+
+def eliminar_osorno(request, dato_id):
+    if request.method == 'POST':
+        dato = Osorno.objects.get(pk=dato_id)
+        dato.delete()
+    return redirect('osorno')
+
+def modificar_osorno(request, dato_id):
+    dato = Osorno.objects.get(pk=dato_id)
+    if request.method == 'POST':
+        form = OsornoForm(request.POST, instance=dato)
+        if form.is_valid():
+            form.save()
+            return redirect('osorno')
+    else:
+        form = OsornoForm(instance=dato)
+    return render(request, 'tu_template_para_modificar.html', {'form': form})
+
+def descargar_excel_osorno(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="datos_osorno.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Datos Osorno')
+
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Número', 'Área', 'Dependencia', 'Detalle', 'Frecuencia', 'Procedimiento', 'Parámetros de Control', 'Horario']
+
+    for col_num, column_title in enumerate(columns):
+        ws.write(row_num, col_num, column_title, font_style)
+
+    font_style = xlwt.XFStyle()
+
+    datos = Osorno.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
+
+    for row in datos:
+        row_num += 1
+        for col_num, value in enumerate(row):
+            ws.write(row_num, col_num, value, font_style)
+
+    wb.save(response)
+    return response
 
 def tiltil(request):
     if request.method == 'POST':
@@ -1151,6 +1331,51 @@ def tiltil(request):
     tiltil = TilTil.objects.all()
     return render(request, 'Instalaciones/Biopackaging/Corrugados/EEIITilTil.html', {'form': form, 'tiltil': tiltil})
 
+def eliminar_tiltil(request, dato_id):
+    if request.method == 'POST':
+        dato = TilTil.objects.get(pk=dato_id)
+        dato.delete()
+    return redirect('tiltil')
+
+def modificar_tiltil(request, dato_id):
+    dato = TilTil.objects.get(pk=dato_id)
+    if request.method == 'POST':
+        form = TilTilForm(request.POST, instance=dato)
+        if form.is_valid():
+            form.save()
+            return redirect('tiltil')
+    else:
+        form = TilTilForm(instance=dato)
+    return render(request, 'tu_template_para_modificar.html', {'form': form})
+
+def descargar_excel_tiltil(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="datos_tiltil.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Datos TilTil')
+
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Número', 'Área', 'Dependencia', 'Detalle', 'Frecuencia', 'Procedimiento', 'Parámetros de Control', 'Horario']
+
+    for col_num, column_title in enumerate(columns):
+        ws.write(row_num, col_num, column_title, font_style)
+
+    font_style = xlwt.XFStyle()
+
+    datos = TilTil.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
+
+    for row in datos:
+        row_num += 1
+        for col_num, value in enumerate(row):
+            ws.write(row_num, col_num, value, font_style)
+
+    wb.save(response)
+    return response
+
 def sorepapudahuel(request):
     if request.method == 'POST':
         form = PudahuelForm(request.POST, request.FILES)
@@ -1165,6 +1390,51 @@ def sorepapudahuel(request):
 
     pudahuel = Pudahuel.objects.all()
     return render(request, 'Instalaciones/Biopackaging/Corrugados/SorepaPudahuel.html', {'form': form, 'pudahuel': pudahuel})
+
+def eliminar_sorepapudahuel(request, dato_id):
+    if request.method == 'POST':
+        dato = Pudahuel.objects.get(pk=dato_id)
+        dato.delete()
+    return redirect('sorepapudahuela')
+
+def modificar_sorepapudahuel(request, dato_id):
+    dato = Pudahuel.objects.get(pk=dato_id)
+    if request.method == 'POST':
+        form = PudahuelForm(request.POST, instance=dato)
+        if form.is_valid():
+            form.save()
+            return redirect('sorepapudahuel')
+    else:
+        form = PudahuelForm(instance=dato)
+    return render(request, 'tu_template_para_modificar.html', {'form': form})
+
+def descargar_excel_sorepapudahuel(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="datos_sorepapudahuel.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Datos Pudahuel')
+
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Número', 'Área', 'Dependencia', 'Detalle', 'Frecuencia', 'Procedimiento', 'Parámetros de Control', 'Horario']
+
+    for col_num, column_title in enumerate(columns):
+        ws.write(row_num, col_num, column_title, font_style)
+
+    font_style = xlwt.XFStyle()
+
+    datos = Pudahuel.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
+
+    for row in datos:
+        row_num += 1
+        for col_num, value in enumerate(row):
+            ws.write(row_num, col_num, value, font_style)
+
+    wb.save(response)
+    return response
 
 def sorepapuentealto(request):
     if request.method == 'POST':
@@ -1181,13 +1451,58 @@ def sorepapuentealto(request):
     puentealto = PuenteAlto.objects.all()
     return render(request, 'Instalaciones/Biopackaging/Corrugados/SorepaPuenteAlto.html', {'form': form, 'puentealto': puentealto})
 
-def sorepaofi(request):
+def eliminar_sorepapuentealto(request, dato_id):
+    if request.method == 'POST':
+        dato = PuenteAlto.objects.get(pk=dato_id)
+        dato.delete()
+    return redirect('sorepapuentealto')
+
+def modificar_sorepapuentealto(request, dato_id):
+    dato = PuenteAlto.objects.get(pk=dato_id)
+    if request.method == 'POST':
+        form = PuenteAltoForm(request.POST, instance=dato)
+        if form.is_valid():
+            form.save()
+            return redirect('sorepapuentealtoo')
+    else:
+        form = PuenteAltoForm(instance=dato)
+    return render(request, 'tu_template_para_modificar.html', {'form': form})
+
+def descargar_excel_sorepapuentealto(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="datos_sorepapuentealto.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Datos PuenteAlto')
+
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Número', 'Área', 'Dependencia', 'Detalle', 'Frecuencia', 'Procedimiento', 'Parámetros de Control', 'Horario']
+
+    for col_num, column_title in enumerate(columns):
+        ws.write(row_num, col_num, column_title, font_style)
+
+    font_style = xlwt.XFStyle()
+
+    datos = PuenteAlto.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
+
+    for row in datos:
+        row_num += 1
+        for col_num, value in enumerate(row):
+            ws.write(row_num, col_num, value, font_style)
+
+    wb.save(response)
+    return response
+
+def redoficinas(request):
     if request.method == 'POST':
         form = RedOficinasForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             messages.success(request, 'Datos ingresados correctamente')
-            return redirect('sorepaofi')
+            return redirect('redoficinas')
         else:
             messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
@@ -1195,6 +1510,51 @@ def sorepaofi(request):
 
     redoficinas = RedOficinas.objects.all()
     return render(request, 'Instalaciones/Biopackaging/Corrugados/SorepaRedOficinas.html', {'form': form, 'redoficinas': redoficinas})
+
+def eliminar_redoficinas(request, dato_id):
+    if request.method == 'POST':
+        dato = RedOficinas.objects.get(pk=dato_id)
+        dato.delete()
+    return redirect('redoficinas')
+
+def modificar_redoficinas(request, dato_id):
+    dato = RedOficinas.objects.get(pk=dato_id)
+    if request.method == 'POST':
+        form = ChimolsaForm(request.POST, instance=dato)
+        if form.is_valid():
+            form.save()
+            return redirect('redoficinas')
+    else:
+        form = RedOficinasForm(instance=dato)
+    return render(request, 'tu_template_para_modificar.html', {'form': form})
+
+def descargar_excel_redoficinas(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="datos_redoficinas.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Datos Sorepa Red Oficinas')
+
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Número', 'Área', 'Dependencia', 'Detalle', 'Frecuencia', 'Procedimiento', 'Parámetros de Control', 'Horario']
+
+    for col_num, column_title in enumerate(columns):
+        ws.write(row_num, col_num, column_title, font_style)
+
+    font_style = xlwt.XFStyle()
+
+    datos = RedOficinas.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
+
+    for row in datos:
+        row_num += 1
+        for col_num, value in enumerate(row):
+            ws.write(row_num, col_num, value, font_style)
+
+    wb.save(response)
+    return response
 
 def sorepasanjoaquin(request):
     if request.method == 'POST':
@@ -1210,6 +1570,51 @@ def sorepasanjoaquin(request):
 
     sanjoaquin = SanJoaquin.objects.all()
     return render(request, 'Instalaciones/Biopackaging/Corrugados/SorepaSanJoaquin.html', {'form': form, 'sanjoaquin': sanjoaquin})
+
+def eliminar_sorepasanjoaquin(request, dato_id):
+    if request.method == 'POST':
+        dato = SanJoaquin.objects.get(pk=dato_id)
+        dato.delete()
+    return redirect('sorepasanjoaquin')
+
+def modificar_sorepasanjoaquin(request, dato_id):
+    dato = SanJoaquin.objects.get(pk=dato_id)
+    if request.method == 'POST':
+        form = SanJoaquinForm(request.POST, instance=dato)
+        if form.is_valid():
+            form.save()
+            return redirect('sorepasanjoaquin')
+    else:
+        form = SanJoaquinForm(instance=dato)
+    return render(request, 'tu_template_para_modificar.html', {'form': form})
+
+def descargar_excel_sorepasanjoaquin(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="datos_sorepa_sanjoaquin.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Datos SanJoaquin')
+
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Número', 'Área', 'Dependencia', 'Detalle', 'Frecuencia', 'Procedimiento', 'Parámetros de Control', 'Horario']
+
+    for col_num, column_title in enumerate(columns):
+        ws.write(row_num, col_num, column_title, font_style)
+
+    font_style = xlwt.XFStyle()
+
+    datos = SanJoaquin.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
+
+    for row in datos:
+        row_num += 1
+        for col_num, value in enumerate(row):
+            ws.write(row_num, col_num, value, font_style)
+
+    wb.save(response)
+    return response
 
 
 
