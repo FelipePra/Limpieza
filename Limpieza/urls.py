@@ -194,22 +194,22 @@ urlpatterns = [
     path('viverocd/', views.viverocd, name='viverocd'),
 
     #ursl Modificar
-    path('modificar_balnearios/<int:dato_id>', views.modificar_balnearios, name='modificar_balnearios'),
-    path('modificar_villaforest/<int:dato_id>', views.modificar_villaforest, name='modificar_villaforest'),
-    path('modificar_bosquesplata/<int:dato_id>', views.modificar_bosquesplata, name='modificar_bosquesplata'),
-    path('modificar_edicorpo/<int:dato_id>', views.modificar_edicorpo, name='modificar_edicorpo'),
-    path('modificar_transito/<int:dato_id>', views.modificar_transito, name='modificar_transito'),
-    path('modificar_coyhaique/<int:dato_id>', views.modificar_coyhaique, name='modificar_coyhaique'),
-    path('modificar_viverocd/<int:dato_id>', views.modificar_viverocd, name='modificar_viverocd'),
+    path('modificar_balnearios/<int:dato_id>/', views.modificar_balnearios, name='modificar_balnearios'),
+    path('modificar_villaforest/<int:dato_id>/', views.modificar_villaforest, name='modificar_villaforest'),
+    path('modificar_bosquesplata/<int:dato_id>/', views.modificar_bosquesplata, name='modificar_bosquesplata'),
+    path('modificar_edicorpo/<int:dato_id>/', views.modificar_edicorpo, name='modificar_edicorpo'),
+    path('modificar_transito/<int:dato_id>/', views.modificar_transito, name='modificar_transito'),
+    path('modificar_coyhaique/<int:dato_id>/', views.modificar_coyhaique, name='modificar_coyhaique'),
+    path('modificar_viverocd/<int:dato_id>/', views.modificar_viverocd, name='modificar_viverocd'),
 
     #ursl Eliminar
-    path('eliminar_balnearios/<int:dato_id>', views.eliminar_balnearios, name='eliminar_balnearios'),
-    path('eliminar_villaforest/<int:dato_id>', views.eliminar_villaforest, name='eliminar_villaforest'),
-    path('eliminar_bosquesplata/<int:dato_id>', views.eliminar_bosquesplata, name='eliminar_bosquesplata'),
-    path('eliminar_edicorpo/<int:dato_id>', views.eliminar_edicorpo, name='eliminar_edicorpo'),
-    path('eliminar_transito/<int:dato_id>', views.eliminar_transito, name='eliminar_transito'),
-    path('eliminar_coyhaique/<int:dato_id>', views.eliminar_coyhaique, name='eliminar_coyhaique'),
-    path('eliminar_viverocd/<int:dato_id>', views.eliminar_viverocd, name='eliminar_viverocd'),
+    path('eliminar_balnearios/<int:dato_id>/', views.eliminar_balnearios, name='eliminar_balnearios'),
+    path('eliminar_villaforest/<int:dato_id>/', views.eliminar_villaforest, name='eliminar_villaforest'),
+    path('eliminar_bosquesplata/<int:dato_id>/', views.eliminar_bosquesplata, name='eliminar_bosquesplata'),
+    path('eliminar_edicorpo/<int:dato_id>/', views.eliminar_edicorpo, name='eliminar_edicorpo'),
+    path('eliminar_transito/<int:dato_id>/', views.eliminar_transito, name='eliminar_transito'),
+    path('eliminar_coyhaique/<int:dato_id>/', views.eliminar_coyhaique, name='eliminar_coyhaique'),
+    path('eliminar_viverocd/<int:dato_id>/', views.eliminar_viverocd, name='eliminar_viverocd'),
 
     #urls Descargar excel
     path('descargar_excel_balnearios/', views.descargar_excel_balnearios, name='descargar_excel_balnearios'),
@@ -229,6 +229,34 @@ urlpatterns = [
     path('plywood/',views.plywood, name='plywood'),
     path('coronel/',views.coronel, name='coronel'),
     path('remLA/',views.remLA, name='remLA'),
+
+    #urls Modificar
+    path('modificar_bucalemu/<int:dato_id>/',views.modificar_bucalemu, name='modificar_bucalemu'),
+    path('modificar_mulchen/<int:dato_id>/',views.modificar_mulchen, name='modificar_mulchen'),
+    path('modificar_nacimiento/<int:dato_id>/',views.modificar_nacimiento,name='modificar_nacimiento'),
+    path('modificar_niuform/<int:dato_id>/',views.modificar_niuform, name='modificar_niuform'),
+    path('modificar_plywood/<int:dato_id>/',views.modificar_plywood, name='modificar_plywood'),
+    path('modificar_coronel/<int:dato_id>/',views.modificar_coronel, name='modificar_coronel'),
+    path('modificar_remLA/<int:dato_id>/',views.modificar_remLA, name='modificar_remLA'),
+
+    #urls Eliminar
+    path('eliminar_bucalemu/<int:dato_id>/', views.eliminar_bucalemu, name='eliminar_bucalemu'),
+    path('eliminar_mulchen/<int:dato_id>/', views.eliminar_mulchen, name='eliminar_mulchen'),
+    path('eliminar_nacimiento/<int:dato_id>/', views.eliminar_nacimiento,name='eliminar_nacimiento'),
+    path('eliminar_niuform/<int:dato_id>/', views.eliminar_niuform, name='eliminar_niuform'),
+    path('eliminar_plywood/<int:dato_id>/', views.eliminar_plywood, name='eliminar_plywood'),
+    path('eliminar_coronel/<int:dato_id>/', views.eliminar_coronel, name='eliminar_coronel'),
+    path('eliminar_remLA/<int:dato_id>/', views.eliminar_remLA, name='eliminar_remLA'),
+
+    #urls Descargar excel
+    path('descargar_excel_bucalemu/', views.descargar_excel_bucalemu, name='descargar_excel_bucalemu'),
+    path('descargar_excel_mulchen/', views.descargar_excel_mulchen, name='descargar_excel_mulchen'),
+    path('descargar_excel_nacimiento/', views.descargar_excel_nacimiento,name='descargar_excel_nacimiento'),
+    path('descargar_excel_niuform/', views.descargar_excel_niuform, name='descargar_excel_niuform'),
+    path('descargar_excel_plywood/', views.descargar_excel_plywood, name='descargar_excel_plywood'),
+    path('descargar_excel_coronel/', views.descargar_excel_coronel, name='descargar_excel_coronel'),
+    path('descargar_excel_remLA/', views.descargar_excel_remLA, name='descargar_excel_remLA'),
+
 
     #Urls Pulp
     path('balneariolaja/', views.balneariolaja, name='balneariolaja'),

@@ -2057,6 +2057,53 @@ def bucalemu(request):
     bucalemu = Bucalemu.objects.all()
     return render(request, 'Instalaciones/Maderas/AS_Bucalemu.html', {'form': form, 'bucalemu': bucalemu})
 
+def eliminar_bucalemu(request, dato_id):
+    if request.method == 'POST':
+        dato = Bucalemu.objects.get(pk=dato_id)
+        dato.delete()
+    return redirect('bucalemu')
+
+def modificar_bucalemu(request, dato_id):
+    dato = Bucalemu.objects.get(pk=dato_id)
+    if request.method == 'POST':
+        form = BucalemuForm(request.POST, instance=dato)
+        if form.is_valid():
+            form.save()
+            return redirect('bucalemu')
+    else:
+        form = BucalemuForm(instance=dato)
+    return render(request, 'tu_template_para_modificar.html', {'form': form})
+
+def descargar_excel_bucalemu(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="datos_bucalemu.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Datos Bucalemu')
+
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Número', 'Área', 'Dependencia', 'Detalle', 'Frecuencia', 'Procedimiento', 'Parámetros de Control', 'Horario']
+
+    for col_num, column_title in enumerate(columns):
+        ws.write(row_num, col_num, column_title, font_style)
+
+    font_style = xlwt.XFStyle()
+
+    datos = Bucalemu.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
+
+    for row in datos:
+        row_num += 1
+        for col_num, value in enumerate(row):
+            ws.write(row_num, col_num, value, font_style)
+
+    wb.save(response)
+    return response
+
+
+
 def mulchen(request):
     if request.method == 'POST':
         form = MulchenForm(request.POST, request.FILES)
@@ -2071,6 +2118,52 @@ def mulchen(request):
 
     mulchen = Mulchen.objects.all()
     return render(request, 'Instalaciones/Maderas/AS_Mulchen.html', {'form': form, 'mulchen': mulchen})
+
+def eliminar_mulchen(request, dato_id):
+    if request.method == 'POST':
+        dato = Mulchen.objects.get(pk=dato_id)
+        dato.delete()
+    return redirect('mulchen')
+
+def modificar_mulchen(request, dato_id):
+    dato = Mulchen.objects.get(pk=dato_id)
+    if request.method == 'POST':
+        form = MulchenForm(request.POST, instance=dato)
+        if form.is_valid():
+            form.save()
+            return redirect('mulchen')
+    else:
+        form = MulchenForm(instance=dato)
+    return render(request, 'tu_template_para_modificar.html', {'form': form})
+
+def descargar_excel_mulchen(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="datos_mulchen.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Datos Mulchen')
+
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Número', 'Área', 'Dependencia', 'Detalle', 'Frecuencia', 'Procedimiento', 'Parámetros de Control', 'Horario']
+
+    for col_num, column_title in enumerate(columns):
+        ws.write(row_num, col_num, column_title, font_style)
+
+    font_style = xlwt.XFStyle()
+
+    datos = Mulchen.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
+
+    for row in datos:
+        row_num += 1
+        for col_num, value in enumerate(row):
+            ws.write(row_num, col_num, value, font_style)
+
+    wb.save(response)
+    return response
+
 
 def nacimiento(request):
     if request.method == 'POST':
@@ -2087,6 +2180,52 @@ def nacimiento(request):
     nacimiento = Nacimiento.objects.all()
     return render(request, 'Instalaciones/Maderas/AS_Nacimiento.html', {'form': form, 'nacimiento': nacimiento})
 
+def eliminar_nacimiento(request, dato_id):
+    if request.method == 'POST':
+        dato = Nacimiento.objects.get(pk=dato_id)
+        dato.delete()
+    return redirect('nacimiento')
+
+def modificar_nacimiento(request, dato_id):
+    dato = Nacimiento.objects.get(pk=dato_id)
+    if request.method == 'POST':
+        form = NacimientoForm(request.POST, instance=dato)
+        if form.is_valid():
+            form.save()
+            return redirect('nacimiento')
+    else:
+        form = NacimientoForm(instance=dato)
+    return render(request, 'tu_template_para_modificar.html', {'form': form})
+
+def descargar_excel_nacimiento(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="datos_nacimiento.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Datos Nacimiento')
+
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Número', 'Área', 'Dependencia', 'Detalle', 'Frecuencia', 'Procedimiento', 'Parámetros de Control', 'Horario']
+
+    for col_num, column_title in enumerate(columns):
+        ws.write(row_num, col_num, column_title, font_style)
+
+    font_style = xlwt.XFStyle()
+
+    datos = Nacimiento.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
+
+    for row in datos:
+        row_num += 1
+        for col_num, value in enumerate(row):
+            ws.write(row_num, col_num, value, font_style)
+
+    wb.save(response)
+    return response
+
+
 def niuform(request):
     if request.method == 'POST':
         form = NiuformForm(request.POST, request.FILES)
@@ -2101,6 +2240,52 @@ def niuform(request):
     
     niuform = Niuform.objects.all()
     return render(request, 'Instalaciones/Maderas/Niuform_Los_Angeles.html', {'form': form, 'niuform': niuform})
+
+def eliminar_niuform(request, dato_id):
+    if request.method == 'POST':
+        dato = Niuform.objects.get(pk=dato_id)
+        dato.delete()
+    return redirect('niuform')
+
+def modificar_niuform(request, dato_id):
+    dato = Niuform.objects.get(pk=dato_id)
+    if request.method == 'POST':
+        form = NiuformForm(request.POST, instance=dato)
+        if form.is_valid():
+            form.save()
+            return redirect('niuform')
+    else:
+        form = NiuformForm(instance=dato)
+    return render(request, 'tu_template_para_modificar.html', {'form': form})
+
+def descargar_excel_niuform(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="datos_niuformla.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Datos Niuform')
+
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Número', 'Área', 'Dependencia', 'Detalle', 'Frecuencia', 'Procedimiento', 'Parámetros de Control', 'Horario']
+
+    for col_num, column_title in enumerate(columns):
+        ws.write(row_num, col_num, column_title, font_style)
+
+    font_style = xlwt.XFStyle()
+
+    datos = Niuform.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
+
+    for row in datos:
+        row_num += 1
+        for col_num, value in enumerate(row):
+            ws.write(row_num, col_num, value, font_style)
+
+    wb.save(response)
+    return response
+
 
 def plywood(request):
     if request.method == 'POST':
@@ -2117,6 +2302,52 @@ def plywood(request):
     plywood = Plywood.objects.all()
     return render(request, 'Instalaciones/Maderas/Plywood.html', {'form': form, 'plywood': plywood})
 
+def eliminar_plywood(request, dato_id):
+    if request.method == 'POST':
+        dato = Plywood.objects.get(pk=dato_id)
+        dato.delete()
+    return redirect('plywood')
+
+def modificar_plywood(request, dato_id):
+    dato = Plywood.objects.get(pk=dato_id)
+    if request.method == 'POST':
+        form = PlywoodForm(request.POST, instance=dato)
+        if form.is_valid():
+            form.save()
+            return redirect('plywood')
+    else:
+        form = PlywoodForm(instance=dato)
+    return render(request, 'tu_template_para_modificar.html', {'form': form})
+
+def descargar_excel_plywood(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="datos_plywood.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Datos Plywood')
+
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Número', 'Área', 'Dependencia', 'Detalle', 'Frecuencia', 'Procedimiento', 'Parámetros de Control', 'Horario']
+
+    for col_num, column_title in enumerate(columns):
+        ws.write(row_num, col_num, column_title, font_style)
+
+    font_style = xlwt.XFStyle()
+
+    datos = Plywood.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
+
+    for row in datos:
+        row_num += 1
+        for col_num, value in enumerate(row):
+            ws.write(row_num, col_num, value, font_style)
+
+    wb.save(response)
+    return response
+
+
 def coronel(request):
     if request.method == 'POST':
         form = CoronelForm(request.POST, request.FILES)
@@ -2132,6 +2363,52 @@ def coronel(request):
     coronel = Coronel.objects.all()
     return render(request, 'Instalaciones/Maderas/Rem_Coronel.html', {'form': form, 'coronel': coronel})
 
+def eliminar_coronel(request, dato_id):
+    if request.method == 'POST':
+        dato = Coronel.objects.get(pk=dato_id)
+        dato.delete()
+    return redirect('coronel')
+
+def modificar_coronel(request, dato_id):
+    dato = Coronel.objects.get(pk=dato_id)
+    if request.method == 'POST':
+        form = CoronelForm(request.POST, instance=dato)
+        if form.is_valid():
+            form.save()
+            return redirect('coronel')
+    else:
+        form = CoronelForm(instance=dato)
+    return render(request, 'tu_template_para_modificar.html', {'form': form})
+
+def descargar_excel_coronel(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="datos_coronel.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Datos Coronel')
+
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Número', 'Área', 'Dependencia', 'Detalle', 'Frecuencia', 'Procedimiento', 'Parámetros de Control', 'Horario']
+
+    for col_num, column_title in enumerate(columns):
+        ws.write(row_num, col_num, column_title, font_style)
+
+    font_style = xlwt.XFStyle()
+
+    datos = Coronel.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
+
+    for row in datos:
+        row_num += 1
+        for col_num, value in enumerate(row):
+            ws.write(row_num, col_num, value, font_style)
+
+    wb.save(response)
+    return response
+
+
 def remLA(request):
     if request.method == 'POST':
         form = RemLAForm(request.POST, request.FILES)
@@ -2146,6 +2423,52 @@ def remLA(request):
 
     remLA = RemLA.objects.all()
     return render(request, 'Instalaciones/Maderas/Rem_Los_Angeles.html', {'form': form, 'remLA': remLA})
+
+def eliminar_remLA(request, dato_id):
+    if request.method == 'POST':
+        dato = RemLA.objects.get(pk=dato_id)
+        dato.delete()
+    return redirect('remLA')
+
+def modificar_remLA(request, dato_id):
+    dato = Bucalemu.objects.get(pk=dato_id)
+    if request.method == 'POST':
+        form = RemLAForm(request.POST, instance=dato)
+        if form.is_valid():
+            form.save()
+            return redirect('remLA')
+    else:
+        form = RemLAForm(instance=dato)
+    return render(request, 'tu_template_para_modificar.html', {'form': form})
+
+def descargar_excel_remLA(request):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="datos_remLA.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Datos RemLA')
+
+    row_num = 0
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Número', 'Área', 'Dependencia', 'Detalle', 'Frecuencia', 'Procedimiento', 'Parámetros de Control', 'Horario']
+
+    for col_num, column_title in enumerate(columns):
+        ws.write(row_num, col_num, column_title, font_style)
+
+    font_style = xlwt.XFStyle()
+
+    datos = RemLA.objects.all().values_list('numero', 'area', 'dependencia', 'detalle', 'frecuencia', 'procedimientos', 'parametro_control', 'horario')
+
+    for row in datos:
+        row_num += 1
+        for col_num, value in enumerate(row):
+            ws.write(row_num, col_num, value, font_style)
+
+    wb.save(response)
+    return response
+
 
 #Pulp
 
