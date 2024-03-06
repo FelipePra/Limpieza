@@ -57,6 +57,11 @@
             </div>
             <button type="submit" class="btn btn-dark"><i class="fa fa-save mr-2"></i>Guardar</button>
         </form>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="file" name="archivo_excel" accept=".xls,.xlsx">
+            <button type="submit" class="btn btn-dark"><i class="fa fa-upload mr-2"></i>Subir Excel</button>
+        </form>
         <a href="{% url 'descargar_excel_brasil' %}" class="btn btn-secondary mt-3"><i class="fa fa-download mr-2"></i>Descargar Excel</a>
     </div>
 </div>
@@ -90,8 +95,8 @@
                 <td>{{ dato.parametro_control }}</td>
                 <td>{{ dato.horario }}</td>
                 <td>
-                    <a href="{% url 'modificar_dato' dato.id %}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>
-                    <form method="post" action="{% url 'eliminar_dato' dato.id %}" style="display: inline;">
+                    <a href="{% url 'modificar_dato_brasil' dato.id %}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>
+                    <form method="post" action="{% url 'eliminar_dato_brasil' dato.id %}" style="display: inline;">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas eliminar este dato?')"><i class="fas fa-trash-alt"></i></button>
                     </form>

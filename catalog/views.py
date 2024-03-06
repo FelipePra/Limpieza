@@ -45,20 +45,60 @@ def sackkraft(request):
     return render(request, 'Instalaciones/Biopackaging/SackKraft.html', {})
 
 # Vistas CMPC
+# excel_reader/views.py
+import pandas as pd
+from .forms import DatosCMPCChileForm
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .models import DatosCMPCChile
+
 def cmpc_chile(request):
     if request.method == 'POST':
-        form = DatosCMPCChileForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('cmpc_chile')
+        # Si se envió un archivo Excel
+        if 'archivo_excel' in request.FILES:
+            form = DatosCMPCChileForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                # Obtener el archivo Excel cargado
+                archivo_excel = request.FILES['archivo_excel']
+                # Leer el archivo Excel usando pandas
+                try:
+                    df = pd.read_excel(archivo_excel)
+                    # Guardar los datos en la base de datos
+                    for index, row in df.iterrows():
+                        dato = DatosCMPCChile(
+                            numero=row['Número'],
+                            area=row['Área'],
+                            dependencia=row['Dependencia'],
+                            detalle=row['Detalle'],
+                            frecuencia=row['Frecuencia'],
+                            procedimientos=row['Procedimiento'],
+                            parametro_control=row['Parámetros de Control'],
+                            horario=row['Horario']
+                        )
+                        dato.save()
+                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
+                except Exception as e:
+                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
+                return redirect('cmpc_chile')
+        # Si se envió el formulario de ingreso manual de datos
         else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+            form = DatosCMPCChileForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Datos ingresados correctamente.')
+                return redirect('cmpc_chile')
+            else:
+                messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+
     else:
         form = DatosCMPCChileForm()
 
     datoschile = DatosCMPCChile.objects.all()
+    print(datoschile)
     return render(request, 'Instalaciones/CMPC/CMPC_Chile.html', {'form': form, 'datoschile': datoschile})
+
+
 def eliminar_dato_chile(request, dato_id):
     if request.method == 'POST':
         dato = DatosCMPCChile.objects.get(pk=dato_id)
@@ -103,16 +143,46 @@ def descargar_excel_chile(request):
 
     wb.save(response)
     return response
+
 def cmpc_argentina(request):
     if request.method == 'POST':
-        form = DatosCMPCArgentinaForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('cmpc_argentina')
-        else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
-    else:
+        # Si se envió un archivo Excel
+        if 'archivo_excel' in request.FILES:
+            form = DatosCMPCArgentinaForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                # Obtener el archivo Excel cargado
+                archivo_excel = request.FILES['archivo_excel']
+                # Leer el archivo Excel usando pandas
+                try:
+                    df = pd.read_excel(archivo_excel)
+                    # Guardar los datos en la base de datos
+                    for index, row in df.iterrows():
+                        dato = DatosCMPCArgentina(
+                            numero=row['Número'],
+                            area=row['Área'],
+                            dependencia=row['Dependencia'],
+                            detalle=row['Detalle'],
+                            frecuencia=row['Frecuencia'],
+                            procedimientos=row['Procedimiento'],
+                            parametro_control=row['Parámetros de Control'],
+                            horario=row['Horario']
+                        )
+                        dato.save()
+                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
+                except Exception as e:
+                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
+                return redirect('cmpc_argentina')
+            #Si se envio el formulario de ingreso manual de datos
+            else :
+                form = DatosCMPCArgentinaForm(request.POST)
+                if form.is_valid():
+                    form.save()
+                    messages.success(request, 'Datos ingresados correctamente.')
+                    return redirect('cmpc_argentina')
+                else:
+                    messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+    else: 
         form = DatosCMPCArgentinaForm()
 
     datosargentina = DatosCMPCArgentina.objects.all()
@@ -165,13 +235,42 @@ def descargar_excel_argentina(request):
 
 def cmpc_brasil(request):
     if request.method == 'POST':
-        form = DatosCMPCBrasilForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('cmpc_argentina')
-        else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+        # Si se envió un archivo Excel
+        if 'archivo_excel' in request.FILES:
+            form = DatosCMPCBrasilForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                # Obtener el archivo Excel cargado
+                archivo_excel = request.FILES['archivo_excel']
+                # Leer el archivo Excel usando pandas
+                try:
+                    df = pd.read_excel(archivo_excel)
+                    # Guardar los datos en la base de datos
+                    for index, row in df.iterrows():
+                        dato = DatosCMPCBrasil(
+                            numero=row['Número'],
+                            area=row['Área'],
+                            dependencia=row['Dependencia'],
+                            detalle=row['Detalle'],
+                            frecuencia=row['Frecuencia'],
+                            procedimientos=row['Procedimiento'],
+                            parametro_control=row['Parámetros de Control'],
+                            horario=row['Horario']
+                        )
+                        dato.save()
+                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
+                except Exception as e:
+                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
+                return redirect('cmpc_brasil')
+            #Si se envio el formulario de ingreso manual de datos
+            else:
+                form = DatosCMPCBrasilForm(request.POST, request.FILES)
+                if form.is_valid():
+                    form.save()
+                    messages.success(request, 'Datos ingresados correctamente')
+                    return redirect('cmpc_argentina')
+                else:
+                    messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
         form = DatosCMPCBrasilForm()
 
@@ -227,18 +326,49 @@ def descargar_excel_brasil(request):
 def cmpc_mexico(request):
     
     if request.method == 'POST':
-        form = DatosCMPCMexicoForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('cmpc_mexico')
-        else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+        # Si se envió un archivo Excel
+        if 'archivo_excel' in request.FILES:
+            form = DatosCMPCMexicoForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                # Obtener el archivo Excel cargado
+                archivo_excel = request.FILES['archivo_excel']
+                # Leer el archivo Excel usando pandas
+                try:
+                    df = pd.read_excel(archivo_excel)
+                    # Guardar los datos en la base de datos
+                    for index, row in df.iterrows():
+                        dato = DatosCMPCArgentina(
+                            numero=row['Número'],
+                            area=row['Área'],
+                            dependencia=row['Dependencia'],
+                            detalle=row['Detalle'],
+                            frecuencia=row['Frecuencia'],
+                            procedimientos=row['Procedimiento'],
+                            parametro_control=row['Parámetros de Control'],
+                            horario=row['Horario']
+                        )
+                        dato.save()
+                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
+                except Exception as e:
+                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
+                return redirect('cmpc_mexico')
+            #Si se envio el formulario de ingreso manual de datos
+            else:
+                form = DatosCMPCMexicoForm(request.POST, request.FILES)
+                if form.is_valid():
+                    form.save()
+                    messages.success(request, 'Datos ingresados correctamente')
+                    return redirect('cmpc_mexico')
+                else:
+                    messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+        
     else:
         form = DatosCMPCMexicoForm()
 
     datosmexico = DatosCMPCMexico.objects.all()
     return render(request, 'Instalaciones/CMPC/CMPC_Mexico.html', {'form': form, 'datosmexico': datosmexico})
+
 def eliminar_dato_mexico(request, dato_id):
     if request.method == 'POST':
         dato = DatosCMPCMexico.objects.get(pk=dato_id)
@@ -288,13 +418,42 @@ def descargar_excel_mexico(request):
 #Biopackaging Box Board
 def maule(request):
     if request.method == 'POST':
-        form = MauleForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('maule')
-        else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+        # Si se envió un archivo Excel
+        if 'archivo_excel' in request.FILES:
+            form = MauleForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                # Obtener el archivo Excel cargado
+                archivo_excel = request.FILES['archivo_excel']
+                # Leer el archivo Excel usando pandas
+                try:
+                    df = pd.read_excel(archivo_excel)
+                    # Guardar los datos en la base de datos
+                    for index, row in df.iterrows():
+                        dato = Maule(
+                            numero=row['Número'],
+                            area=row['Área'],
+                            dependencia=row['Dependencia'],
+                            detalle=row['Detalle'],
+                            frecuencia=row['Frecuencia'],
+                            procedimientos=row['Procedimiento'],
+                            parametro_control=row['Parámetros de Control'],
+                            horario=row['Horario']
+                        )
+                        dato.save()
+                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
+                except Exception as e:
+                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
+                return redirect('maule')
+            #Si se envio el formulario de ingreso manual de datos
+            else:
+                form = MauleForm(request.POST, request.FILES)
+                if form.is_valid():
+                    form.save()
+                    messages.success(request, 'Datos ingresados correctamente')
+                    return redirect('maule')
+                else:
+                    messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
         form = MauleForm()
     maule = Maule.objects.all()
@@ -348,13 +507,42 @@ def descargar_excel_maule(request):
 
 def valdivia(request):
     if request.method == 'POST':
-        form = ValdiviaForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('valdivia')
-        else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+        # Si se envió un archivo Excel
+        if 'archivo_excel' in request.FILES:
+            form = ValdiviaForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                # Obtener el archivo Excel cargado
+                archivo_excel = request.FILES['archivo_excel']
+                # Leer el archivo Excel usando pandas
+                try:
+                    df = pd.read_excel(archivo_excel)
+                    # Guardar los datos en la base de datos
+                    for index, row in df.iterrows():
+                        dato = DatosCMPCArgentina(
+                            numero=row['Número'],
+                            area=row['Área'],
+                            dependencia=row['Dependencia'],
+                            detalle=row['Detalle'],
+                            frecuencia=row['Frecuencia'],
+                            procedimientos=row['Procedimiento'],
+                            parametro_control=row['Parámetros de Control'],
+                            horario=row['Horario']
+                        )
+                        dato.save()
+                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
+                except Exception as e:
+                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
+                return redirect('valdivia')
+            #Si se envio el formulario de ingreso manual de datos
+            else:
+                form = ValdiviaForm(request.POST, request.FILES)
+                if form.is_valid():
+                    form.save()
+                    messages.success(request, 'Datos ingresados correctamente')
+                    return redirect('valdivia')
+                else:
+                    messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
         form = ValdiviaForm()
 
@@ -410,13 +598,42 @@ def descargar_excel_valdivia(request):
 
 def oficoncepcion(request):
     if request.method == 'POST':
-        form = OfiConcepcionForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('oficoncepcion')
-        else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+        # Si se envió un archivo Excel
+        if 'archivo_excel' in request.FILES:
+            form = OfiConcepcionForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                # Obtener el archivo Excel cargado
+                archivo_excel = request.FILES['archivo_excel']
+                # Leer el archivo Excel usando pandas
+                try:
+                    df = pd.read_excel(archivo_excel)
+                    # Guardar los datos en la base de datos
+                    for index, row in df.iterrows():
+                        dato = OfiConcepcion(
+                            numero=row['Número'],
+                            area=row['Área'],
+                            dependencia=row['Dependencia'],
+                            detalle=row['Detalle'],
+                            frecuencia=row['Frecuencia'],
+                            procedimientos=row['Procedimiento'],
+                            parametro_control=row['Parámetros de Control'],
+                            horario=row['Horario']
+                        )
+                        dato.save()
+                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
+                except Exception as e:
+                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
+                return redirect('oficoncepcion')
+            #Si se envio el formulario de ingreso manual de datos
+            else:
+                form = OfiConcepcionForm(request.POST, request.FILES)
+                if form.is_valid():
+                    form.save()
+                    messages.success(request, 'Datos ingresados correctamente')
+                    return redirect('oficoncepcion')
+                else:
+                    messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
         form = OfiConcepcionForm()
 
@@ -471,13 +688,42 @@ def descargar_excel_oficoncepcion(request):
 
 def oficinas_temuco(request):
     if request.method == 'POST':
-        form = OfiTemucoForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('ofitemuco')
-        else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+        # Si se envió un archivo Excel
+        if 'archivo_excel' in request.FILES:
+            form = OfiTemucoForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                # Obtener el archivo Excel cargado
+                archivo_excel = request.FILES['archivo_excel']
+                # Leer el archivo Excel usando pandas
+                try:
+                    df = pd.read_excel(archivo_excel)
+                    # Guardar los datos en la base de datos
+                    for index, row in df.iterrows():
+                        dato = OfiTemuco(
+                            numero=row['Número'],
+                            area=row['Área'],
+                            dependencia=row['Dependencia'],
+                            detalle=row['Detalle'],
+                            frecuencia=row['Frecuencia'],
+                            procedimientos=row['Procedimiento'],
+                            parametro_control=row['Parámetros de Control'],
+                            horario=row['Horario']
+                        )
+                        dato.save()
+                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
+                except Exception as e:
+                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
+                return redirect('ofitemuco')
+            #Si se envio el formulario de ingreso manual de datos
+            else:
+                form = OfiTemucoForm(request.POST, request.FILES)
+                if form.is_valid():
+                    form.save()
+                    messages.success(request, 'Datos ingresados correctamente')
+                    return redirect('ofitemuco')
+                else:
+                    messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
         form = OfiTemucoForm()
 
@@ -532,13 +778,42 @@ def descargar_excel_ofitemuco(request):
 
 def quilicura(request):
     if request.method == 'POST':
-        form = QuilicuraForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('quilicura')
-        else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+        # Si se envió un archivo Excel
+        if 'archivo_excel' in request.FILES:
+            form = QuilicuraForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                # Obtener el archivo Excel cargado
+                archivo_excel = request.FILES['archivo_excel']
+                # Leer el archivo Excel usando pandas
+                try:
+                    df = pd.read_excel(archivo_excel)
+                    # Guardar los datos en la base de datos
+                    for index, row in df.iterrows():
+                        dato = Quilicura(
+                            numero=row['Número'],
+                            area=row['Área'],
+                            dependencia=row['Dependencia'],
+                            detalle=row['Detalle'],
+                            frecuencia=row['Frecuencia'],
+                            procedimientos=row['Procedimiento'],
+                            parametro_control=row['Parámetros de Control'],
+                            horario=row['Horario']
+                        )
+                        dato.save()
+                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
+                except Exception as e:
+                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
+                return redirect('quilicura')
+            #Si se envio el formulario de ingreso manual de datos
+            else:
+                form = QuilicuraForm(request.POST, request.FILES)
+                if form.is_valid():
+                    form.save()
+                    messages.success(request, 'Datos ingresados correctamente')
+                    return redirect('quilicura')
+                else:
+                    messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
         form = QuilicuraForm()
 
@@ -596,13 +871,42 @@ def descargar_excel_quilicura(request):
 
 def camposnovos(request):
     if request.method == 'POST':
-        form = CamposNovosForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('camposnovos')
-        else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+        # Si se envió un archivo Excel
+        if 'archivo_excel' in request.FILES:
+            form = CamposNovosForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                # Obtener el archivo Excel cargado
+                archivo_excel = request.FILES['archivo_excel']
+                # Leer el archivo Excel usando pandas
+                try:
+                    df = pd.read_excel(archivo_excel)
+                    # Guardar los datos en la base de datos
+                    for index, row in df.iterrows():
+                        dato = CamposNovos(
+                            numero=row['Número'],
+                            area=row['Área'],
+                            dependencia=row['Dependencia'],
+                            detalle=row['Detalle'],
+                            frecuencia=row['Frecuencia'],
+                            procedimientos=row['Procedimiento'],
+                            parametro_control=row['Parámetros de Control'],
+                            horario=row['Horario']
+                        )
+                        dato.save()
+                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
+                except Exception as e:
+                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
+                return redirect('camposnovos')
+            #Si se envio el formulario de ingreso manual de datos
+            else:
+                form = CamposNovosForm(request.POST, request.FILES)
+                if form.is_valid():
+                    form.save()
+                    messages.success(request, 'Datos ingresados correctamente')
+                    return redirect('camposnovos')
+                else:
+                    messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
         form = CamposNovosForm()
 
@@ -656,13 +960,42 @@ def descargar_excel_camposnovos(request):
 
 def chillan(request):
     if request.method == 'POST':
-        form = ChillanForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('chillan')
-        else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+        # Si se envió un archivo Excel
+        if 'archivo_excel' in request.FILES:
+            form = ChillanForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                # Obtener el archivo Excel cargado
+                archivo_excel = request.FILES['archivo_excel']
+                # Leer el archivo Excel usando pandas
+                try:
+                    df = pd.read_excel(archivo_excel)
+                    # Guardar los datos en la base de datos
+                    for index, row in df.iterrows():
+                        dato = Chillan(
+                            numero=row['Número'],
+                            area=row['Área'],
+                            dependencia=row['Dependencia'],
+                            detalle=row['Detalle'],
+                            frecuencia=row['Frecuencia'],
+                            procedimientos=row['Procedimiento'],
+                            parametro_control=row['Parámetros de Control'],
+                            horario=row['Horario']
+                        )
+                        dato.save()
+                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
+                except Exception as e:
+                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
+                return redirect('chillan')
+            #Si se envio el formulario de ingreso manual de datos
+            else:
+                form = ChillanForm(request.POST, request.FILES)
+                if form.is_valid():
+                    form.save()
+                    messages.success(request, 'Datos ingresados correctamente')
+                    return redirect('chillan')
+                else:
+                    messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
         form = ChillanForm()
 
@@ -716,13 +1049,42 @@ def descargar_excel_chillan(request):
 
 def fabi(request):
     if request.method == 'POST':
-        form = FabiForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('fabi')
-        else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+        # Si se envió un archivo Excel
+        if 'archivo_excel' in request.FILES:
+            form = FabiForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                # Obtener el archivo Excel cargado
+                archivo_excel = request.FILES['archivo_excel']
+                # Leer el archivo Excel usando pandas
+                try:
+                    df = pd.read_excel(archivo_excel)
+                    # Guardar los datos en la base de datos
+                    for index, row in df.iterrows():
+                        dato = Fabi(
+                            numero=row['Número'],
+                            area=row['Área'],
+                            dependencia=row['Dependencia'],
+                            detalle=row['Detalle'],
+                            frecuencia=row['Frecuencia'],
+                            procedimientos=row['Procedimiento'],
+                            parametro_control=row['Parámetros de Control'],
+                            horario=row['Horario']
+                        )
+                        dato.save()
+                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
+                except Exception as e:
+                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
+                return redirect('fabi')
+            #Si se envio el formulario de ingreso manual de datos
+            else:
+                form = FabiForm(request.POST, request.FILES)
+                if form.is_valid():
+                    form.save()
+                    messages.success(request, 'Datos ingresados correctamente')
+                    return redirect('fabi')
+                else:
+                    messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
         form = FabiForm()
 
@@ -776,13 +1138,42 @@ def descargar_excel_fabi(request):
 
 def guadalajara(request):
     if request.method == 'POST':
-        form = GuadalajaraForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('guadalajara')
-        else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+        # Si se envió un archivo Excel
+        if 'archivo_excel' in request.FILES:
+            form = GuadalajaraForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                # Obtener el archivo Excel cargado
+                archivo_excel = request.FILES['archivo_excel']
+                # Leer el archivo Excel usando pandas
+                try:
+                    df = pd.read_excel(archivo_excel)
+                    # Guardar los datos en la base de datos
+                    for index, row in df.iterrows():
+                        dato = Guadalajara(
+                            numero=row['Número'],
+                            area=row['Área'],
+                            dependencia=row['Dependencia'],
+                            detalle=row['Detalle'],
+                            frecuencia=row['Frecuencia'],
+                            procedimientos=row['Procedimiento'],
+                            parametro_control=row['Parámetros de Control'],
+                            horario=row['Horario']
+                        )
+                        dato.save()
+                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
+                except Exception as e:
+                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
+                return redirect('guadalajara')
+            #Si se envio el formulario de ingreso manual de datos
+            else:
+                form = GuadalajaraForm(request.POST, request.FILES)
+                if form.is_valid():
+                    form.save()
+                    messages.success(request, 'Datos ingresados correctamente')
+                    return redirect('guadalajara')
+                else:
+                    messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
         form = GuadalajaraForm()
 
@@ -836,13 +1227,42 @@ def descargar_excel_guadalajara(request):
 
 def irapuato(request):
     if request.method == 'POST':
-        form = IrapuatoForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('irapuato')
-        else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+        # Si se envió un archivo Excel
+        if 'archivo_excel' in request.FILES:
+            form = IrapuatoForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                # Obtener el archivo Excel cargado
+                archivo_excel = request.FILES['archivo_excel']
+                # Leer el archivo Excel usando pandas
+                try:
+                    df = pd.read_excel(archivo_excel)
+                    # Guardar los datos en la base de datos
+                    for index, row in df.iterrows():
+                        dato = Irapuato(
+                            numero=row['Número'],
+                            area=row['Área'],
+                            dependencia=row['Dependencia'],
+                            detalle=row['Detalle'],
+                            frecuencia=row['Frecuencia'],
+                            procedimientos=row['Procedimiento'],
+                            parametro_control=row['Parámetros de Control'],
+                            horario=row['Horario']
+                        )
+                        dato.save()
+                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
+                except Exception as e:
+                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
+                return redirect('irapuato')
+            #Si se envio el formulario de ingreso manual de datos
+            else:
+                form = IrapuatoForm(request.POST, request.FILES)
+                if form.is_valid():
+                    form.save()
+                    messages.success(request, 'Datos ingresados correctamente')
+                    return redirect('irapuato')
+                else:
+                    messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
         form = IrapuatoForm()
 
@@ -896,13 +1316,42 @@ def descargar_excel_irapuato(request):
 
 def peru(request):
     if request.method == 'POST':
-        form = PeruForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('peru')
-        else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+        # Si se envió un archivo Excel
+        if 'archivo_excel' in request.FILES:
+            form = PeruForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                # Obtener el archivo Excel cargado
+                archivo_excel = request.FILES['archivo_excel']
+                # Leer el archivo Excel usando pandas
+                try:
+                    df = pd.read_excel(archivo_excel)
+                    # Guardar los datos en la base de datos
+                    for index, row in df.iterrows():
+                        dato = Peru(
+                            numero=row['Número'],
+                            area=row['Área'],
+                            dependencia=row['Dependencia'],
+                            detalle=row['Detalle'],
+                            frecuencia=row['Frecuencia'],
+                            procedimientos=row['Procedimiento'],
+                            parametro_control=row['Parámetros de Control'],
+                            horario=row['Horario']
+                        )
+                        dato.save()
+                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
+                except Exception as e:
+                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
+                return redirect('peru')
+            #Si se envio el formulario de ingreso manual de datos
+            else:
+                form = PeruForm(request.POST, request.FILES)
+                if form.is_valid():
+                    form.save()
+                    messages.success(request, 'Datos ingresados correctamente')
+                    return redirect('peru')
+                else:
+                    messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
         form = PeruForm()
 
@@ -956,13 +1405,42 @@ def descargar_excel_peru(request):
 
 def piraidosul(request):
     if request.method == 'POST':
-        form = PiraidoSulForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('piraidosul')
-        else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+        # Si se envió un archivo Excel
+        if 'archivo_excel' in request.FILES:
+            form = PiraidoSulForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                # Obtener el archivo Excel cargado
+                archivo_excel = request.FILES['archivo_excel']
+                # Leer el archivo Excel usando pandas
+                try:
+                    df = pd.read_excel(archivo_excel)
+                    # Guardar los datos en la base de datos
+                    for index, row in df.iterrows():
+                        dato = PiraidoSul(
+                            numero=row['Número'],
+                            area=row['Área'],
+                            dependencia=row['Dependencia'],
+                            detalle=row['Detalle'],
+                            frecuencia=row['Frecuencia'],
+                            procedimientos=row['Procedimiento'],
+                            parametro_control=row['Parámetros de Control'],
+                            horario=row['Horario']
+                        )
+                        dato.save()
+                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
+                except Exception as e:
+                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
+                return redirect('piraidosul')
+            #Si se envio el formulario de ingreso manual de datos
+            else:
+                form = PiraidoSulForm(request.POST, request.FILES)
+                if form.is_valid():
+                    form.save()
+                    messages.success(request, 'Datos ingresados correctamente')
+                    return redirect('piraidosul')
+                else:
+                    messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
         form = PiraidoSulForm()
 
@@ -1016,13 +1494,42 @@ def descargar_excel_piraidosul(request):
 
 def sanjose(request):
     if request.method == 'POST':
-        form = SanJoseForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('sanjose')
-        else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+        # Si se envió un archivo Excel
+        if 'archivo_excel' in request.FILES:
+            form = SanJoseForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                # Obtener el archivo Excel cargado
+                archivo_excel = request.FILES['archivo_excel']
+                # Leer el archivo Excel usando pandas
+                try:
+                    df = pd.read_excel(archivo_excel)
+                    # Guardar los datos en la base de datos
+                    for index, row in df.iterrows():
+                        dato = SanJose(
+                            numero=row['Número'],
+                            area=row['Área'],
+                            dependencia=row['Dependencia'],
+                            detalle=row['Detalle'],
+                            frecuencia=row['Frecuencia'],
+                            procedimientos=row['Procedimiento'],
+                            parametro_control=row['Parámetros de Control'],
+                            horario=row['Horario']
+                        )
+                        dato.save()
+                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
+                except Exception as e:
+                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
+                return redirect('sanjose')
+            #Si se envio el formulario de ingreso manual de datos
+            else:
+                form = SanJoseForm(request.POST, request.FILES)
+                if form.is_valid():
+                    form.save()
+                    messages.success(request, 'Datos ingresados correctamente')
+                    return redirect('sanjose')
+                else:
+                    messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
         form = SanJoseForm()
 
@@ -1078,13 +1585,42 @@ def descargar_excel_sanjose(request):
 
 def chimolsa(request):
     if request.method == 'POST':
-        form = ChimolsaForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('chimolsa')
-        else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+        # Si se envió un archivo Excel
+        if 'archivo_excel' in request.FILES:
+            form = ChimolsaForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                # Obtener el archivo Excel cargado
+                archivo_excel = request.FILES['archivo_excel']
+                # Leer el archivo Excel usando pandas
+                try:
+                    df = pd.read_excel(archivo_excel)
+                    # Guardar los datos en la base de datos
+                    for index, row in df.iterrows():
+                        dato = Chimolsa(
+                            numero=row['Número'],
+                            area=row['Área'],
+                            dependencia=row['Dependencia'],
+                            detalle=row['Detalle'],
+                            frecuencia=row['Frecuencia'],
+                            procedimientos=row['Procedimiento'],
+                            parametro_control=row['Parámetros de Control'],
+                            horario=row['Horario']
+                        )
+                        dato.save()
+                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
+                except Exception as e:
+                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
+                return redirect('cmpc_argentina')
+            #Si se envio el formulario de ingreso manual de datos
+            else:
+                form = ChimolsaForm(request.POST, request.FILES)
+                if form.is_valid():
+                    form.save()
+                    messages.success(request, 'Datos ingresados correctamente')
+                    return redirect('chimolsa')
+                else:
+                    messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
         form = ChimolsaForm()
 
@@ -1138,6 +1674,34 @@ def descargar_excel_chimolsa(request):
 
 def cordillera(request):
     if request.method == 'POST':
+        # Si se envió un archivo Excel
+        if 'archivo_excel' in request.FILES:
+            form = CordilleraForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                # Obtener el archivo Excel cargado
+                archivo_excel = request.FILES['archivo_excel']
+                # Leer el archivo Excel usando pandas
+                try:
+                    df = pd.read_excel(archivo_excel)
+                    # Guardar los datos en la base de datos
+                    for index, row in df.iterrows():
+                        dato = Cordillera(
+                            numero=row['Número'],
+                            area=row['Área'],
+                            dependencia=row['Dependencia'],
+                            detalle=row['Detalle'],
+                            frecuencia=row['Frecuencia'],
+                            procedimientos=row['Procedimiento'],
+                            parametro_control=row['Parámetros de Control'],
+                            horario=row['Horario']
+                        )
+                        dato.save()
+                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
+                except Exception as e:
+                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
+                return redirect('cordillera')
+            #Si se envio el formulario de ingreso manual de datos
         form = CordilleraForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
@@ -1198,13 +1762,42 @@ def descargar_excel_cordillera(request):
 
 def buin(request):
     if request.method == 'POST':
-        form = BuinForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('buin')
-        else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+        # Si se envió un archivo Excel
+        if 'archivo_excel' in request.FILES:
+            form = BuinForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                # Obtener el archivo Excel cargado
+                archivo_excel = request.FILES['archivo_excel']
+                # Leer el archivo Excel usando pandas
+                try:
+                    df = pd.read_excel(archivo_excel)
+                    # Guardar los datos en la base de datos
+                    for index, row in df.iterrows():
+                        dato = Buin(
+                            numero=row['Número'],
+                            area=row['Área'],
+                            dependencia=row['Dependencia'],
+                            detalle=row['Detalle'],
+                            frecuencia=row['Frecuencia'],
+                            procedimientos=row['Procedimiento'],
+                            parametro_control=row['Parámetros de Control'],
+                            horario=row['Horario']
+                        )
+                        dato.save()
+                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
+                except Exception as e:
+                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
+                return redirect('buin')
+            #Si se envio el formulario de ingreso manual de datos
+            else:
+                form = BuinForm(request.POST, request.FILES)
+                if form.is_valid():
+                    form.save()
+                    messages.success(request, 'Datos ingresados correctamente')
+                    return redirect('buin')
+                else:
+                    messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
         form = BuinForm()
 
@@ -1258,13 +1851,42 @@ def descargar_excel_buin(request):
 
 def osorno(request):
     if request.method == 'POST':
-        form = OsornoForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('osorno')
-        else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+        # Si se envió un archivo Excel
+        if 'archivo_excel' in request.FILES:
+            form = OsornoForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                # Obtener el archivo Excel cargado
+                archivo_excel = request.FILES['archivo_excel']
+                # Leer el archivo Excel usando pandas
+                try:
+                    df = pd.read_excel(archivo_excel)
+                    # Guardar los datos en la base de datos
+                    for index, row in df.iterrows():
+                        dato = Osorno(
+                            numero=row['Número'],
+                            area=row['Área'],
+                            dependencia=row['Dependencia'],
+                            detalle=row['Detalle'],
+                            frecuencia=row['Frecuencia'],
+                            procedimientos=row['Procedimiento'],
+                            parametro_control=row['Parámetros de Control'],
+                            horario=row['Horario']
+                        )
+                        dato.save()
+                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
+                except Exception as e:
+                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
+                return redirect('osorno')
+            #Si se envio el formulario de ingreso manual de datos
+            else:
+                form = OsornoForm(request.POST, request.FILES)
+                if form.is_valid():
+                    form.save()
+                    messages.success(request, 'Datos ingresados correctamente')
+                    return redirect('osorno')
+                else:
+                    messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
         form = OsornoForm()
 
@@ -1318,6 +1940,34 @@ def descargar_excel_osorno(request):
 
 def tiltil(request):
     if request.method == 'POST':
+        # Si se envió un archivo Excel
+        if 'archivo_excel' in request.FILES:
+            form = TilTilForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                # Obtener el archivo Excel cargado
+                archivo_excel = request.FILES['archivo_excel']
+                # Leer el archivo Excel usando pandas
+                try:
+                    df = pd.read_excel(archivo_excel)
+                    # Guardar los datos en la base de datos
+                    for index, row in df.iterrows():
+                        dato = TilTil(
+                            numero=row['Número'],
+                            area=row['Área'],
+                            dependencia=row['Dependencia'],
+                            detalle=row['Detalle'],
+                            frecuencia=row['Frecuencia'],
+                            procedimientos=row['Procedimiento'],
+                            parametro_control=row['Parámetros de Control'],
+                            horario=row['Horario']
+                        )
+                        dato.save()
+                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
+                except Exception as e:
+                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
+                return redirect('tiltil')
+            #Si se envio el formulario de ingreso manual de datos
         form = TilTilForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
@@ -1378,13 +2028,42 @@ def descargar_excel_tiltil(request):
 
 def sorepapudahuel(request):
     if request.method == 'POST':
-        form = PudahuelForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('sorepapudahuel')
-        else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+        # Si se envió un archivo Excel
+        if 'archivo_excel' in request.FILES:
+            form = PudahuelForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                # Obtener el archivo Excel cargado
+                archivo_excel = request.FILES['archivo_excel']
+                # Leer el archivo Excel usando pandas
+                try:
+                    df = pd.read_excel(archivo_excel)
+                    # Guardar los datos en la base de datos
+                    for index, row in df.iterrows():
+                        dato = Pudahuel(
+                            numero=row['Número'],
+                            area=row['Área'],
+                            dependencia=row['Dependencia'],
+                            detalle=row['Detalle'],
+                            frecuencia=row['Frecuencia'],
+                            procedimientos=row['Procedimiento'],
+                            parametro_control=row['Parámetros de Control'],
+                            horario=row['Horario']
+                        )
+                        dato.save()
+                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
+                except Exception as e:
+                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
+                return redirect('sorepapudahuel')
+            #Si se envio el formulario de ingreso manual de datos
+            else:
+                form = PudahuelForm(request.POST, request.FILES)
+                if form.is_valid():
+                    form.save()
+                    messages.success(request, 'Datos ingresados correctamente')
+                    return redirect('sorepapudahuel')
+                else:
+                    messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
         form = PudahuelForm()
 
@@ -1438,13 +2117,42 @@ def descargar_excel_sorepapudahuel(request):
 
 def sorepapuentealto(request):
     if request.method == 'POST':
-        form = PuenteAltoForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('sorepapuentealto')
-        else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+        # Si se envió un archivo Excel
+        if 'archivo_excel' in request.FILES:
+            form = PuenteAltoForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                # Obtener el archivo Excel cargado
+                archivo_excel = request.FILES['archivo_excel']
+                # Leer el archivo Excel usando pandas
+                try:
+                    df = pd.read_excel(archivo_excel)
+                    # Guardar los datos en la base de datos
+                    for index, row in df.iterrows():
+                        dato = DatosCMPCArgentina(
+                            numero=row['Número'],
+                            area=row['Área'],
+                            dependencia=row['Dependencia'],
+                            detalle=row['Detalle'],
+                            frecuencia=row['Frecuencia'],
+                            procedimientos=row['Procedimiento'],
+                            parametro_control=row['Parámetros de Control'],
+                            horario=row['Horario']
+                        )
+                        dato.save()
+                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
+                except Exception as e:
+                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
+                return redirect('sorepapuentealto')
+            #Si se envio el formulario de ingreso manual de datos
+            else:
+                form = PuenteAltoForm(request.POST, request.FILES)
+                if form.is_valid():
+                    form.save()
+                    messages.success(request, 'Datos ingresados correctamente')
+                    return redirect('sorepapuentealto')
+                else:
+                    messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
         form = PuenteAltoForm()
 
@@ -1498,13 +2206,42 @@ def descargar_excel_sorepapuentealto(request):
 
 def redoficinas(request, dato_id):
     if request.method == 'POST':
-        form = RedOficinasForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('redoficinas')
-        else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+        # Si se envió un archivo Excel
+        if 'archivo_excel' in request.FILES:
+            form = RedOficinasForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                # Obtener el archivo Excel cargado
+                archivo_excel = request.FILES['archivo_excel']
+                # Leer el archivo Excel usando pandas
+                try:
+                    df = pd.read_excel(archivo_excel)
+                    # Guardar los datos en la base de datos
+                    for index, row in df.iterrows():
+                        dato = RedOficinas(
+                            numero=row['Número'],
+                            area=row['Área'],
+                            dependencia=row['Dependencia'],
+                            detalle=row['Detalle'],
+                            frecuencia=row['Frecuencia'],
+                            procedimientos=row['Procedimiento'],
+                            parametro_control=row['Parámetros de Control'],
+                            horario=row['Horario']
+                        )
+                        dato.save()
+                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
+                except Exception as e:
+                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
+                return redirect('redoficinas')
+            #Si se envio el formulario de ingreso manual de datos
+            else:
+                form = RedOficinasForm(request.POST, request.FILES)
+                if form.is_valid():
+                    form.save()
+                    messages.success(request, 'Datos ingresados correctamente')
+                    return redirect('redoficinas')
+                else:
+                    messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
         form = RedOficinasForm()
 
@@ -1558,13 +2295,42 @@ def descargar_excel_redoficinas(request):
 
 def sorepasanjoaquin(request):
     if request.method == 'POST':
-        form = SanJoaquinForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('sorepasanjoaquin')
-        else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+        # Si se envió un archivo Excel
+        if 'archivo_excel' in request.FILES:
+            form = SanJoaquinForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                # Obtener el archivo Excel cargado
+                archivo_excel = request.FILES['archivo_excel']
+                # Leer el archivo Excel usando pandas
+                try:
+                    df = pd.read_excel(archivo_excel)
+                    # Guardar los datos en la base de datos
+                    for index, row in df.iterrows():
+                        dato = SanJoaquin(
+                            numero=row['Número'],
+                            area=row['Área'],
+                            dependencia=row['Dependencia'],
+                            detalle=row['Detalle'],
+                            frecuencia=row['Frecuencia'],
+                            procedimientos=row['Procedimiento'],
+                            parametro_control=row['Parámetros de Control'],
+                            horario=row['Horario']
+                        )
+                        dato.save()
+                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
+                except Exception as e:
+                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
+                return redirect('sanjoaquin')
+            #Si se envio el formulario de ingreso manual de datos
+            else:
+                form = SanJoaquinForm(request.POST, request.FILES)
+                if form.is_valid():
+                    form.save()
+                    messages.success(request, 'Datos ingresados correctamente')
+                    return redirect('sanjoaquin')
+                else:
+                    messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
     else:
         form = SanJoaquinForm()
 
