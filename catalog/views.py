@@ -173,20 +173,23 @@ def cmpc_argentina(request):
                 except Exception as e:
                     messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
                 return redirect('cmpc_argentina')
-            #Si se envio el formulario de ingreso manual de datos
-            else :
-                form = DatosCMPCArgentinaForm(request.POST)
-                if form.is_valid():
-                    form.save()
-                    messages.success(request, 'Datos ingresados correctamente.')
-                    return redirect('cmpc_argentina')
-                else:
-                    messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
-    else: 
+        # Si se envió el formulario de ingreso manual de datos
+        else:
+            form = DatosCMPCArgentinaForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Datos ingresados correctamente.')
+                return redirect('cmpc_argentina')
+            else:
+                messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+
+    else:
         form = DatosCMPCArgentinaForm()
 
     datosargentina = DatosCMPCArgentina.objects.all()
-    return render(request, 'Instalaciones/CMPC/CMPC_Argentina.html', {'form':form, 'datosargentina':datosargentina})
+    print(datosargentina)
+    return render(request, 'Instalaciones/CMPC/CMPC_Argentina.html', {'form': form, 'datosargentina': datosargentina})
+
 
 def eliminar_dato_argentina(request, dato_id):
     if request.method == 'POST':
@@ -262,20 +265,23 @@ def cmpc_brasil(request):
                 except Exception as e:
                     messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
                 return redirect('cmpc_brasil')
-            #Si se envio el formulario de ingreso manual de datos
+        # Si se envió el formulario de ingreso manual de datos
+        else:
+            form = DatosCMPCBrasilForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Datos ingresados correctamente.')
+                return redirect('cmpc_brasil')
             else:
-                form = DatosCMPCBrasilForm(request.POST, request.FILES)
-                if form.is_valid():
-                    form.save()
-                    messages.success(request, 'Datos ingresados correctamente')
-                    return redirect('cmpc_argentina')
-                else:
-                    messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+                messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+
     else:
         form = DatosCMPCBrasilForm()
 
     datosbrasil = DatosCMPCBrasil.objects.all()
+    print(datosbrasil)
     return render(request, 'Instalaciones/CMPC/CMPC_Brasil.html', {'form': form, 'datosbrasil': datosbrasil})
+
 
 
 def eliminar_dato_brasil(request, dato_id):
@@ -324,7 +330,6 @@ def descargar_excel_brasil(request):
     return response
 
 def cmpc_mexico(request):
-    
     if request.method == 'POST':
         # Si se envió un archivo Excel
         if 'archivo_excel' in request.FILES:
@@ -338,7 +343,7 @@ def cmpc_mexico(request):
                     df = pd.read_excel(archivo_excel)
                     # Guardar los datos en la base de datos
                     for index, row in df.iterrows():
-                        dato = DatosCMPCArgentina(
+                        dato = DatosCMPCMexico(
                             numero=row['Número'],
                             area=row['Área'],
                             dependencia=row['Dependencia'],
@@ -353,20 +358,21 @@ def cmpc_mexico(request):
                 except Exception as e:
                     messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
                 return redirect('cmpc_mexico')
-            #Si se envio el formulario de ingreso manual de datos
+        # Si se envió el formulario de ingreso manual de datos
+        else:
+            form = DatosCMPCMexicoForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Datos ingresados correctamente.')
+                return redirect('cmpc_mexico')
             else:
-                form = DatosCMPCMexicoForm(request.POST, request.FILES)
-                if form.is_valid():
-                    form.save()
-                    messages.success(request, 'Datos ingresados correctamente')
-                    return redirect('cmpc_mexico')
-                else:
-                    messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
-        
+                messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+
     else:
         form = DatosCMPCMexicoForm()
 
     datosmexico = DatosCMPCMexico.objects.all()
+    print(datosmexico)
     return render(request, 'Instalaciones/CMPC/CMPC_Mexico.html', {'form': form, 'datosmexico': datosmexico})
 
 def eliminar_dato_mexico(request, dato_id):
@@ -445,19 +451,23 @@ def maule(request):
                 except Exception as e:
                     messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
                 return redirect('maule')
-            #Si se envio el formulario de ingreso manual de datos
+        # Si se envió el formulario de ingreso manual de datos
+        else:
+            form = MauleForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Datos ingresados correctamente.')
+                return redirect('maule')
             else:
-                form = MauleForm(request.POST, request.FILES)
-                if form.is_valid():
-                    form.save()
-                    messages.success(request, 'Datos ingresados correctamente')
-                    return redirect('maule')
-                else:
-                    messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+                messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+
     else:
         form = MauleForm()
+
     maule = Maule.objects.all()
+    print(maule)
     return render(request, 'Instalaciones/Biopackaging/Box-Board/Maule.html', {'form': form, 'maule': maule})
+
 
 def eliminar_maule(request, dato_id):
     if request.method == 'POST':
@@ -519,7 +529,7 @@ def valdivia(request):
                     df = pd.read_excel(archivo_excel)
                     # Guardar los datos en la base de datos
                     for index, row in df.iterrows():
-                        dato = DatosCMPCArgentina(
+                        dato = Valdivia(
                             numero=row['Número'],
                             area=row['Área'],
                             dependencia=row['Dependencia'],
@@ -534,19 +544,21 @@ def valdivia(request):
                 except Exception as e:
                     messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
                 return redirect('valdivia')
-            #Si se envio el formulario de ingreso manual de datos
+        # Si se envió el formulario de ingreso manual de datos
+        else:
+            form = ValdiviaForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Datos ingresados correctamente.')
+                return redirect('valdivia')
             else:
-                form = ValdiviaForm(request.POST, request.FILES)
-                if form.is_valid():
-                    form.save()
-                    messages.success(request, 'Datos ingresados correctamente')
-                    return redirect('valdivia')
-                else:
-                    messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+                messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+
     else:
         form = ValdiviaForm()
 
     valdivia = Valdivia.objects.all()
+    print(valdivia)
     return render(request, 'Instalaciones/Biopackaging/Box-Board/Valdivia.html', {'form': form, 'valdivia': valdivia})
 
 def eliminar_valdivia(request, dato_id):
@@ -625,21 +637,22 @@ def oficoncepcion(request):
                 except Exception as e:
                     messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
                 return redirect('oficoncepcion')
-            #Si se envio el formulario de ingreso manual de datos
+        # Si se envió el formulario de ingreso manual de datos
+        else:
+            form = OfiConcepcionForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Datos ingresados correctamente.')
+                return redirect('oficoncepcion')
             else:
-                form = OfiConcepcionForm(request.POST, request.FILES)
-                if form.is_valid():
-                    form.save()
-                    messages.success(request, 'Datos ingresados correctamente')
-                    return redirect('oficoncepcion')
-                else:
-                    messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+                messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+
     else:
         form = OfiConcepcionForm()
 
     oficoncepcion = OfiConcepcion.objects.all()
+    print(oficoncepcion)
     return render(request, 'Instalaciones/Biopackaging/Edipac/OficinasConcepcion.html', {'form': form, 'oficoncepcion': oficoncepcion})
-
 
 def eliminar_oficoncepcion(request, dato_id):
     if request.method == 'POST':
@@ -715,21 +728,22 @@ def oficinas_temuco(request):
                 except Exception as e:
                     messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
                 return redirect('ofitemuco')
-            #Si se envio el formulario de ingreso manual de datos
+        # Si se envió el formulario de ingreso manual de datos
+        else:
+            form = OfiTemucoForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Datos ingresados correctamente.')
+                return redirect('ofitemuco')
             else:
-                form = OfiTemucoForm(request.POST, request.FILES)
-                if form.is_valid():
-                    form.save()
-                    messages.success(request, 'Datos ingresados correctamente')
-                    return redirect('ofitemuco')
-                else:
-                    messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+                messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+
     else:
         form = OfiTemucoForm()
 
     ofitemuco = OfiTemuco.objects.all()
+    print(ofitemuco)
     return render(request, 'Instalaciones/Biopackaging/Edipac/OficinasTemuco.html', {'form': form, 'ofitemuco': ofitemuco})
-
 
 def eliminar_ofitemuco(request, dato_id):
     if request.method == 'POST':
@@ -805,21 +819,22 @@ def quilicura(request):
                 except Exception as e:
                     messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
                 return redirect('quilicura')
-            #Si se envio el formulario de ingreso manual de datos
+        # Si se envió el formulario de ingreso manual de datos
+        else:
+            form = QuilicuraForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Datos ingresados correctamente.')
+                return redirect('quilicura')
             else:
-                form = QuilicuraForm(request.POST, request.FILES)
-                if form.is_valid():
-                    form.save()
-                    messages.success(request, 'Datos ingresados correctamente')
-                    return redirect('quilicura')
-                else:
-                    messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+                messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+
     else:
         form = QuilicuraForm()
 
     quilicura = Quilicura.objects.all()
+    print(quilicura)
     return render(request, 'Instalaciones/Biopackaging/Edipac/PlantaQuilicura.html', {'form': form, 'quilicura': quilicura})
-
 
 def eliminar_quilicura(request, dato_id):
     if request.method == 'POST':
@@ -898,20 +913,22 @@ def camposnovos(request):
                 except Exception as e:
                     messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
                 return redirect('camposnovos')
-            #Si se envio el formulario de ingreso manual de datos
+        # Si se envió el formulario de ingreso manual de datos
+        else:
+            form = CamposNovosForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Datos ingresados correctamente.')
+                return redirect('camposnovos')
             else:
-                form = CamposNovosForm(request.POST, request.FILES)
-                if form.is_valid():
-                    form.save()
-                    messages.success(request, 'Datos ingresados correctamente')
-                    return redirect('camposnovos')
-                else:
-                    messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+                messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+
     else:
         form = CamposNovosForm()
 
     camposnovos = CamposNovos.objects.all()
-    return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/CamposNovos.html', {'form': form, 'camposnovos':camposnovos})
+    print(camposnovos)
+    return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/CamposNovos.html', {'form': form, 'camposnovos': camposnovos})
 
 def eliminar_camposnovos(request, dato_id):
     if request.method == 'POST':
@@ -987,19 +1004,21 @@ def chillan(request):
                 except Exception as e:
                     messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
                 return redirect('chillan')
-            #Si se envio el formulario de ingreso manual de datos
+        # Si se envió el formulario de ingreso manual de datos
+        else:
+            form = ChillanForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Datos ingresados correctamente.')
+                return redirect('chillan')
             else:
-                form = ChillanForm(request.POST, request.FILES)
-                if form.is_valid():
-                    form.save()
-                    messages.success(request, 'Datos ingresados correctamente')
-                    return redirect('chillan')
-                else:
-                    messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+                messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+
     else:
         form = ChillanForm()
 
     chillan = Chillan.objects.all()
+    print(chillan)
     return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/Chillan.html', {'form': form, 'chillan': chillan})
 
 def eliminar_chillan(request, dato_id):
@@ -1061,7 +1080,7 @@ def fabi(request):
                     df = pd.read_excel(archivo_excel)
                     # Guardar los datos en la base de datos
                     for index, row in df.iterrows():
-                        dato = Fabi(
+                        dato = CamposNovos(
                             numero=row['Número'],
                             area=row['Área'],
                             dependencia=row['Dependencia'],
@@ -1076,19 +1095,21 @@ def fabi(request):
                 except Exception as e:
                     messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
                 return redirect('fabi')
-            #Si se envio el formulario de ingreso manual de datos
+        # Si se envió el formulario de ingreso manual de datos
+        else:
+            form = FabiForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Datos ingresados correctamente.')
+                return redirect('fabi')
             else:
-                form = FabiForm(request.POST, request.FILES)
-                if form.is_valid():
-                    form.save()
-                    messages.success(request, 'Datos ingresados correctamente')
-                    return redirect('fabi')
-                else:
-                    messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+                messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+
     else:
         form = FabiForm()
 
     fabi = Fabi.objects.all()
+    print(fabi)
     return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/Fabi.html', {'form': form, 'fabi': fabi})
 
 def eliminar_fabi(request, dato_id):
@@ -1165,22 +1186,24 @@ def guadalajara(request):
                 except Exception as e:
                     messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
                 return redirect('guadalajara')
-            #Si se envio el formulario de ingreso manual de datos
+        # Si se envió el formulario de ingreso manual de datos
+        else:
+            form = GuadalajaraForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Datos ingresados correctamente.')
+                return redirect('guadalajara')
             else:
-                form = GuadalajaraForm(request.POST, request.FILES)
-                if form.is_valid():
-                    form.save()
-                    messages.success(request, 'Datos ingresados correctamente')
-                    return redirect('guadalajara')
-                else:
-                    messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+                messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+
     else:
         form = GuadalajaraForm()
 
     guadalajara = Guadalajara.objects.all()
+    print(guadalajara)
     return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/Guadalajara.html', {'form': form, 'guadalajara': guadalajara})
 
-def eliminar_guadalajara(request, dato_id):
+def eliminar_guadalajara(request, dato_id): 
     if request.method == 'POST':
         dato = Guadalajara.objects.get(pk=dato_id)
         dato.delete()
@@ -1254,19 +1277,21 @@ def irapuato(request):
                 except Exception as e:
                     messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
                 return redirect('irapuato')
-            #Si se envio el formulario de ingreso manual de datos
+        # Si se envió el formulario de ingreso manual de datos
+        else:
+            form = IrapuatoForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Datos ingresados correctamente.')
+                return redirect('irapuato')
             else:
-                form = IrapuatoForm(request.POST, request.FILES)
-                if form.is_valid():
-                    form.save()
-                    messages.success(request, 'Datos ingresados correctamente')
-                    return redirect('irapuato')
-                else:
-                    messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+                messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+
     else:
         form = IrapuatoForm()
 
     irapuato = Irapuato.objects.all()
+    print(irapuato)
     return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/Irapuato.html', {'form': form, 'irapuato': irapuato})
 
 def eliminar_irapuato(request, dato_id):
@@ -1343,19 +1368,21 @@ def peru(request):
                 except Exception as e:
                     messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
                 return redirect('peru')
-            #Si se envio el formulario de ingreso manual de datos
+        # Si se envió el formulario de ingreso manual de datos
+        else:
+            form = PeruForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Datos ingresados correctamente.')
+                return redirect('peru')
             else:
-                form = PeruForm(request.POST, request.FILES)
-                if form.is_valid():
-                    form.save()
-                    messages.success(request, 'Datos ingresados correctamente')
-                    return redirect('peru')
-                else:
-                    messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+                messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+
     else:
         form = PeruForm()
 
     peru = Peru.objects.all()
+    print(peru)
     return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/Peru.html', {'form': form, 'peru': peru})
 
 def eliminar_peru(request, dato_id):
@@ -1417,7 +1444,7 @@ def piraidosul(request):
                     df = pd.read_excel(archivo_excel)
                     # Guardar los datos en la base de datos
                     for index, row in df.iterrows():
-                        dato = PiraidoSul(
+                        dato = PiraidoSul   (
                             numero=row['Número'],
                             area=row['Área'],
                             dependencia=row['Dependencia'],
@@ -1432,21 +1459,22 @@ def piraidosul(request):
                 except Exception as e:
                     messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
                 return redirect('piraidosul')
-            #Si se envio el formulario de ingreso manual de datos
+        # Si se envió el formulario de ingreso manual de datos
+        else:
+            form = PiraidoSulForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Datos ingresados correctamente.')
+                return redirect('piraidosul')
             else:
-                form = PiraidoSulForm(request.POST, request.FILES)
-                if form.is_valid():
-                    form.save()
-                    messages.success(request, 'Datos ingresados correctamente')
-                    return redirect('piraidosul')
-                else:
-                    messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+                messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+
     else:
         form = PiraidoSulForm()
 
     piraidosul = PiraidoSul.objects.all()
-    return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/PiraidoSul.html', {'form': form, 'piraidosul':piraidosul})
-
+    print(piraidosul)
+    return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/PiraidoSul.html', {'form': form, 'piraidosul': piraidosul})
 def eliminar_piraidosul(request, dato_id):
     if request.method == 'POST':
         dato = PiraidoSul.objects.get(pk=dato_id)
@@ -1521,19 +1549,21 @@ def sanjose(request):
                 except Exception as e:
                     messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
                 return redirect('sanjose')
-            #Si se envio el formulario de ingreso manual de datos
+        # Si se envió el formulario de ingreso manual de datos
+        else:
+            form = SanJoseForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Datos ingresados correctamente.')
+                return redirect('sanjose')
             else:
-                form = SanJoseForm(request.POST, request.FILES)
-                if form.is_valid():
-                    form.save()
-                    messages.success(request, 'Datos ingresados correctamente')
-                    return redirect('sanjose')
-                else:
-                    messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+                messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+
     else:
         form = SanJoseForm()
 
     sanjose = SanJose.objects.all()
+    print(sanjose)
     return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/SanJose.html', {'form': form, 'sanjose': sanjose})
 
 def eliminar_sanjose(request, dato_id):
@@ -1611,20 +1641,22 @@ def chimolsa(request):
                     messages.success(request, 'Datos del archivo Excel guardados correctamente.')
                 except Exception as e:
                     messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
-                return redirect('cmpc_argentina')
-            #Si se envio el formulario de ingreso manual de datos
+                return redirect('chimolsa')
+        # Si se envió el formulario de ingreso manual de datos
+        else:
+            form = ChimolsaForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Datos ingresados correctamente.')
+                return redirect('chimolsa')
             else:
-                form = ChimolsaForm(request.POST, request.FILES)
-                if form.is_valid():
-                    form.save()
-                    messages.success(request, 'Datos ingresados correctamente')
-                    return redirect('chimolsa')
-                else:
-                    messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+                messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+
     else:
         form = ChimolsaForm()
 
     chimolsa = Chimolsa.objects.all()
+    print(chimolsa)
     return render(request, 'Instalaciones/Biopackaging/Corrugados/Chimolsa.html', {'form': form, 'chimolsa': chimolsa})
 
 def eliminar_chimolsa(request, dato_id):
@@ -1701,18 +1733,21 @@ def cordillera(request):
                 except Exception as e:
                     messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
                 return redirect('cordillera')
-            #Si se envio el formulario de ingreso manual de datos
-        form = CordilleraForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('cordillera')
+        # Si se envió el formulario de ingreso manual de datos
         else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+            form = CordilleraForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Datos ingresados correctamente.')
+                return redirect('cordillera')
+            else:
+                messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+
     else:
         form = CordilleraForm()
 
     cordillera = Cordillera.objects.all()
+    print(cordillera)
     return render(request, 'Instalaciones/Biopackaging/Corrugados/Cordillera.html', {'form': form, 'cordillera': cordillera})
 
 def eliminar_cordillera(request, dato_id):
@@ -1789,19 +1824,21 @@ def buin(request):
                 except Exception as e:
                     messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
                 return redirect('buin')
-            #Si se envio el formulario de ingreso manual de datos
+        # Si se envió el formulario de ingreso manual de datos
+        else:
+            form = BuinForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Datos ingresados correctamente.')
+                return redirect('buin')
             else:
-                form = BuinForm(request.POST, request.FILES)
-                if form.is_valid():
-                    form.save()
-                    messages.success(request, 'Datos ingresados correctamente')
-                    return redirect('buin')
-                else:
-                    messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+                messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+
     else:
         form = BuinForm()
 
     buin = Buin.objects.all()
+    print(buin)
     return render(request, 'Instalaciones/Biopackaging/Corrugados/EEIIBuin.html', {'form': form, 'buin': buin})
 
 def eliminar_buin(request, dato_id):
@@ -1878,19 +1915,21 @@ def osorno(request):
                 except Exception as e:
                     messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
                 return redirect('osorno')
-            #Si se envio el formulario de ingreso manual de datos
+        # Si se envió el formulario de ingreso manual de datos
+        else:
+            form = OsornoForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Datos ingresados correctamente.')
+                return redirect('osorno')
             else:
-                form = OsornoForm(request.POST, request.FILES)
-                if form.is_valid():
-                    form.save()
-                    messages.success(request, 'Datos ingresados correctamente')
-                    return redirect('osorno')
-                else:
-                    messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+                messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+
     else:
         form = OsornoForm()
 
     osorno = Osorno.objects.all()
+    print(osorno)
     return render(request, 'Instalaciones/Biopackaging/Corrugados/EEIIOsorno.html', {'form': form, 'osorno': osorno})
 
 def eliminar_osorno(request, dato_id):
@@ -1967,18 +2006,21 @@ def tiltil(request):
                 except Exception as e:
                     messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
                 return redirect('tiltil')
-            #Si se envio el formulario de ingreso manual de datos
-        form = TilTilForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('tiltil')
+        # Si se envió el formulario de ingreso manual de datos
         else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+            form = TilTilForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Datos ingresados correctamente.')
+                return redirect('tiltil')
+            else:
+                messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+
     else:
         form = TilTilForm()
 
     tiltil = TilTil.objects.all()
+    print(tiltil)
     return render(request, 'Instalaciones/Biopackaging/Corrugados/EEIITilTil.html', {'form': form, 'tiltil': tiltil})
 
 def eliminar_tiltil(request, dato_id):
@@ -2055,19 +2097,21 @@ def sorepapudahuel(request):
                 except Exception as e:
                     messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
                 return redirect('sorepapudahuel')
-            #Si se envio el formulario de ingreso manual de datos
+        # Si se envió el formulario de ingreso manual de datos
+        else:
+            form = PudahuelForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Datos ingresados correctamente.')
+                return redirect('sorepapudahuel')
             else:
-                form = PudahuelForm(request.POST, request.FILES)
-                if form.is_valid():
-                    form.save()
-                    messages.success(request, 'Datos ingresados correctamente')
-                    return redirect('sorepapudahuel')
-                else:
-                    messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+                messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+
     else:
         form = PudahuelForm()
 
     pudahuel = Pudahuel.objects.all()
+    print(pudahuel)
     return render(request, 'Instalaciones/Biopackaging/Corrugados/SorepaPudahuel.html', {'form': form, 'pudahuel': pudahuel})
 
 def eliminar_sorepapudahuel(request, dato_id):
@@ -2129,7 +2173,7 @@ def sorepapuentealto(request):
                     df = pd.read_excel(archivo_excel)
                     # Guardar los datos en la base de datos
                     for index, row in df.iterrows():
-                        dato = DatosCMPCArgentina(
+                        dato = PuenteAlto(
                             numero=row['Número'],
                             area=row['Área'],
                             dependencia=row['Dependencia'],
@@ -2144,19 +2188,21 @@ def sorepapuentealto(request):
                 except Exception as e:
                     messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
                 return redirect('sorepapuentealto')
-            #Si se envio el formulario de ingreso manual de datos
+        # Si se envió el formulario de ingreso manual de datos
+        else:
+            form = PuenteAltoForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Datos ingresados correctamente.')
+                return redirect('sorepapuentealto')
             else:
-                form = PuenteAltoForm(request.POST, request.FILES)
-                if form.is_valid():
-                    form.save()
-                    messages.success(request, 'Datos ingresados correctamente')
-                    return redirect('sorepapuentealto')
-                else:
-                    messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+                messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+
     else:
         form = PuenteAltoForm()
 
     puentealto = PuenteAlto.objects.all()
+    print(puentealto)
     return render(request, 'Instalaciones/Biopackaging/Corrugados/SorepaPuenteAlto.html', {'form': form, 'puentealto': puentealto})
 
 def eliminar_sorepapuentealto(request, dato_id):
@@ -2171,7 +2217,7 @@ def modificar_sorepapuentealto(request, dato_id):
         form = PuenteAltoForm(request.POST, instance=dato)
         if form.is_valid():
             form.save()
-            return redirect('sorepapuentealtoo')
+            return redirect('sorepapuentealto')
     else:
         form = PuenteAltoForm(instance=dato)
     return render(request, 'tu_template_para_modificar.html', {'form': form})
@@ -2204,7 +2250,7 @@ def descargar_excel_sorepapuentealto(request):
     wb.save(response)
     return response
 
-def redoficinas(request, dato_id):
+def redoficinas(request):
     if request.method == 'POST':
         # Si se envió un archivo Excel
         if 'archivo_excel' in request.FILES:
@@ -2233,19 +2279,21 @@ def redoficinas(request, dato_id):
                 except Exception as e:
                     messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
                 return redirect('redoficinas')
-            #Si se envio el formulario de ingreso manual de datos
+        # Si se envió el formulario de ingreso manual de datos
+        else:
+            form = RedOficinasForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Datos ingresados correctamente.')
+                return redirect('redoficinas')
             else:
-                form = RedOficinasForm(request.POST, request.FILES)
-                if form.is_valid():
-                    form.save()
-                    messages.success(request, 'Datos ingresados correctamente')
-                    return redirect('redoficinas')
-                else:
-                    messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+                messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+
     else:
         form = RedOficinasForm()
 
     redoficinas = RedOficinas.objects.all()
+    print(redoficinas)
     return render(request, 'Instalaciones/Biopackaging/Corrugados/SorepaRedOficinas.html', {'form': form, 'redoficinas': redoficinas})
 
 def eliminar_redoficinas(request, dato_id):
@@ -2321,20 +2369,22 @@ def sorepasanjoaquin(request):
                     messages.success(request, 'Datos del archivo Excel guardados correctamente.')
                 except Exception as e:
                     messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
-                return redirect('sanjoaquin')
-            #Si se envio el formulario de ingreso manual de datos
+                return redirect('sorepasanjoaquin')
+        # Si se envió el formulario de ingreso manual de datos
+        else:
+            form = SanJoaquinForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Datos ingresados correctamente.')
+                return redirect('sorepasanjoaquin')
             else:
-                form = SanJoaquinForm(request.POST, request.FILES)
-                if form.is_valid():
-                    form.save()
-                    messages.success(request, 'Datos ingresados correctamente')
-                    return redirect('sanjoaquin')
-                else:
-                    messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+                messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+
     else:
         form = SanJoaquinForm()
 
     sanjoaquin = SanJoaquin.objects.all()
+    print(sanjoaquin)
     return render(request, 'Instalaciones/Biopackaging/Corrugados/SorepaSanJoaquin.html', {'form': form, 'sanjoaquin': sanjoaquin})
 
 def eliminar_sorepasanjoaquin(request, dato_id):
