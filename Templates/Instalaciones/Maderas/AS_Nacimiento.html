@@ -57,6 +57,11 @@
             </div>
             <button type="submit" class="btn btn-dark"><i class="fa fa-save mr-2"></i>Guardar</button>
         </form>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="file" name="archivo_excel" accept=".xls,.xlsx">
+            <button type="submit" class="btn btn-dark"><i class="fa fa-upload mr-2"></i>Subir Excel</button>
+        </form>
         <a href="{% url 'descargar_excel_nacimiento' %}" class="btn btn-secondary mt-3"><i class="fa fa-download mr-2"></i>Descargar Excel</a>
     </div>
 </div>

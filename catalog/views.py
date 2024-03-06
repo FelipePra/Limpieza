@@ -3074,17 +3074,48 @@ def descargar_excel_viverocd(request):
 
 def bucalemu(request):
     if request.method == 'POST':
-        form = BucalemuForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('bucalemu')
+        # Si se envió un archivo Excel
+        if 'archivo_excel' in request.FILES:
+            form = BucalemuForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                # Obtener el archivo Excel cargado
+                archivo_excel = request.FILES['archivo_excel']
+                # Leer el archivo Excel usando pandas
+                try:
+                    df = pd.read_excel(archivo_excel)
+                    # Guardar los datos en la base de datos
+                    for index, row in df.iterrows():
+                        dato = Bucalemu(
+                            numero=row['Número'],
+                            area=row['Área'],
+                            dependencia=row['Dependencia'],
+                            detalle=row['Detalle'],
+                            frecuencia=row['Frecuencia'],
+                            procedimientos=row['Procedimiento'],
+                            parametro_control=row['Parámetros de Control'],
+                            horario=row['Horario']
+                        )
+                        dato.save()
+                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
+                except Exception as e:
+                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
+                return redirect('bucalemu')
+        # Si se envió el formulario de ingreso manual de datos
         else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+            form = BucalemuForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Datos ingresados correctamente.')
+                return redirect('bucalemu')
+            else:
+                messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+
     else:
         form = BucalemuForm()
 
     bucalemu = Bucalemu.objects.all()
+    print(bucalemu)
     return render(request, 'Instalaciones/Maderas/AS_Bucalemu.html', {'form': form, 'bucalemu': bucalemu})
 
 def eliminar_bucalemu(request, dato_id):
@@ -3134,17 +3165,48 @@ def descargar_excel_bucalemu(request):
 
 def mulchen(request):
     if request.method == 'POST':
-        form = MulchenForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('mulchen')
+        # Si se envió un archivo Excel
+        if 'archivo_excel' in request.FILES:
+            form = MulchenForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                # Obtener el archivo Excel cargado
+                archivo_excel = request.FILES['archivo_excel']
+                # Leer el archivo Excel usando pandas
+                try:
+                    df = pd.read_excel(archivo_excel)
+                    # Guardar los datos en la base de datos
+                    for index, row in df.iterrows():
+                        dato = Mulchen(
+                            numero=row['Número'],
+                            area=row['Área'],
+                            dependencia=row['Dependencia'],
+                            detalle=row['Detalle'],
+                            frecuencia=row['Frecuencia'],
+                            procedimientos=row['Procedimiento'],
+                            parametro_control=row['Parámetros de Control'],
+                            horario=row['Horario']
+                        )
+                        dato.save()
+                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
+                except Exception as e:
+                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
+                return redirect('mulchen')
+        # Si se envió el formulario de ingreso manual de datos
         else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+            form = MulchenForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Datos ingresados correctamente.')
+                return redirect('mulchen')
+            else:
+                messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+
     else:
         form = MulchenForm()
 
     mulchen = Mulchen.objects.all()
+    print(mulchen)
     return render(request, 'Instalaciones/Maderas/AS_Mulchen.html', {'form': form, 'mulchen': mulchen})
 
 def eliminar_mulchen(request, dato_id):
@@ -3194,17 +3256,48 @@ def descargar_excel_mulchen(request):
 
 def nacimiento(request):
     if request.method == 'POST':
-        form = NacimientoForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('nacimiento')
+        # Si se envió un archivo Excel
+        if 'archivo_excel' in request.FILES:
+            form = NacimientoForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                # Obtener el archivo Excel cargado
+                archivo_excel = request.FILES['archivo_excel']
+                # Leer el archivo Excel usando pandas
+                try:
+                    df = pd.read_excel(archivo_excel)
+                    # Guardar los datos en la base de datos
+                    for index, row in df.iterrows():
+                        dato = Nacimiento(
+                            numero=row['Número'],
+                            area=row['Área'],
+                            dependencia=row['Dependencia'],
+                            detalle=row['Detalle'],
+                            frecuencia=row['Frecuencia'],
+                            procedimientos=row['Procedimiento'],
+                            parametro_control=row['Parámetros de Control'],
+                            horario=row['Horario']
+                        )
+                        dato.save()
+                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
+                except Exception as e:
+                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
+                return redirect('nacimiento')
+        # Si se envió el formulario de ingreso manual de datos
         else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+            form = NacimientoForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Datos ingresados correctamente.')
+                return redirect('nacimiento')
+            else:
+                messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+
     else:
         form = NacimientoForm()
 
     nacimiento = Nacimiento.objects.all()
+    print(nacimiento)
     return render(request, 'Instalaciones/Maderas/AS_Nacimiento.html', {'form': form, 'nacimiento': nacimiento})
 
 def eliminar_nacimiento(request, dato_id):
@@ -3254,17 +3347,48 @@ def descargar_excel_nacimiento(request):
 
 def niuform(request):
     if request.method == 'POST':
-        form = NiuformForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('niuform')
+        # Si se envió un archivo Excel
+        if 'archivo_excel' in request.FILES:
+            form = NiuformForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                # Obtener el archivo Excel cargado
+                archivo_excel = request.FILES['archivo_excel']
+                # Leer el archivo Excel usando pandas
+                try:
+                    df = pd.read_excel(archivo_excel)
+                    # Guardar los datos en la base de datos
+                    for index, row in df.iterrows():
+                        dato = Niuform(
+                            numero=row['Número'],
+                            area=row['Área'],
+                            dependencia=row['Dependencia'],
+                            detalle=row['Detalle'],
+                            frecuencia=row['Frecuencia'],
+                            procedimientos=row['Procedimiento'],
+                            parametro_control=row['Parámetros de Control'],
+                            horario=row['Horario']
+                        )
+                        dato.save()
+                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
+                except Exception as e:
+                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
+                return redirect('niuform')
+        # Si se envió el formulario de ingreso manual de datos
         else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+            form =NiuformForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Datos ingresados correctamente.')
+                return redirect('niuform')
+            else:
+                messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+
     else:
         form = NiuformForm()
-    
+
     niuform = Niuform.objects.all()
+    print(niuform)
     return render(request, 'Instalaciones/Maderas/Niuform_Los_Angeles.html', {'form': form, 'niuform': niuform})
 
 def eliminar_niuform(request, dato_id):
@@ -3314,18 +3438,50 @@ def descargar_excel_niuform(request):
 
 def plywood(request):
     if request.method == 'POST':
-        form = PlywoodForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('plywood')
+        # Si se envió un archivo Excel
+        if 'archivo_excel' in request.FILES:
+            form = PlywoodForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                # Obtener el archivo Excel cargado
+                archivo_excel = request.FILES['archivo_excel']
+                # Leer el archivo Excel usando pandas
+                try:
+                    df = pd.read_excel(archivo_excel)
+                    # Guardar los datos en la base de datos
+                    for index, row in df.iterrows():
+                        dato = Plywood(
+                            numero=row['Número'],
+                            area=row['Área'],
+                            dependencia=row['Dependencia'],
+                            detalle=row['Detalle'],
+                            frecuencia=row['Frecuencia'],
+                            procedimientos=row['Procedimiento'],
+                            parametro_control=row['Parámetros de Control'],
+                            horario=row['Horario']
+                        )
+                        dato.save()
+                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
+                except Exception as e:
+                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
+                return redirect('plywood')
+        # Si se envió el formulario de ingreso manual de datos
         else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+            form = PlywoodForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Datos ingresados correctamente.')
+                return redirect('plywood')
+            else:
+                messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+
     else:
         form = PlywoodForm()
 
     plywood = Plywood.objects.all()
+    print(plywood)
     return render(request, 'Instalaciones/Maderas/Plywood.html', {'form': form, 'plywood': plywood})
+
 
 def eliminar_plywood(request, dato_id):
     if request.method == 'POST':
@@ -3374,18 +3530,50 @@ def descargar_excel_plywood(request):
 
 def coronel(request):
     if request.method == 'POST':
-        form = CoronelForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('coronel')
+        # Si se envió un archivo Excel
+        if 'archivo_excel' in request.FILES:
+            form = CoronelForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                # Obtener el archivo Excel cargado
+                archivo_excel = request.FILES['archivo_excel']
+                # Leer el archivo Excel usando pandas
+                try:
+                    df = pd.read_excel(archivo_excel)
+                    # Guardar los datos en la base de datos
+                    for index, row in df.iterrows():
+                        dato = Coronel(
+                            numero=row['Número'],
+                            area=row['Área'],
+                            dependencia=row['Dependencia'],
+                            detalle=row['Detalle'],
+                            frecuencia=row['Frecuencia'],
+                            procedimientos=row['Procedimiento'],
+                            parametro_control=row['Parámetros de Control'],
+                            horario=row['Horario']
+                        )
+                        dato.save()
+                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
+                except Exception as e:
+                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
+                return redirect('coronel')
+        # Si se envió el formulario de ingreso manual de datos
         else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+            form = MulchenForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Datos ingresados correctamente.')
+                return redirect('coronel')
+            else:
+                messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+
     else:
         form = CoronelForm()
 
     coronel = Coronel.objects.all()
+    print(coronel)
     return render(request, 'Instalaciones/Maderas/Rem_Coronel.html', {'form': form, 'coronel': coronel})
+
 
 def eliminar_coronel(request, dato_id):
     if request.method == 'POST':
@@ -3434,18 +3622,50 @@ def descargar_excel_coronel(request):
 
 def remLA(request):
     if request.method == 'POST':
-        form = RemLAForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('remLA')
+        # Si se envió un archivo Excel
+        if 'archivo_excel' in request.FILES:
+            form = RemLAForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                # Obtener el archivo Excel cargado
+                archivo_excel = request.FILES['archivo_excel']
+                # Leer el archivo Excel usando pandas
+                try:
+                    df = pd.read_excel(archivo_excel)
+                    # Guardar los datos en la base de datos
+                    for index, row in df.iterrows():
+                        dato = RemLA(
+                            numero=row['Número'],
+                            area=row['Área'],
+                            dependencia=row['Dependencia'],
+                            detalle=row['Detalle'],
+                            frecuencia=row['Frecuencia'],
+                            procedimientos=row['Procedimiento'],
+                            parametro_control=row['Parámetros de Control'],
+                            horario=row['Horario']
+                        )
+                        dato.save()
+                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
+                except Exception as e:
+                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
+                return redirect('remLA')
+        # Si se envió el formulario de ingreso manual de datos
         else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+            form = RemLAForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Datos ingresados correctamente.')
+                return redirect('remLA')
+            else:
+                messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+
     else:
         form = RemLAForm()
 
     remLA = RemLA.objects.all()
+    print(remLA)
     return render(request, 'Instalaciones/Maderas/Rem_Los_Angeles.html', {'form': form, 'remLA': remLA})
+
 
 def eliminar_remLA(request, dato_id):
     if request.method == 'POST':
