@@ -2438,19 +2438,49 @@ def descargar_excel_sorepasanjoaquin(request):
 #Bosques
 def balnearios(request):
     if request.method == 'POST':
-        form = BalneariosForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('balnearios')
+        # Si se envió un archivo Excel
+        if 'archivo_excel' in request.FILES:
+            form = BalneariosForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                # Obtener el archivo Excel cargado
+                archivo_excel = request.FILES['archivo_excel']
+                # Leer el archivo Excel usando pandas
+                try:
+                    df = pd.read_excel(archivo_excel)
+                    # Guardar los datos en la base de datos
+                    for index, row in df.iterrows():
+                        dato = Balnearios(
+                            numero=row['Número'],
+                            area=row['Área'],
+                            dependencia=row['Dependencia'],
+                            detalle=row['Detalle'],
+                            frecuencia=row['Frecuencia'],
+                            procedimientos=row['Procedimiento'],
+                            parametro_control=row['Parámetros de Control'],
+                            horario=row['Horario']
+                        )
+                        dato.save()
+                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
+                except Exception as e:
+                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
+                return redirect('balnearios')
+        # Si se envió el formulario de ingreso manual de datos
         else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+            form = BalneariosForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Datos ingresados correctamente.')
+                return redirect('balnearios')
+            else:
+                messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+
     else:
         form = BalneariosForm()
 
     balnearios = Balnearios.objects.all()
+    print(balnearios)
     return render(request, 'Instalaciones/Bosques/Balnearios-y-casas-H.html', {'form': form, 'balnearios': balnearios})
-
 def eliminar_balnearios(request, dato_id):
     if request.method == 'POST':
         dato = Balnearios.objects.get(pk=dato_id)
@@ -2498,17 +2528,48 @@ def descargar_excel_balnearios(request):
 
 def villaforest(request):
     if request.method == 'POST':
-        form = VillaForestForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('villaforest')
+        # Si se envió un archivo Excel
+        if 'archivo_excel' in request.FILES:
+            form = VillaForestForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                # Obtener el archivo Excel cargado
+                archivo_excel = request.FILES['archivo_excel']
+                # Leer el archivo Excel usando pandas
+                try:
+                    df = pd.read_excel(archivo_excel)
+                    # Guardar los datos en la base de datos
+                    for index, row in df.iterrows():
+                        dato = VillaForest(
+                            numero=row['Número'],
+                            area=row['Área'],
+                            dependencia=row['Dependencia'],
+                            detalle=row['Detalle'],
+                            frecuencia=row['Frecuencia'],
+                            procedimientos=row['Procedimiento'],
+                            parametro_control=row['Parámetros de Control'],
+                            horario=row['Horario']
+                        )
+                        dato.save()
+                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
+                except Exception as e:
+                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
+                return redirect('villaforest')
+        # Si se envió el formulario de ingreso manual de datos
         else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+            form = VillaForestForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Datos ingresados correctamente.')
+                return redirect('villaforest')
+            else:
+                messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+
     else:
         form = VillaForestForm()
 
     villaforest = VillaForest.objects.all()
+    print(villaforest)
     return render(request, 'Instalaciones/Bosques/Bases-y-Villas-Forest.html', {'form': form, 'villaforest': villaforest})
 
 def eliminar_villaforest(request, dato_id):
@@ -2558,18 +2619,49 @@ def descargar_excel_villaforest(request):
 
 def bosquesplata(request):
     if request.method == 'POST':
-        form = BosquesPlataForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('bosquesplata')
+        # Si se envió un archivo Excel
+        if 'archivo_excel' in request.FILES:
+            form = BosquesPlataForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                # Obtener el archivo Excel cargado
+                archivo_excel = request.FILES['archivo_excel']
+                # Leer el archivo Excel usando pandas
+                try:
+                    df = pd.read_excel(archivo_excel)
+                    # Guardar los datos en la base de datos
+                    for index, row in df.iterrows():
+                        dato = BosquesPlata(
+                            numero=row['Número'],
+                            area=row['Área'],
+                            dependencia=row['Dependencia'],
+                            detalle=row['Detalle'],
+                            frecuencia=row['Frecuencia'],
+                            procedimientos=row['Procedimiento'],
+                            parametro_control=row['Parámetros de Control'],
+                            horario=row['Horario']
+                        )
+                        dato.save()
+                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
+                except Exception as e:
+                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
+                return redirect('bosquesplata')
+        # Si se envió el formulario de ingreso manual de datos
         else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+            form = BosquesPlataForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Datos ingresados correctamente.')
+                return redirect('bosquesplata')
+            else:
+                messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+
     else:
         form = BosquesPlataForm()
 
     bosquesplata = BosquesPlata.objects.all()
-    return render(request, 'Instalaciones/Bosques/Bosques-del-Plata.html', {'form': form, 'bosquesplata':bosquesplata})
+    print(bosquesplata)
+    return render(request, 'Instalaciones/Bosques/Bosques-del-Plata.html', {'form': form, 'bosquesplata': bosquesplata})
 
 def eliminar_bosquesplata(request, dato_id):
     if request.method == 'POST':
@@ -2618,17 +2710,48 @@ def descargar_excel_bosquesplata(request):
 
 def edicorpo(request):
     if request.method == 'POST':
-        form = EdiCorpoForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('edicorpo')
+        # Si se envió un archivo Excel
+        if 'archivo_excel' in request.FILES:
+            form = EdiCorpoForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                # Obtener el archivo Excel cargado
+                archivo_excel = request.FILES['archivo_excel']
+                # Leer el archivo Excel usando pandas
+                try:
+                    df = pd.read_excel(archivo_excel)
+                    # Guardar los datos en la base de datos
+                    for index, row in df.iterrows():
+                        dato = EdiCorpo(
+                            numero=row['Número'],
+                            area=row['Área'],
+                            dependencia=row['Dependencia'],
+                            detalle=row['Detalle'],
+                            frecuencia=row['Frecuencia'],
+                            procedimientos=row['Procedimiento'],
+                            parametro_control=row['Parámetros de Control'],
+                            horario=row['Horario']
+                        )
+                        dato.save()
+                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
+                except Exception as e:
+                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
+                return redirect('edicorpo')
+        # Si se envió el formulario de ingreso manual de datos
         else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+            form = EdiCorpoForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Datos ingresados correctamente.')
+                return redirect('edicorpo')
+            else:
+                messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+
     else:
         form = EdiCorpoForm()
 
     edicorpo = EdiCorpo.objects.all()
+    print(edicorpo)
     return render(request, 'Instalaciones/Bosques/Edificio-Corporativo.html', {'form': form, 'edicorpo': edicorpo})
 
 def eliminar_edicorpo(request, dato_id):
@@ -2678,19 +2801,49 @@ def descargar_excel_edicorpo(request):
 
 def transito(request):
     if request.method == 'POST':
-        form = TransitoForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('transito')
+        # Si se envió un archivo Excel
+        if 'archivo_excel' in request.FILES:
+            form = TransitoForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                # Obtener el archivo Excel cargado
+                archivo_excel = request.FILES['archivo_excel']
+                # Leer el archivo Excel usando pandas
+                try:
+                    df = pd.read_excel(archivo_excel)
+                    # Guardar los datos en la base de datos
+                    for index, row in df.iterrows():
+                        dato = Transito(
+                            numero=row['Número'],
+                            area=row['Área'],
+                            dependencia=row['Dependencia'],
+                            detalle=row['Detalle'],
+                            frecuencia=row['Frecuencia'],
+                            procedimientos=row['Procedimiento'],
+                            parametro_control=row['Parámetros de Control'],
+                            horario=row['Horario']
+                        )
+                        dato.save()
+                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
+                except Exception as e:
+                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
+                return redirect('transito')
+        # Si se envió el formulario de ingreso manual de datos
         else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+            form = TransitoForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Datos ingresados correctamente.')
+                return redirect('transito')
+            else:
+                messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+
     else:
         form = TransitoForm()
 
     transito = Transito.objects.all()
+    print(transito)
     return render(request, 'Instalaciones/Bosques/Oficina-Transito.html', {'form': form, 'transito': transito})
-
 def eliminar_transito(request, dato_id):
     if request.method == 'POST':
         dato = Transito.objects.get(pk=dato_id)
@@ -2738,17 +2891,48 @@ def descargar_excel_transito(request):
 
 def coyhaique(request):
     if request.method == 'POST':
-        form = CoyhaiqueForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('coyhaique')
+        # Si se envió un archivo Excel
+        if 'archivo_excel' in request.FILES:
+            form = CoyhaiqueForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                # Obtener el archivo Excel cargado
+                archivo_excel = request.FILES['archivo_excel']
+                # Leer el archivo Excel usando pandas
+                try:
+                    df = pd.read_excel(archivo_excel)
+                    # Guardar los datos en la base de datos
+                    for index, row in df.iterrows():
+                        dato = Coyhaique(
+                            numero=row['Número'],
+                            area=row['Área'],
+                            dependencia=row['Dependencia'],
+                            detalle=row['Detalle'],
+                            frecuencia=row['Frecuencia'],
+                            procedimientos=row['Procedimiento'],
+                            parametro_control=row['Parámetros de Control'],
+                            horario=row['Horario']
+                        )
+                        dato.save()
+                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
+                except Exception as e:
+                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
+                return redirect('coyhaique')
+        # Si se envió el formulario de ingreso manual de datos
         else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+            form = CoyhaiqueForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Datos ingresados correctamente.')
+                return redirect('coyhaique')
+            else:
+                messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+
     else:
         form = CoyhaiqueForm()
-    
-    coyhaique = Coyhaique.objects.all()
+
+    coyhaique =Coyhaique.objects.all()
+    print(coyhaique)
     return render(request, 'Instalaciones/Bosques/Vivero-Coyhaique.html', {'form': form, 'coyhaique': coyhaique})
 
 def eliminar_coyhaique(request, dato_id):
@@ -2798,19 +2982,49 @@ def descargar_excel_coyhaique(request):
 
 def viverocd(request):
     if request.method == 'POST':
-        form = ViveroForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('viverocd')
+        # Si se envió un archivo Excel
+        if 'archivo_excel' in request.FILES:
+            form = ViveroForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                # Obtener el archivo Excel cargado
+                archivo_excel = request.FILES['archivo_excel']
+                # Leer el archivo Excel usando pandas
+                try:
+                    df = pd.read_excel(archivo_excel)
+                    # Guardar los datos en la base de datos
+                    for index, row in df.iterrows():
+                        dato = Vivero(
+                            numero=row['Número'],
+                            area=row['Área'],
+                            dependencia=row['Dependencia'],
+                            detalle=row['Detalle'],
+                            frecuencia=row['Frecuencia'],
+                            procedimientos=row['Procedimiento'],
+                            parametro_control=row['Parámetros de Control'],
+                            horario=row['Horario']
+                        )
+                        dato.save()
+                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
+                except Exception as e:
+                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
+                return redirect('viverocd')
+        # Si se envió el formulario de ingreso manual de datos
         else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+            form = ViveroForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Datos ingresados correctamente.')
+                return redirect('viverocd')
+            else:
+                messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+
     else:
         form = ViveroForm()
 
     viverocd = Vivero.objects.all()
+    print(balnearios)
     return render(request, 'Instalaciones/Bosques/ViveroCD.html', {'form': form, 'viverocd': viverocd})
-
 def eliminar_viverocd(request, dato_id):
     if request.method == 'POST':
         dato = Vivero.objects.get(pk=dato_id)
