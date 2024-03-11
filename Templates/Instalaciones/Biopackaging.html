@@ -1,13 +1,12 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Biopackaging{% endblock %}
 
 {% block content %}
-<div class="mdl-grid">
-    <div class="mdl-cell mdl-cell--3-col"></div> <!-- Columna vacía para centrar -->
-    <div class="mdl-cell mdl-cell--6-col">
-        <div class="container">
-            <h1 style="font-weight: bold; font-size: 65px;">Biopackaging</h1>
+<div class="container">
+    <div class="card p-4 shadow">
+        <h1 style="font-weight: bold; font-size: 65px;">Biopackaging</h1>
             <div class="row">
                 <div class="col-md-6">
                     <div class="links">
@@ -50,5 +49,14 @@
             </div>
         </div>
     </div>
-</div>
+</div>  
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<!-- CSS personalizado -->
+<link rel="stylesheet" href="{% static 'static/css/stylecmpc.css' %}">
+<!-- CSS personalizado -->
+<link rel="stylesheet" href="{% static 'css/style.css' %}">'
+
 {% endblock %}

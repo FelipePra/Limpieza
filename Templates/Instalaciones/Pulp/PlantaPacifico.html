@@ -93,6 +93,7 @@
                 <td>{{ dato.frecuencia }}</td>
                 <td>{{ dato.procedimientos }}</td>
                 <td>{{ dato.parametro_control }}</td>
+                <td>{{ dato.horario }}</td>
                 <td>
                     <a href="{% url 'modificar_pacifico' dato.id %}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>
                     <form method="post" action="{% url 'eliminar_pacifico' dato.id %}" style="display: inline;">

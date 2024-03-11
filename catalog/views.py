@@ -211,7 +211,7 @@ def modificar_dato_argentina(request, dato_id):
             return redirect('cmpc_argentina')
     else:
         form = DatosCMPCArgentinaForm(instance=dato)
-    return render(request, 'tu_template_para_modificar.html', {'form': form})
+    return render(request, 'Instalaciones/CMPC/CMPC_Argentina.html', {'form': form})
 
 def descargar_excel_argentina(request):
     response = HttpResponse(content_type='application/ms-excel')
@@ -304,7 +304,7 @@ def modificar_dato_brasil(request, dato_id):
             return redirect('cmpc_brasil')
     else:
         form = DatosCMPCBrasilForm(instance=dato)
-    return render(request, 'tu_template_para_modificar.html', {'form': form})
+    return render(request, 'Instalaciones/CMPC/CMPC_Brasil.html', {'form': form})
 
 def descargar_excel_brasil(request):
     response = HttpResponse(content_type='application/ms-excel')
@@ -395,7 +395,7 @@ def modificar_dato_mexico(request, dato_id):
             return redirect('cmpc_mexico')
     else:
         form = DatosCMPCBrasilForm(instance=dato)
-    return render(request, 'tu_template_para_modificar.html', {'form': form})
+    return render(request, 'Instalaciones/CMPC/CMPC_Mexico.html', {'form': form})
 
 def descargar_excel_mexico(request):
     response = HttpResponse(content_type='application/ms-excel')
@@ -489,7 +489,7 @@ def modificar_maule(request, dato_id):
             return redirect('maule')
     else:
         form = MauleForm(instance=dato)
-    return render(request, 'tu_template_para_modificar.html', {'form': form})
+    return render(request, 'Instalaciones/Biopackaging/Box-Board/Maule.html', {'form': form})
 
 def descargar_excel_maule(request):
     response = HttpResponse(content_type='application/ms-excel')
@@ -581,7 +581,7 @@ def modificar_valdivia(request, dato_id):
             return redirect('valdivia')
     else:
         form = ValdiviaForm(instance=dato)
-    return render(request, 'tu_template_para_modificar.html', {'form': form})
+    return render(request, 'Instalaciones/Biopackaging/Box-Board/Valdivia.html', {'form': form})
 
 def descargar_excel_valdivia(request):
     response = HttpResponse(content_type='application/ms-excel')
@@ -674,7 +674,7 @@ def modificar_oficoncepcion(request, dato_id):
             return redirect('oficoncepcion')
     else:
         form = ValdiviaForm(instance=dato)
-    return render(request, 'tu_template_para_modificar.html', {'form': form})
+    return render(request, 'Instalaciones/Biopackaging/Edipac/OficinasConcepcion.html', {'form': form})
 
 def descargar_excel_oficoncepcion(request):
     response = HttpResponse(content_type='application/ms-excel')
@@ -765,7 +765,7 @@ def modificar_ofitemuco(request, dato_id):
             return redirect('ofitemuco')
     else:
         form = OfiTemucoForm(instance=dato)
-    return render(request, 'tu_template_para_modificar.html', {'form': form})
+    return render(request, 'Instalaciones/Biopackaging/Edipac/OficinasTemuco.html', {'form': form})
 
 def descargar_excel_ofitemuco(request):
     response = HttpResponse(content_type='application/ms-excel')
@@ -856,7 +856,7 @@ def modificar_quilicura(request, dato_id):
             return redirect('quilicura')
     else:
         form = QuilicuraForm(instance=dato)
-    return render(request, 'tu_template_para_modificar.html', {'form': form})
+    return render(request, 'Instalaciones/Biopackaging/Edipac/PlantaQuilicura.html', {'form': form})
 
 def descargar_excel_quilicura(request):
     response = HttpResponse(content_type='application/ms-excel')
@@ -950,7 +950,7 @@ def modificar_camposnovos(request, dato_id):
             return redirect('camposnovos')
     else:
         form = CamposNovosForm(instance=dato)
-    return render(request, 'tu_template_para_modificar.html', {'form': form})
+    return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/CamposNovos.html', {'form': form})
 
 def descargar_excel_camposnovos(request):
     response = HttpResponse(content_type='application/ms-excel')
@@ -1041,7 +1041,7 @@ def modificar_chillan(request, dato_id):
             return redirect('chillan')
     else:
         form = ChillanForm(instance=dato)
-    return render(request, 'tu_template_para_modificar.html', {'form': form})
+    return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/Chillan.html', {'form': form})
 
 def descargar_excel_chillan(request):
     response = HttpResponse(content_type='application/ms-excel')
@@ -1132,7 +1132,7 @@ def modificar_fabi(request, dato_id):
             return redirect('fabi')
     else:
         form = FabiForm(instance=dato)
-    return render(request, 'tu_template_para_modificar.html', {'form': form})
+    return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/Fabi.html', {'form': form})
 
 def descargar_excel_fabi(request):
     response = HttpResponse(content_type='application/ms-excel')
@@ -1223,7 +1223,7 @@ def modificar_guadalajara(request, dato_id):
             return redirect('guadalajara')
     else:
         form = GuadalajaraForm(instance=dato)
-    return render(request, 'tu_template_para_modificar.html', {'form': form})
+    return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/Guadalajara.html', {'form': form})
 
 def descargar_excel_guadalajara(request):
     response = HttpResponse(content_type='application/ms-excel')
@@ -1314,7 +1314,7 @@ def modificar_irapuato(request, dato_id):
             return redirect('irapuato')
     else:
         form = IrapuatoForm(instance=dato)
-    return render(request, 'tu_template_para_modificar.html', {'form': form})
+    return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/Irapuato.html', {'form': form})
 
 def descargar_excel_irapuato(request):
     response = HttpResponse(content_type='application/ms-excel')
@@ -1405,7 +1405,7 @@ def modificar_peru(request, dato_id):
             return redirect('peru')
     else:
         form = PeruForm(instance=dato)
-    return render(request, 'tu_template_para_modificar.html', {'form': form})
+    return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/Peru.html', {'form': form})
 
 def descargar_excel_peru(request):
     response = HttpResponse(content_type='application/ms-excel')
@@ -1495,7 +1495,7 @@ def modificar_piraidosul(request, dato_id):
             return redirect('piraidosul')
     else:
         form = PiraidoSulForm(instance=dato)
-    return render(request, 'tu_template_para_modificar.html', {'form': form})
+    return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/PiraidoSul.html', {'form': form})
 
 def descargar_excel_piraidosul(request):
     response = HttpResponse(content_type='application/ms-excel')
@@ -1586,7 +1586,7 @@ def modificar_sanjose(request, dato_id):
             return redirect('sanjose')
     else:
         form = SanJoseForm(instance=dato)
-    return render(request, 'tu_template_para_modificar.html', {'form': form})
+    return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/SanJose.html', {'form': form})
 
 def descargar_excel_sanjose(request):
     response = HttpResponse(content_type='application/ms-excel')
@@ -1679,7 +1679,7 @@ def modificar_chimolsa(request, dato_id):
             return redirect('chimolsa')
     else:
         form = ChimolsaForm(instance=dato)
-    return render(request, 'tu_template_para_modificar.html', {'form': form})
+    return render(request, 'Instalaciones/Biopackaging/Corrugados/Chimolsa.html', {'form': form})
 
 def descargar_excel_chimolsa(request):
     response = HttpResponse(content_type='application/ms-excel')
@@ -1770,7 +1770,7 @@ def modificar_cordillera(request, dato_id):
             return redirect('cordillera')
     else:
         form = CordilleraForm(instance=dato)
-    return render(request, 'tu_template_para_modificar.html', {'form': form})
+    return render(request, 'Instalaciones/Biopackaging/Corrugados/Cordillera.html', {'form': form})
 
 def descargar_excel_cordillera(request):
     response = HttpResponse(content_type='application/ms-excel')
@@ -1861,7 +1861,7 @@ def modificar_buin(request, dato_id):
             return redirect('buin')
     else:
         form = BuinForm(instance=dato)
-    return render(request, 'tu_template_para_modificar.html', {'form': form})
+    return render(request, 'Instalaciones/Biopackaging/Corrugados/EEIIBuin.html', {'form': form})
 
 def descargar_excel_buin(request):
     response = HttpResponse(content_type='application/ms-excel')
@@ -1952,7 +1952,7 @@ def modificar_osorno(request, dato_id):
             return redirect('osorno')
     else:
         form = OsornoForm(instance=dato)
-    return render(request, 'tu_template_para_modificar.html', {'form': form})
+    return render(request, 'Instalaciones/Biopackaging/Corrugados/EEIIOsorno.html', {'form': form})
 
 def descargar_excel_osorno(request):
     response = HttpResponse(content_type='application/ms-excel')
@@ -2043,7 +2043,7 @@ def modificar_tiltil(request, dato_id):
             return redirect('tiltil')
     else:
         form = TilTilForm(instance=dato)
-    return render(request, 'tu_template_para_modificar.html', {'form': form})
+    return render(request, 'Instalaciones/Biopackaging/Corrugados/EEIITilTil.html', {'form': form})
 
 def descargar_excel_tiltil(request):
     response = HttpResponse(content_type='application/ms-excel')
@@ -2134,7 +2134,7 @@ def modificar_sorepapudahuel(request, dato_id):
             return redirect('sorepapudahuel')
     else:
         form = PudahuelForm(instance=dato)
-    return render(request, 'tu_template_para_modificar.html', {'form': form})
+    return render(request, 'Instalaciones/Biopackaging/Corrugados/SorepaPudahuel.html', {'form': form})
 
 def descargar_excel_sorepapudahuel(request):
     response = HttpResponse(content_type='application/ms-excel')
@@ -2225,7 +2225,7 @@ def modificar_sorepapuentealto(request, dato_id):
             return redirect('sorepapuentealto')
     else:
         form = PuenteAltoForm(instance=dato)
-    return render(request, 'tu_template_para_modificar.html', {'form': form})
+    return render(request, 'Instalaciones/Biopackaging/Corrugados/SorepaPuenteAlto.html', {'form': form})
 
 def descargar_excel_sorepapuentealto(request):
     response = HttpResponse(content_type='application/ms-excel')
@@ -2316,7 +2316,7 @@ def modificar_redoficinas(request, dato_id):
             return redirect('redoficinas')
     else:
         form = RedOficinasForm(instance=dato)
-    return render(request, 'tu_template_para_modificar.html', {'form': form})
+    return render(request, 'Instalaciones/Biopackaging/Corrugados/SorepaRedOficinas.html', {'form': form})
 
 def descargar_excel_redoficinas(request):
     response = HttpResponse(content_type='application/ms-excel')
@@ -2407,7 +2407,7 @@ def modificar_sorepasanjoaquin(request, dato_id):
             return redirect('sorepasanjoaquin')
     else:
         form = SanJoaquinForm(instance=dato)
-    return render(request, 'tu_template_para_modificar.html', {'form': form})
+    return render(request, 'Instalaciones/Biopackaging/Corrugados/SorepaSanJoaquin.html', {'form': form})
 
 def descargar_excel_sorepasanjoaquin(request):
     response = HttpResponse(content_type='application/ms-excel')
@@ -2501,7 +2501,7 @@ def modificar_balnearios(request, dato_id):
             return redirect('balnearios')
     else:
         form = BalneariosForm(instance=dato)
-    return render(request, 'tu_template_para_modificar.html', {'form': form})
+    return render(request, 'Instalaciones/Bosques/Balnearios-y-casas-H.html', {'form': form})
 
 def descargar_excel_balnearios(request):
     response = HttpResponse(content_type='application/ms-excel')
@@ -2592,7 +2592,7 @@ def modificar_villaforest(request, dato_id):
             return redirect('villaforest')
     else:
         form = VillaForestForm(instance=dato)
-    return render(request, 'tu_template_para_modificar.html', {'form': form})
+    return render(request, 'Instalaciones/Bosques/Bases-y-Villas-Forest.html', {'form': form})
 
 def descargar_excel_villaforest(request):
     response = HttpResponse(content_type='application/ms-excel')
@@ -2683,7 +2683,7 @@ def modificar_bosquesplata(request, dato_id):
             return redirect('bosquesplata')
     else:
         form = BosquesPlataForm(instance=dato)
-    return render(request, 'tu_template_para_modificar.html', {'form': form})
+    return render(request, 'Instalaciones/Bosques/Bosques-del-Plata.html', {'form': form})
 
 def descargar_excel_bosquesplata(request):
     response = HttpResponse(content_type='application/ms-excel')
@@ -2774,7 +2774,7 @@ def modificar_edicorpo(request, dato_id):
             return redirect('edicorpo')
     else:
         form = EdiCorpoForm(instance=dato)
-    return render(request, 'tu_template_para_modificar.html', {'form': form})
+    return render(request, 'Instalaciones/Bosques/Edificio-Corporativo.html', {'form': form})
 
 def descargar_excel_edicorpo(request):
     response = HttpResponse(content_type='application/ms-excel')
@@ -2864,7 +2864,7 @@ def modificar_transito(request, dato_id):
             return redirect('transito')
     else:
         form = TransitoForm(instance=dato)
-    return render(request, 'tu_template_para_modificar.html', {'form': form})
+    return render(request, 'Instalaciones/Bosques/Oficina-Transito.html', {'form': form})
 
 def descargar_excel_transito(request):
     response = HttpResponse(content_type='application/ms-excel')
@@ -2955,7 +2955,7 @@ def modificar_coyhaique(request, dato_id):
             return redirect('coyhaique')
     else:
         form = CoyhaiqueForm(instance=dato)
-    return render(request, 'tu_template_para_modificar.html', {'form': form})
+    return render(request, 'Instalaciones/Bosques/Vivero-Coyhaique.html', {'form': form})
 
 def descargar_excel_coyhaique(request):
     response = HttpResponse(content_type='application/ms-excel')
@@ -3045,7 +3045,7 @@ def modificar_viverocd(request, dato_id):
             return redirect('viverocd')
     else:
         form = ViveroForm(instance=dato)
-    return render(request, 'tu_template_para_modificar.html', {'form': form})
+    return render(request, 'Instalaciones/Bosques/ViveroCD.html', {'form': form})
 
 def descargar_excel_viverocd(request):
     response = HttpResponse(content_type='application/ms-excel')
@@ -3138,7 +3138,7 @@ def modificar_bucalemu(request, dato_id):
             return redirect('bucalemu')
     else:
         form = BucalemuForm(instance=dato)
-    return render(request, 'tu_template_para_modificar.html', {'form': form})
+    return render(request, 'Instalaciones/Maderas/AS_Bucalemu.html', {'form': form})
 
 def descargar_excel_bucalemu(request):
     response = HttpResponse(content_type='application/ms-excel')
@@ -3229,7 +3229,7 @@ def modificar_mulchen(request, dato_id):
             return redirect('mulchen')
     else:
         form = MulchenForm(instance=dato)
-    return render(request, 'tu_template_para_modificar.html', {'form': form})
+    return render(request, 'Instalaciones/Maderas/AS_Mulchen.html', {'form': form})
 
 def descargar_excel_mulchen(request):
     response = HttpResponse(content_type='application/ms-excel')
@@ -3320,7 +3320,7 @@ def modificar_nacimiento(request, dato_id):
             return redirect('nacimiento')
     else:
         form = NacimientoForm(instance=dato)
-    return render(request, 'tu_template_para_modificar.html', {'form': form})
+    return render(request, 'Instalaciones/Maderas/AS_Nacimiento.html', {'form': form})
 
 def descargar_excel_nacimiento(request):
     response = HttpResponse(content_type='application/ms-excel')
@@ -3411,7 +3411,7 @@ def modificar_niuform(request, dato_id):
             return redirect('niuform')
     else:
         form = NiuformForm(instance=dato)
-    return render(request, 'tu_template_para_modificar.html', {'form': form})
+    return render(request, 'Instalaciones/Maderas/Niuform_Los_Angeles.html', {'form': form})
 
 def descargar_excel_niuform(request):
     response = HttpResponse(content_type='application/ms-excel')
@@ -3503,7 +3503,7 @@ def modificar_plywood(request, dato_id):
             return redirect('plywood')
     else:
         form = PlywoodForm(instance=dato)
-    return render(request, 'tu_template_para_modificar.html', {'form': form})
+    return render(request, 'Instalaciones/Maderas/Plywood.html', {'form': form})
 
 def descargar_excel_plywood(request):
     response = HttpResponse(content_type='application/ms-excel')
@@ -3595,7 +3595,7 @@ def modificar_coronel(request, dato_id):
             return redirect('coronel')
     else:
         form = CoronelForm(instance=dato)
-    return render(request, 'tu_template_para_modificar.html', {'form': form})
+    return render(request, 'Instalaciones/Maderas/Rem_Coronel.html', {'form': form})
 
 def descargar_excel_coronel(request):
     response = HttpResponse(content_type='application/ms-excel')
@@ -3687,7 +3687,7 @@ def modificar_remLA(request, dato_id):
             return redirect('remLA')
     else:
         form = RemLAForm(instance=dato)
-    return render(request, 'tu_template_para_modificar.html', {'form': form})
+    return render(request, 'Instalaciones/Maderas/Rem_Los_Angeles.html', {'form': form})
 
 def descargar_excel_remLA(request):
     response = HttpResponse(content_type='application/ms-excel')
@@ -3780,7 +3780,7 @@ def modificar_balneariolaja(request, dato_id):
             return redirect('balneariolaja')
     else:
         form = BalnearioLajaForm(instance=dato)
-    return render(request, 'tu_template_para_modificar.html', {'form': form})
+    return render(request, 'Instalaciones/Pulp/BalnearioLaja.html', {'form': form})
 
 def descargar_excel_balneariolaja(request):
     response = HttpResponse(content_type='application/ms-excel')
@@ -3870,14 +3870,14 @@ def modificar_casahuespedes(request, dato_id):
             return redirect('casahuespedes')
     else:
         form = CasaHuespedesForm(instance=dato)
-    return render(request, 'tu_template_para_modificar.html', {'form': form})
+    return render(request, 'Instalaciones/Pulp/CasasdeHuespedes.html', {'form': form})
 
 def descargar_excel_casahuespedes(request):
     response = HttpResponse(content_type='application/ms-excel')
     response['Content-Disposition'] = 'attachment; filename="datos_casa_huespedes.xls"'
 
     wb = xlwt.Workbook(encoding='utf-8')
-    ws = wb.add_sheet('Datos CasaHuespedes')
+    ws = wb.add_sheet('Datos Casa Huespedes')
 
     row_num = 0
     font_style = xlwt.XFStyle()
@@ -3961,14 +3961,14 @@ def modificar_guaiba(request, dato_id):
             return redirect('guaiba')
     else:
         form = GuaibaForm(instance=dato)
-    return render(request, 'tu_template_para_modificar.html', {'form': form})
+    return render(request, 'Instalaciones/Pulp/PlantaGuaíba.html', {'form': form})
 
 def descargar_excel_guaiba(request):
     response = HttpResponse(content_type='application/ms-excel')
     response['Content-Disposition'] = 'attachment; filename="datos_guaiba.xls"'
 
     wb = xlwt.Workbook(encoding='utf-8')
-    ws = wb.add_sheet('Datos RemLA')
+    ws = wb.add_sheet('Datos Guaiba')
 
     row_num = 0
     font_style = xlwt.XFStyle()
@@ -4052,14 +4052,14 @@ def modificar_laja(request, dato_id):
             return redirect('laja')
     else:
         form = LajaForm(instance=dato)
-    return render(request, 'tu_template_para_modificar.html', {'form': form})
+    return render(request, 'Instalaciones/Pulp/PlantaLaja.html', {'form': form})
 
 def descargar_excel_laja(request):
     response = HttpResponse(content_type='application/ms-excel')
     response['Content-Disposition'] = 'attachment; filename="datos_laja.xls"'
 
     wb = xlwt.Workbook(encoding='utf-8')
-    ws = wb.add_sheet('Datos RemLA')
+    ws = wb.add_sheet('Datos Planta Laja')
 
     row_num = 0
     font_style = xlwt.XFStyle()
@@ -4143,14 +4143,14 @@ def modificar_pacifico(request, dato_id):
             return redirect('pacifico')
     else:
         form = PacificoForm(instance=dato)
-    return render(request, 'tu_template_para_modificar.html', {'form': form})
+    return render(request, 'Instalaciones/Pulp/PlantaPacifico.html', {'form': form})
 
 def descargar_excel_pacifico(request):
     response = HttpResponse(content_type='application/ms-excel')
     response['Content-Disposition'] = 'attachment; filename="datos_pacifico.xls"'
 
     wb = xlwt.Workbook(encoding='utf-8')
-    ws = wb.add_sheet('Datos RemLA')
+    ws = wb.add_sheet('Datos Pacifico')
 
     row_num = 0
     font_style = xlwt.XFStyle()
@@ -4217,7 +4217,7 @@ def santafe(request):
 
     santafe = SantaFe.objects.all()
     print(santafe)
-    return render(request, 'Instalaciones/Pulp/PlantaGuaíba.html', {'form': form, 'santafe': santafe})
+    return render(request, 'Instalaciones/Pulp/PlantaSantaFe.html', {'form': form, 'santafe': santafe})
 
 def eliminar_santafe(request, dato_id):
     if request.method == 'POST':
@@ -4233,8 +4233,8 @@ def modificar_santafe(request, dato_id):
             form.save()
             return redirect('santafe')
     else:
-        form = SantaFe.Form(instance=dato)
-    return render(request, 'tu_template_para_modificar.html', {'form': form})
+        form = SantaFeForm(instance=dato)
+    return render(request, 'Instalaciones/Pulp/PlantaSantaFe.html', {'form': form})
 
 def descargar_excel_santafe(request):
     response = HttpResponse(content_type='application/ms-excel')
