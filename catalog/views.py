@@ -81,7 +81,6 @@ def cmpc_chile(request):
                             horario =row['Horario']
                         )
                         dato.save()
-
                     conn.close()
                     messages.success(request, 'Datos del archivo Excel guardados correctamente.')
                 except Exception as e:

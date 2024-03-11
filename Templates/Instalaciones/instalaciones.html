@@ -1,12 +1,11 @@
 {% extends 'base.html' %}
 
+{% load static %}
 {% block title %}Instalaciones{% endblock %}
 
 {% block content %}
-<div class="mdl-grid">
-    <div class="mdl-cell mdl-cell--3-col"></div> <!-- Columna vacía para centrar -->
-    <div class="mdl-cell mdl-cell--6-col">
-        <div class="container">
+<div class="container">
+        <div class="card p-4 shadow">
             <h1 style="font-weight: bold; font-size: 65px;">Instalaciones</h1>
             <div class="row">
                 <div class="col-md-6">
@@ -70,4 +69,6 @@
     </div>
     <div class="mdl-cell mdl-cell--3-col"></div> <!-- Columna vacía para centrar -->
 </div>
+
+
 {% endblock %}
