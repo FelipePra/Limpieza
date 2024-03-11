@@ -1,15 +1,21 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.http import JsonResponse
-from rest_framework.response import Response
+from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.http import HttpResponse
 import xlwt
+import pandas as pd
+import sqlite3
 
 from catalog.forms import *
 from .models import  DatosCMPCChile
-from django.contrib import messages as django_messages
+
+from .forms import DatosCMPCChileForm
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .models import DatosCMPCChile
 
 # Vistas para renderizar las plantillas HTML
+def login(request):
+    return render(request, 'admin/index.html')
 
 def index(request):
     return render(request, 'index.html')
@@ -46,11 +52,8 @@ def sackkraft(request):
 
 # Vistas CMPC
 # excel_reader/views.py
-import pandas as pd
-from .forms import DatosCMPCChileForm
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from .models import DatosCMPCChile
+
+
 
 def cmpc_chile(request):
     if request.method == 'POST':
@@ -64,19 +67,23 @@ def cmpc_chile(request):
                 # Leer el archivo Excel usando pandas
                 try:
                     df = pd.read_excel(archivo_excel)
-                    # Guardar los datos en la base de datos
+                    # Conectar a la base de datos SQLite (o crearla si no existe)
+                    conn = sqlite3.connect('datoschile')
+                  # Guardar los datos en la base de datos
                     for index, row in df.iterrows():
                         dato = DatosCMPCChile(
-                            numero=row['Número'],
-                            area=row['Área'],
-                            dependencia=row['Dependencia'],
-                            detalle=row['Detalle'],
-                            frecuencia=row['Frecuencia'],
-                            procedimientos=row['Procedimiento'],
-                            parametro_control=row['Parámetros de Control'],
-                            horario=row['Horario']
+                            numero =row['Número'],
+                            area =row['Área'],
+                            dependencia =row['Dependencia'],
+                            detalle =row['Detalle'],
+                            frecuencia =row['Frecuencia'],
+                            procedimientos =row['Procedimiento'],
+                            parametro_control =row['Parámetros de Control'],
+                            horario =row['Horario']
                         )
                         dato.save()
+
+                    conn.close()
                     messages.success(request, 'Datos del archivo Excel guardados correctamente.')
                 except Exception as e:
                     messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
@@ -3715,18 +3722,50 @@ def descargar_excel_remLA(request):
 #Pulp
 def balneariolaja(request):
     if request.method == 'POST':
-        form = BalnearioLajaForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('balneariolaja')
+        # Si se envió un archivo Excel
+        if 'archivo_excel' in request.FILES:
+            form = BalnearioLajaForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                # Obtener el archivo Excel cargado
+                archivo_excel = request.FILES['archivo_excel']
+                # Leer el archivo Excel usando pandas
+                try:
+                    df = pd.read_excel(archivo_excel)
+                    # Guardar los datos en la base de datos
+                    for index, row in df.iterrows():
+                        dato = BalnearioLaja(
+                            numero=row['Número'],
+                            area=row['Área'],
+                            dependencia=row['Dependencia'],
+                            detalle=row['Detalle'],
+                            frecuencia=row['Frecuencia'],
+                            procedimientos=row['Procedimiento'],
+                            parametro_control=row['Parámetros de Control'],
+                            horario=row['Horario']
+                        )
+                        dato.save()
+                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
+                except Exception as e:
+                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
+                return redirect('laja')
+        # Si se envió el formulario de ingreso manual de datos
         else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+            form = BalnearioLajaForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Datos ingresados correctamente.')
+                return redirect('laja')
+            else:
+                messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+
     else:
         form = BalnearioLajaForm()
 
     balneariolaja = BalnearioLaja.objects.all()
-    return render(request, 'Instalaciones/Pulp/Balneariolaja.html', {'form': form, 'balneariolaja': balneariolaja})
+    print(balneariolaja)
+    return render(request, 'Instalaciones/Pulp/BalnearioLaja.html', {'form': form, 'balneariolaja': balneariolaja})
+
 
 def eliminar_balneariolaja(request, dato_id):
     if request.method == 'POST':
@@ -3775,19 +3814,49 @@ def descargar_excel_balneariolaja(request):
 
 def casahuespedes(request):
     if request.method == 'POST':
-        form = CasaHuespedesForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('casahuespedes')
+        # Si se envió un archivo Excel
+        if 'archivo_excel' in request.FILES:
+            form = CasaHuespedesForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                # Obtener el archivo Excel cargado
+                archivo_excel = request.FILES['archivo_excel']
+                # Leer el archivo Excel usando pandas
+                try:
+                    df = pd.read_excel(archivo_excel)
+                    # Guardar los datos en la base de datos
+                    for index, row in df.iterrows():
+                        dato = CasaHuespedes(
+                            numero=row['Número'],
+                            area=row['Área'],
+                            dependencia=row['Dependencia'],
+                            detalle=row['Detalle'],
+                            frecuencia=row['Frecuencia'],
+                            procedimientos=row['Procedimiento'],
+                            parametro_control=row['Parámetros de Control'],
+                            horario=row['Horario']
+                        )
+                        dato.save()
+                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
+                except Exception as e:
+                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
+                return redirect('casahuespedes')
+        # Si se envió el formulario de ingreso manual de datos
         else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+            form = CasaHuespedesForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Datos ingresados correctamente.')
+                return redirect('casahuespedes')
+            else:
+                messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+
     else:
         form = CasaHuespedesForm()
 
     casahuespedes = CasaHuespedes.objects.all()
-    return render(request, 'Instalaciones/Pulp/Casasdehuespedes.html', {'form': form,'casahuespedes': casahuespedes})
-
+    print(casahuespedes)
+    return render(request, 'Instalaciones/Pulp/CasasdeHuespedes.html', {'form': form, 'casahuespedes': casahuespedes})
 def eliminar_casahuespedes(request, dato_id):
     if request.method == 'POST':
         dato = CasaHuespedes.objects.get(pk=dato_id)
@@ -3835,17 +3904,48 @@ def descargar_excel_casahuespedes(request):
 
 def guaiba(request):
     if request.method == 'POST':
-        form = GuaibaForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('guaiba')
+        # Si se envió un archivo Excel
+        if 'archivo_excel' in request.FILES:
+            form = GuaibaForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                # Obtener el archivo Excel cargado
+                archivo_excel = request.FILES['archivo_excel']
+                # Leer el archivo Excel usando pandas
+                try:
+                    df = pd.read_excel(archivo_excel)
+                    # Guardar los datos en la base de datos
+                    for index, row in df.iterrows():
+                        dato = Guaiba(
+                            numero=row['Número'],
+                            area=row['Área'],
+                            dependencia=row['Dependencia'],
+                            detalle=row['Detalle'],
+                            frecuencia=row['Frecuencia'],
+                            procedimientos=row['Procedimiento'],
+                            parametro_control=row['Parámetros de Control'],
+                            horario=row['Horario']
+                        )
+                        dato.save()
+                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
+                except Exception as e:
+                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
+                return redirect('guaiba')
+        # Si se envió el formulario de ingreso manual de datos
         else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+            form = GuaibaForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Datos ingresados correctamente.')
+                return redirect('guaiba')
+            else:
+                messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+
     else:
         form = GuaibaForm()
 
     guaiba = Guaiba.objects.all()
+    print(guaiba)
     return render(request, 'Instalaciones/Pulp/PlantaGuaíba.html', {'form': form, 'guaiba': guaiba})
 
 def eliminar_guaiba(request, dato_id):
@@ -3893,21 +3993,50 @@ def descargar_excel_guaiba(request):
     wb.save(response)
     return response
 
-
-
 def laja(request):
     if request.method == 'POST':
-        form = LajaForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('laja')
+        # Si se envió un archivo Excel
+        if 'archivo_excel' in request.FILES:
+            form = LajaForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                # Obtener el archivo Excel cargado
+                archivo_excel = request.FILES['archivo_excel']
+                # Leer el archivo Excel usando pandas
+                try:
+                    df = pd.read_excel(archivo_excel)
+                    # Guardar los datos en la base de datos
+                    for index, row in df.iterrows():
+                        dato = Laja(
+                            numero=row['Número'],
+                            area=row['Área'],
+                            dependencia=row['Dependencia'],
+                            detalle=row['Detalle'],
+                            frecuencia=row['Frecuencia'],
+                            procedimientos=row['Procedimiento'],
+                            parametro_control=row['Parámetros de Control'],
+                            horario=row['Horario']
+                        )
+                        dato.save()
+                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
+                except Exception as e:
+                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
+                return redirect('laja')
+        # Si se envió el formulario de ingreso manual de datos
         else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+            form = LajaForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Datos ingresados correctamente.')
+                return redirect('laja')
+            else:
+                messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+
     else:
         form = LajaForm()
 
     laja = Laja.objects.all()
+    print(laja)
     return render(request, 'Instalaciones/Pulp/PlantaLaja.html', {'form': form, 'laja': laja})
 
 def eliminar_laja(request, dato_id):
@@ -3957,17 +4086,48 @@ def descargar_excel_laja(request):
 
 def pacifico(request):
     if request.method == 'POST':
-        form = PacificoForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('pacifico')
+        # Si se envió un archivo Excel
+        if 'archivo_excel' in request.FILES:
+            form = PacificoForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                # Obtener el archivo Excel cargado
+                archivo_excel = request.FILES['archivo_excel']
+                # Leer el archivo Excel usando pandas
+                try:
+                    df = pd.read_excel(archivo_excel)
+                    # Guardar los datos en la base de datos
+                    for index, row in df.iterrows():
+                        dato = Pacifico(
+                            numero=row['Número'],
+                            area=row['Área'],
+                            dependencia=row['Dependencia'],
+                            detalle=row['Detalle'],
+                            frecuencia=row['Frecuencia'],
+                            procedimientos=row['Procedimiento'],
+                            parametro_control=row['Parámetros de Control'],
+                            horario=row['Horario']
+                        )
+                        dato.save()
+                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
+                except Exception as e:
+                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
+                return redirect('pacifico')
+        # Si se envió el formulario de ingreso manual de datos
         else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+            form = PacificoForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Datos ingresados correctamente.')
+                return redirect('pacifico')
+            else:
+                messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+
     else:
         form = PacificoForm()
 
     pacifico = Pacifico.objects.all()
+    print(pacifico)
     return render(request, 'Instalaciones/Pulp/PlantaPacifico.html', {'form': form, 'pacifico': pacifico})
 
 def eliminar_pacifico(request, dato_id):
@@ -4017,18 +4177,49 @@ def descargar_excel_pacifico(request):
 
 def santafe(request):
     if request.method == 'POST':
-        form = SantaFeForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Datos ingresados correctamente')
-            return redirect('santafe')
+        # Si se envió un archivo Excel
+        if 'archivo_excel' in request.FILES:
+            form = SantaFeForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                # Obtener el archivo Excel cargado
+                archivo_excel = request.FILES['archivo_excel']
+                # Leer el archivo Excel usando pandas
+                try:
+                    df = pd.read_excel(archivo_excel)
+                    # Guardar los datos en la base de datos
+                    for index, row in df.iterrows():
+                        dato = SantaFe(
+                            numero=row['Número'],
+                            area=row['Área'],
+                            dependencia=row['Dependencia'],
+                            detalle=row['Detalle'],
+                            frecuencia=row['Frecuencia'],
+                            procedimientos=row['Procedimiento'],
+                            parametro_control=row['Parámetros de Control'],
+                            horario=row['Horario']
+                        )
+                        dato.save()
+                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
+                except Exception as e:
+                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
+                return redirect('santafe')
+        # Si se envió el formulario de ingreso manual de datos
         else:
-            messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+            form = SantaFeForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Datos ingresados correctamente.')
+                return redirect('santafe')
+            else:
+                messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
+
     else:
         form = SantaFeForm()
 
     santafe = SantaFe.objects.all()
-    return render(request, 'Instalaciones/Pulp/PlantaSantaFe.html', {'form': form, 'santafe': santafe})
+    print(santafe)
+    return render(request, 'Instalaciones/Pulp/PlantaGuaíba.html', {'form': form, 'santafe': santafe})
 
 def eliminar_santafe(request, dato_id):
     if request.method == 'POST':

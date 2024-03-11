@@ -20,7 +20,8 @@ from django.urls import path
 from catalog import views
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('', views.login, name='login'),
+    path('index/', views.index, name='index'),
 
     #urls Instalaciones
     path('instalaciones/', views.instalaciones, name='instalaciones'),
