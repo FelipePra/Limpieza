@@ -15,11 +15,10 @@ from .models import DatosCMPCChile
 
 # Vistas para renderizar las plantillas HTML
 def login(request):
-    return render(request, 'admin/index.html')
+    return render(request, 'login/login.html')
 
 def index(request):
     return render(request, 'index.html')
-
 
 # Vistas de Instalaciones
 def instalaciones(request):
