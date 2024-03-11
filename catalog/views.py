@@ -52,40 +52,37 @@ def sackkraft(request):
 # Vistas CMPC
 # excel_reader/views.py
 
-
-
 def cmpc_chile(request):
     if request.method == 'POST':
+        if 'archivo_excel' in request.FILES:
+            form = DatosCMPCChileForm(request.POST, request.FILES)
+            myfile = request.FILES['archivo_excel']
+            
+            # Leer el archivo Excel
+            df = pd.read_excel(myfile)
+            
+            # Conectar a la base de datos SQLite (o crearla si no existe)
+            conn = sqlite3.connect('db.sqlite3')
+
+            # Itera sobre las filas del DataFrame y guarda los datos en la base de datos
+            for index, row in df.iterrows():
+                data = DatosCMPCChile(
+                    numero=row['Número'],
+                    area=row['Área'],
+                    dependencia=row['Dependencia'],
+                    detalle=row['Detalle'],
+                    frecuencia=row['Frecuencia'],
+                    procedimientos=row['Procedimiento'],
+                    parametro_control=row['Parámetros de Control'],
+                    horario=row['Horario']
+                )
+                data.save()
+
+            # Cerrar la conexión
+            conn.close()
         # Si se envió un archivo Excel
         if 'archivo_excel' in request.FILES:
             form = DatosCMPCChileForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                # Obtener el archivo Excel cargado
-                archivo_excel = request.FILES['archivo_excel']
-                # Leer el archivo Excel usando pandas
-                try:
-                    df = pd.read_excel(archivo_excel)
-                    # Conectar a la base de datos SQLite (o crearla si no existe)
-                    conn = sqlite3.connect('datoschile')
-                  # Guardar los datos en la base de datos
-                    for index, row in df.iterrows():
-                        dato = DatosCMPCChile(
-                            numero =row['Número'],
-                            area =row['Área'],
-                            dependencia =row['Dependencia'],
-                            detalle =row['Detalle'],
-                            frecuencia =row['Frecuencia'],
-                            procedimientos =row['Procedimiento'],
-                            parametro_control =row['Parámetros de Control'],
-                            horario =row['Horario']
-                        )
-                        dato.save()
-                    conn.close()
-                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
-                except Exception as e:
-                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
-                return redirect('cmpc_chile')
         # Si se envió el formulario de ingreso manual de datos
         else:
             form = DatosCMPCChileForm(request.POST)
@@ -102,7 +99,6 @@ def cmpc_chile(request):
     datoschile = DatosCMPCChile.objects.all()
     print(datoschile)
     return render(request, 'Instalaciones/CMPC/CMPC_Chile.html', {'form': form, 'datoschile': datoschile})
-
 
 def eliminar_dato_chile(request, dato_id):
     if request.method == 'POST':
@@ -151,33 +147,35 @@ def descargar_excel_chile(request):
 
 def cmpc_argentina(request):
     if request.method == 'POST':
+        if 'archivo_excel' in request.FILES:
+            form = DatosCMPCArgentinaForm(request.POST, request.FILES)
+            myfile = request.FILES['archivo_excel']
+            
+            # Leer el archivo Excel
+            df = pd.read_excel(myfile)
+            
+            # Conectar a la base de datos SQLite (o crearla si no existe)
+            conn = sqlite3.connect('db.sqlite3')
+
+            # Itera sobre las filas del DataFrame y guarda los datos en la base de datos
+            for index, row in df.iterrows():
+                data = DatosCMPCArgentina(
+                    numero=row['Número'],
+                    area=row['Área'],
+                    dependencia=row['Dependencia'],
+                    detalle=row['Detalle'],
+                    frecuencia=row['Frecuencia'],
+                    procedimientos=row['Procedimiento'],
+                    parametro_control=row['Parámetros de Control'],
+                    horario=row['Horario']
+                )
+                data.save()
+
+            # Cerrar la conexión
+            conn.close()
         # Si se envió un archivo Excel
         if 'archivo_excel' in request.FILES:
             form = DatosCMPCArgentinaForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                # Obtener el archivo Excel cargado
-                archivo_excel = request.FILES['archivo_excel']
-                # Leer el archivo Excel usando pandas
-                try:
-                    df = pd.read_excel(archivo_excel)
-                    # Guardar los datos en la base de datos
-                    for index, row in df.iterrows():
-                        dato = DatosCMPCArgentina(
-                            numero=row['Número'],
-                            area=row['Área'],
-                            dependencia=row['Dependencia'],
-                            detalle=row['Detalle'],
-                            frecuencia=row['Frecuencia'],
-                            procedimientos=row['Procedimiento'],
-                            parametro_control=row['Parámetros de Control'],
-                            horario=row['Horario']
-                        )
-                        dato.save()
-                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
-                except Exception as e:
-                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
-                return redirect('cmpc_argentina')
         # Si se envió el formulario de ingreso manual de datos
         else:
             form = DatosCMPCArgentinaForm(request.POST)
@@ -194,7 +192,6 @@ def cmpc_argentina(request):
     datosargentina = DatosCMPCArgentina.objects.all()
     print(datosargentina)
     return render(request, 'Instalaciones/CMPC/CMPC_Argentina.html', {'form': form, 'datosargentina': datosargentina})
-
 
 def eliminar_dato_argentina(request, dato_id):
     if request.method == 'POST':
@@ -243,33 +240,35 @@ def descargar_excel_argentina(request):
 
 def cmpc_brasil(request):
     if request.method == 'POST':
+        if 'archivo_excel' in request.FILES:
+            form = DatosCMPCBrasilForm(request.POST, request.FILES)
+            myfile = request.FILES['archivo_excel']
+            
+            # Leer el archivo Excel
+            df = pd.read_excel(myfile)
+            
+            # Conectar a la base de datos SQLite (o crearla si no existe)
+            conn = sqlite3.connect('db.sqlite3')
+
+            # Itera sobre las filas del DataFrame y guarda los datos en la base de datos
+            for index, row in df.iterrows():
+                data = DatosCMPCBrasil(
+                    numero=row['Número'],
+                    area=row['Área'],
+                    dependencia=row['Dependencia'],
+                    detalle=row['Detalle'],
+                    frecuencia=row['Frecuencia'],
+                    procedimientos=row['Procedimiento'],
+                    parametro_control=row['Parámetros de Control'],
+                    horario=row['Horario']
+                )
+                data.save()
+
+            # Cerrar la conexión
+            conn.close()
         # Si se envió un archivo Excel
         if 'archivo_excel' in request.FILES:
             form = DatosCMPCBrasilForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                # Obtener el archivo Excel cargado
-                archivo_excel = request.FILES['archivo_excel']
-                # Leer el archivo Excel usando pandas
-                try:
-                    df = pd.read_excel(archivo_excel)
-                    # Guardar los datos en la base de datos
-                    for index, row in df.iterrows():
-                        dato = DatosCMPCBrasil(
-                            numero=row['Número'],
-                            area=row['Área'],
-                            dependencia=row['Dependencia'],
-                            detalle=row['Detalle'],
-                            frecuencia=row['Frecuencia'],
-                            procedimientos=row['Procedimiento'],
-                            parametro_control=row['Parámetros de Control'],
-                            horario=row['Horario']
-                        )
-                        dato.save()
-                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
-                except Exception as e:
-                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
-                return redirect('cmpc_brasil')
         # Si se envió el formulario de ingreso manual de datos
         else:
             form = DatosCMPCBrasilForm(request.POST)
@@ -286,8 +285,6 @@ def cmpc_brasil(request):
     datosbrasil = DatosCMPCBrasil.objects.all()
     print(datosbrasil)
     return render(request, 'Instalaciones/CMPC/CMPC_Brasil.html', {'form': form, 'datosbrasil': datosbrasil})
-
-
 
 def eliminar_dato_brasil(request, dato_id):
     if request.method == 'POST':
@@ -336,33 +333,35 @@ def descargar_excel_brasil(request):
 
 def cmpc_mexico(request):
     if request.method == 'POST':
+        if 'archivo_excel' in request.FILES:
+            form = DatosCMPCMexicoForm(request.POST, request.FILES)
+            myfile = request.FILES['archivo_excel']
+            
+            # Leer el archivo Excel
+            df = pd.read_excel(myfile)
+            
+            # Conectar a la base de datos SQLite (o crearla si no existe)
+            conn = sqlite3.connect('db.sqlite3')
+
+            # Itera sobre las filas del DataFrame y guarda los datos en la base de datos
+            for index, row in df.iterrows():
+                data = DatosCMPCMexico(
+                    numero=row['Número'],
+                    area=row['Área'],
+                    dependencia=row['Dependencia'],
+                    detalle=row['Detalle'],
+                    frecuencia=row['Frecuencia'],
+                    procedimientos=row['Procedimiento'],
+                    parametro_control=row['Parámetros de Control'],
+                    horario=row['Horario']
+                )
+                data.save()
+
+            # Cerrar la conexión
+            conn.close()
         # Si se envió un archivo Excel
         if 'archivo_excel' in request.FILES:
             form = DatosCMPCMexicoForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                # Obtener el archivo Excel cargado
-                archivo_excel = request.FILES['archivo_excel']
-                # Leer el archivo Excel usando pandas
-                try:
-                    df = pd.read_excel(archivo_excel)
-                    # Guardar los datos en la base de datos
-                    for index, row in df.iterrows():
-                        dato = DatosCMPCMexico(
-                            numero=row['Número'],
-                            area=row['Área'],
-                            dependencia=row['Dependencia'],
-                            detalle=row['Detalle'],
-                            frecuencia=row['Frecuencia'],
-                            procedimientos=row['Procedimiento'],
-                            parametro_control=row['Parámetros de Control'],
-                            horario=row['Horario']
-                        )
-                        dato.save()
-                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
-                except Exception as e:
-                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
-                return redirect('cmpc_mexico')
         # Si se envió el formulario de ingreso manual de datos
         else:
             form = DatosCMPCMexicoForm(request.POST)
@@ -429,33 +428,35 @@ def descargar_excel_mexico(request):
 #Biopackaging Box Board
 def maule(request):
     if request.method == 'POST':
+        if 'archivo_excel' in request.FILES:
+            form = MauleForm(request.POST, request.FILES)
+            myfile = request.FILES['archivo_excel']
+            
+            # Leer el archivo Excel
+            df = pd.read_excel(myfile)
+            
+            # Conectar a la base de datos SQLite (o crearla si no existe)
+            conn = sqlite3.connect('db.sqlite3')
+
+            # Itera sobre las filas del DataFrame y guarda los datos en la base de datos
+            for index, row in df.iterrows():
+                data = Maule(
+                    numero=row['Número'],
+                    area=row['Área'],
+                    dependencia=row['Dependencia'],
+                    detalle=row['Detalle'],
+                    frecuencia=row['Frecuencia'],
+                    procedimientos=row['Procedimiento'],
+                    parametro_control=row['Parámetros de Control'],
+                    horario=row['Horario']
+                )
+                data.save()
+
+            # Cerrar la conexión
+            conn.close()
         # Si se envió un archivo Excel
         if 'archivo_excel' in request.FILES:
             form = MauleForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                # Obtener el archivo Excel cargado
-                archivo_excel = request.FILES['archivo_excel']
-                # Leer el archivo Excel usando pandas
-                try:
-                    df = pd.read_excel(archivo_excel)
-                    # Guardar los datos en la base de datos
-                    for index, row in df.iterrows():
-                        dato = Maule(
-                            numero=row['Número'],
-                            area=row['Área'],
-                            dependencia=row['Dependencia'],
-                            detalle=row['Detalle'],
-                            frecuencia=row['Frecuencia'],
-                            procedimientos=row['Procedimiento'],
-                            parametro_control=row['Parámetros de Control'],
-                            horario=row['Horario']
-                        )
-                        dato.save()
-                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
-                except Exception as e:
-                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
-                return redirect('maule')
         # Si se envió el formulario de ingreso manual de datos
         else:
             form = MauleForm(request.POST)
@@ -472,7 +473,6 @@ def maule(request):
     maule = Maule.objects.all()
     print(maule)
     return render(request, 'Instalaciones/Biopackaging/Box-Board/Maule.html', {'form': form, 'maule': maule})
-
 
 def eliminar_maule(request, dato_id):
     if request.method == 'POST':
@@ -519,36 +519,37 @@ def descargar_excel_maule(request):
     wb.save(response)
     return response
 
-
 def valdivia(request):
     if request.method == 'POST':
+        if 'archivo_excel' in request.FILES:
+            form = ValdiviaForm(request.POST, request.FILES)
+            myfile = request.FILES['archivo_excel']
+            
+            # Leer el archivo Excel
+            df = pd.read_excel(myfile)
+            
+            # Conectar a la base de datos SQLite (o crearla si no existe)
+            conn = sqlite3.connect('db.sqlite3')
+
+            # Itera sobre las filas del DataFrame y guarda los datos en la base de datos
+            for index, row in df.iterrows():
+                data = Valdivia(
+                    numero=row['Número'],
+                    area=row['Área'],
+                    dependencia=row['Dependencia'],
+                    detalle=row['Detalle'],
+                    frecuencia=row['Frecuencia'],
+                    procedimientos=row['Procedimiento'],
+                    parametro_control=row['Parámetros de Control'],
+                    horario=row['Horario']
+                )
+                data.save()
+
+            # Cerrar la conexión
+            conn.close()
         # Si se envió un archivo Excel
         if 'archivo_excel' in request.FILES:
             form = ValdiviaForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                # Obtener el archivo Excel cargado
-                archivo_excel = request.FILES['archivo_excel']
-                # Leer el archivo Excel usando pandas
-                try:
-                    df = pd.read_excel(archivo_excel)
-                    # Guardar los datos en la base de datos
-                    for index, row in df.iterrows():
-                        dato = Valdivia(
-                            numero=row['Número'],
-                            area=row['Área'],
-                            dependencia=row['Dependencia'],
-                            detalle=row['Detalle'],
-                            frecuencia=row['Frecuencia'],
-                            procedimientos=row['Procedimiento'],
-                            parametro_control=row['Parámetros de Control'],
-                            horario=row['Horario']
-                        )
-                        dato.save()
-                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
-                except Exception as e:
-                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
-                return redirect('valdivia')
         # Si se envió el formulario de ingreso manual de datos
         else:
             form = ValdiviaForm(request.POST)
@@ -611,37 +612,39 @@ def descargar_excel_valdivia(request):
     wb.save(response)
     return response
 
-#Views Edipac
 
+#Views Edipac
 def oficoncepcion(request):
     if request.method == 'POST':
+        if 'archivo_excel' in request.FILES:
+            form = OfiConcepcionForm(request.POST, request.FILES)
+            myfile = request.FILES['archivo_excel']
+            
+            # Leer el archivo Excel
+            df = pd.read_excel(myfile)
+            
+            # Conectar a la base de datos SQLite (o crearla si no existe)
+            conn = sqlite3.connect('db.sqlite3')
+
+            # Itera sobre las filas del DataFrame y guarda los datos en la base de datos
+            for index, row in df.iterrows():
+                data = OfiConcepcion(
+                    numero=row['Número'],
+                    area=row['Área'],
+                    dependencia=row['Dependencia'],
+                    detalle=row['Detalle'],
+                    frecuencia=row['Frecuencia'],
+                    procedimientos=row['Procedimiento'],
+                    parametro_control=row['Parámetros de Control'],
+                    horario=row['Horario']
+                )
+                data.save()
+
+            # Cerrar la conexión
+            conn.close()
         # Si se envió un archivo Excel
         if 'archivo_excel' in request.FILES:
             form = OfiConcepcionForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                # Obtener el archivo Excel cargado
-                archivo_excel = request.FILES['archivo_excel']
-                # Leer el archivo Excel usando pandas
-                try:
-                    df = pd.read_excel(archivo_excel)
-                    # Guardar los datos en la base de datos
-                    for index, row in df.iterrows():
-                        dato = OfiConcepcion(
-                            numero=row['Número'],
-                            area=row['Área'],
-                            dependencia=row['Dependencia'],
-                            detalle=row['Detalle'],
-                            frecuencia=row['Frecuencia'],
-                            procedimientos=row['Procedimiento'],
-                            parametro_control=row['Parámetros de Control'],
-                            horario=row['Horario']
-                        )
-                        dato.save()
-                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
-                except Exception as e:
-                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
-                return redirect('oficoncepcion')
         # Si se envió el formulario de ingreso manual de datos
         else:
             form = OfiConcepcionForm(request.POST)
@@ -706,33 +709,35 @@ def descargar_excel_oficoncepcion(request):
 
 def oficinas_temuco(request):
     if request.method == 'POST':
+        if 'archivo_excel' in request.FILES:
+            form = OfiTemucoForm(request.POST, request.FILES)
+            myfile = request.FILES['archivo_excel']
+            
+            # Leer el archivo Excel
+            df = pd.read_excel(myfile)
+            
+            # Conectar a la base de datos SQLite (o crearla si no existe)
+            conn = sqlite3.connect('db.sqlite3')
+
+            # Itera sobre las filas del DataFrame y guarda los datos en la base de datos
+            for index, row in df.iterrows():
+                data = OfiTemuco(
+                    numero=row['Número'],
+                    area=row['Área'],
+                    dependencia=row['Dependencia'],
+                    detalle=row['Detalle'],
+                    frecuencia=row['Frecuencia'],
+                    procedimientos=row['Procedimiento'],
+                    parametro_control=row['Parámetros de Control'],
+                    horario=row['Horario']
+                )
+                data.save()
+
+            # Cerrar la conexión
+            conn.close()
         # Si se envió un archivo Excel
         if 'archivo_excel' in request.FILES:
             form = OfiTemucoForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                # Obtener el archivo Excel cargado
-                archivo_excel = request.FILES['archivo_excel']
-                # Leer el archivo Excel usando pandas
-                try:
-                    df = pd.read_excel(archivo_excel)
-                    # Guardar los datos en la base de datos
-                    for index, row in df.iterrows():
-                        dato = OfiTemuco(
-                            numero=row['Número'],
-                            area=row['Área'],
-                            dependencia=row['Dependencia'],
-                            detalle=row['Detalle'],
-                            frecuencia=row['Frecuencia'],
-                            procedimientos=row['Procedimiento'],
-                            parametro_control=row['Parámetros de Control'],
-                            horario=row['Horario']
-                        )
-                        dato.save()
-                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
-                except Exception as e:
-                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
-                return redirect('ofitemuco')
         # Si se envió el formulario de ingreso manual de datos
         else:
             form = OfiTemucoForm(request.POST)
@@ -797,33 +802,35 @@ def descargar_excel_ofitemuco(request):
 
 def quilicura(request):
     if request.method == 'POST':
+        if 'archivo_excel' in request.FILES:
+            form = QuilicuraForm(request.POST, request.FILES)
+            myfile = request.FILES['archivo_excel']
+            
+            # Leer el archivo Excel
+            df = pd.read_excel(myfile)
+            
+            # Conectar a la base de datos SQLite (o crearla si no existe)
+            conn = sqlite3.connect('db.sqlite3')
+
+            # Itera sobre las filas del DataFrame y guarda los datos en la base de datos
+            for index, row in df.iterrows():
+                data = Quilicura(
+                    numero=row['Número'],
+                    area=row['Área'],
+                    dependencia=row['Dependencia'],
+                    detalle=row['Detalle'],
+                    frecuencia=row['Frecuencia'],
+                    procedimientos=row['Procedimiento'],
+                    parametro_control=row['Parámetros de Control'],
+                    horario=row['Horario']
+                )
+                data.save()
+
+            # Cerrar la conexión
+            conn.close()
         # Si se envió un archivo Excel
         if 'archivo_excel' in request.FILES:
             form = QuilicuraForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                # Obtener el archivo Excel cargado
-                archivo_excel = request.FILES['archivo_excel']
-                # Leer el archivo Excel usando pandas
-                try:
-                    df = pd.read_excel(archivo_excel)
-                    # Guardar los datos en la base de datos
-                    for index, row in df.iterrows():
-                        dato = Quilicura(
-                            numero=row['Número'],
-                            area=row['Área'],
-                            dependencia=row['Dependencia'],
-                            detalle=row['Detalle'],
-                            frecuencia=row['Frecuencia'],
-                            procedimientos=row['Procedimiento'],
-                            parametro_control=row['Parámetros de Control'],
-                            horario=row['Horario']
-                        )
-                        dato.save()
-                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
-                except Exception as e:
-                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
-                return redirect('quilicura')
         # Si se envió el formulario de ingreso manual de datos
         else:
             form = QuilicuraForm(request.POST)
@@ -888,36 +895,37 @@ def descargar_excel_quilicura(request):
 
 
 #Views SackKraft
-
 def camposnovos(request):
     if request.method == 'POST':
+        if 'archivo_excel' in request.FILES:
+            form = CamposNovosForm(request.POST, request.FILES)
+            myfile = request.FILES['archivo_excel']
+            
+            # Leer el archivo Excel
+            df = pd.read_excel(myfile)
+            
+            # Conectar a la base de datos SQLite (o crearla si no existe)
+            conn = sqlite3.connect('db.sqlite3')
+
+            # Itera sobre las filas del DataFrame y guarda los datos en la base de datos
+            for index, row in df.iterrows():
+                data = CamposNovos(
+                    numero=row['Número'],
+                    area=row['Área'],
+                    dependencia=row['Dependencia'],
+                    detalle=row['Detalle'],
+                    frecuencia=row['Frecuencia'],
+                    procedimientos=row['Procedimiento'],
+                    parametro_control=row['Parámetros de Control'],
+                    horario=row['Horario']
+                )
+                data.save()
+
+            # Cerrar la conexión
+            conn.close()
         # Si se envió un archivo Excel
         if 'archivo_excel' in request.FILES:
             form = CamposNovosForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                # Obtener el archivo Excel cargado
-                archivo_excel = request.FILES['archivo_excel']
-                # Leer el archivo Excel usando pandas
-                try:
-                    df = pd.read_excel(archivo_excel)
-                    # Guardar los datos en la base de datos
-                    for index, row in df.iterrows():
-                        dato = CamposNovos(
-                            numero=row['Número'],
-                            area=row['Área'],
-                            dependencia=row['Dependencia'],
-                            detalle=row['Detalle'],
-                            frecuencia=row['Frecuencia'],
-                            procedimientos=row['Procedimiento'],
-                            parametro_control=row['Parámetros de Control'],
-                            horario=row['Horario']
-                        )
-                        dato.save()
-                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
-                except Exception as e:
-                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
-                return redirect('camposnovos')
         # Si se envió el formulario de ingreso manual de datos
         else:
             form = CamposNovosForm(request.POST)
@@ -982,33 +990,35 @@ def descargar_excel_camposnovos(request):
 
 def chillan(request):
     if request.method == 'POST':
+        if 'archivo_excel' in request.FILES:
+            form = ChillanForm(request.POST, request.FILES)
+            myfile = request.FILES['archivo_excel']
+            
+            # Leer el archivo Excel
+            df = pd.read_excel(myfile)
+            
+            # Conectar a la base de datos SQLite (o crearla si no existe)
+            conn = sqlite3.connect('db.sqlite3')
+
+            # Itera sobre las filas del DataFrame y guarda los datos en la base de datos
+            for index, row in df.iterrows():
+                data = Chillan(
+                    numero=row['Número'],
+                    area=row['Área'],
+                    dependencia=row['Dependencia'],
+                    detalle=row['Detalle'],
+                    frecuencia=row['Frecuencia'],
+                    procedimientos=row['Procedimiento'],
+                    parametro_control=row['Parámetros de Control'],
+                    horario=row['Horario']
+                )
+                data.save()
+
+            # Cerrar la conexión
+            conn.close()
         # Si se envió un archivo Excel
         if 'archivo_excel' in request.FILES:
             form = ChillanForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                # Obtener el archivo Excel cargado
-                archivo_excel = request.FILES['archivo_excel']
-                # Leer el archivo Excel usando pandas
-                try:
-                    df = pd.read_excel(archivo_excel)
-                    # Guardar los datos en la base de datos
-                    for index, row in df.iterrows():
-                        dato = Chillan(
-                            numero=row['Número'],
-                            area=row['Área'],
-                            dependencia=row['Dependencia'],
-                            detalle=row['Detalle'],
-                            frecuencia=row['Frecuencia'],
-                            procedimientos=row['Procedimiento'],
-                            parametro_control=row['Parámetros de Control'],
-                            horario=row['Horario']
-                        )
-                        dato.save()
-                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
-                except Exception as e:
-                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
-                return redirect('chillan')
         # Si se envió el formulario de ingreso manual de datos
         else:
             form = ChillanForm(request.POST)
@@ -1073,33 +1083,35 @@ def descargar_excel_chillan(request):
 
 def fabi(request):
     if request.method == 'POST':
+        if 'archivo_excel' in request.FILES:
+            form = FabiForm(request.POST, request.FILES)
+            myfile = request.FILES['archivo_excel']
+            
+            # Leer el archivo Excel
+            df = pd.read_excel(myfile)
+            
+            # Conectar a la base de datos SQLite (o crearla si no existe)
+            conn = sqlite3.connect('db.sqlite3')
+
+            # Itera sobre las filas del DataFrame y guarda los datos en la base de datos
+            for index, row in df.iterrows():
+                data = Fabi(
+                    numero=row['Número'],
+                    area=row['Área'],
+                    dependencia=row['Dependencia'],
+                    detalle=row['Detalle'],
+                    frecuencia=row['Frecuencia'],
+                    procedimientos=row['Procedimiento'],
+                    parametro_control=row['Parámetros de Control'],
+                    horario=row['Horario']
+                )
+                data.save()
+
+            # Cerrar la conexión
+            conn.close()
         # Si se envió un archivo Excel
         if 'archivo_excel' in request.FILES:
             form = FabiForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                # Obtener el archivo Excel cargado
-                archivo_excel = request.FILES['archivo_excel']
-                # Leer el archivo Excel usando pandas
-                try:
-                    df = pd.read_excel(archivo_excel)
-                    # Guardar los datos en la base de datos
-                    for index, row in df.iterrows():
-                        dato = CamposNovos(
-                            numero=row['Número'],
-                            area=row['Área'],
-                            dependencia=row['Dependencia'],
-                            detalle=row['Detalle'],
-                            frecuencia=row['Frecuencia'],
-                            procedimientos=row['Procedimiento'],
-                            parametro_control=row['Parámetros de Control'],
-                            horario=row['Horario']
-                        )
-                        dato.save()
-                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
-                except Exception as e:
-                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
-                return redirect('fabi')
         # Si se envió el formulario de ingreso manual de datos
         else:
             form = FabiForm(request.POST)
@@ -1116,7 +1128,6 @@ def fabi(request):
     fabi = Fabi.objects.all()
     print(fabi)
     return render(request, 'Instalaciones/Biopackaging/Sack-Kraft/Fabi.html', {'form': form, 'fabi': fabi})
-
 def eliminar_fabi(request, dato_id):
     if request.method == 'POST':
         dato = Fabi.objects.get(pk=dato_id)
@@ -1164,33 +1175,35 @@ def descargar_excel_fabi(request):
 
 def guadalajara(request):
     if request.method == 'POST':
-        # Si se envió un archivo Excel
         if 'archivo_excel' in request.FILES:
             form = GuadalajaraForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                # Obtener el archivo Excel cargado
-                archivo_excel = request.FILES['archivo_excel']
-                # Leer el archivo Excel usando pandas
-                try:
-                    df = pd.read_excel(archivo_excel)
-                    # Guardar los datos en la base de datos
-                    for index, row in df.iterrows():
-                        dato = Guadalajara(
-                            numero=row['Número'],
-                            area=row['Área'],
-                            dependencia=row['Dependencia'],
-                            detalle=row['Detalle'],
-                            frecuencia=row['Frecuencia'],
-                            procedimientos=row['Procedimiento'],
-                            parametro_control=row['Parámetros de Control'],
-                            horario=row['Horario']
-                        )
-                        dato.save()
-                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
-                except Exception as e:
-                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
-                return redirect('guadalajara')
+            myfile = request.FILES['archivo_excel']
+            
+            # Leer el archivo Excel
+            df = pd.read_excel(myfile)
+            
+            # Conectar a la base de datos SQLite (o crearla si no existe)
+            conn = sqlite3.connect('db.sqlite3')
+
+            # Itera sobre las filas del DataFrame y guarda los datos en la base de datos
+            for index, row in df.iterrows():
+                data = Guadalajara(
+                    numero=row['Número'],
+                    area=row['Área'],
+                    dependencia=row['Dependencia'],
+                    detalle=row['Detalle'],
+                    frecuencia=row['Frecuencia'],
+                    procedimientos=row['Procedimiento'],
+                    parametro_control=row['Parámetros de Control'],
+                    horario=row['Horario']
+                )
+                data.save()
+
+            # Cerrar la conexión
+            conn.close()
+        # Si se envió un archivo Excel
+        if 'archivo_excel' in request.FILES:
+            form = CamposNovosForm(request.POST, request.FILES)
         # Si se envió el formulario de ingreso manual de datos
         else:
             form = GuadalajaraForm(request.POST)
@@ -1255,33 +1268,35 @@ def descargar_excel_guadalajara(request):
 
 def irapuato(request):
     if request.method == 'POST':
+        if 'archivo_excel' in request.FILES:
+            form = IrapuatoForm(request.POST, request.FILES)
+            myfile = request.FILES['archivo_excel']
+            
+            # Leer el archivo Excel
+            df = pd.read_excel(myfile)
+            
+            # Conectar a la base de datos SQLite (o crearla si no existe)
+            conn = sqlite3.connect('db.sqlite3')
+
+            # Itera sobre las filas del DataFrame y guarda los datos en la base de datos
+            for index, row in df.iterrows():
+                data = Irapuato(
+                    numero=row['Número'],
+                    area=row['Área'],
+                    dependencia=row['Dependencia'],
+                    detalle=row['Detalle'],
+                    frecuencia=row['Frecuencia'],
+                    procedimientos=row['Procedimiento'],
+                    parametro_control=row['Parámetros de Control'],
+                    horario=row['Horario']
+                )
+                data.save()
+
+            # Cerrar la conexión
+            conn.close()
         # Si se envió un archivo Excel
         if 'archivo_excel' in request.FILES:
             form = IrapuatoForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                # Obtener el archivo Excel cargado
-                archivo_excel = request.FILES['archivo_excel']
-                # Leer el archivo Excel usando pandas
-                try:
-                    df = pd.read_excel(archivo_excel)
-                    # Guardar los datos en la base de datos
-                    for index, row in df.iterrows():
-                        dato = Irapuato(
-                            numero=row['Número'],
-                            area=row['Área'],
-                            dependencia=row['Dependencia'],
-                            detalle=row['Detalle'],
-                            frecuencia=row['Frecuencia'],
-                            procedimientos=row['Procedimiento'],
-                            parametro_control=row['Parámetros de Control'],
-                            horario=row['Horario']
-                        )
-                        dato.save()
-                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
-                except Exception as e:
-                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
-                return redirect('irapuato')
         # Si se envió el formulario de ingreso manual de datos
         else:
             form = IrapuatoForm(request.POST)
@@ -1346,33 +1361,35 @@ def descargar_excel_irapuato(request):
 
 def peru(request):
     if request.method == 'POST':
+        if 'archivo_excel' in request.FILES:
+            form = PeruForm(request.POST, request.FILES)
+            myfile = request.FILES['archivo_excel']
+            
+            # Leer el archivo Excel
+            df = pd.read_excel(myfile)
+            
+            # Conectar a la base de datos SQLite (o crearla si no existe)
+            conn = sqlite3.connect('db.sqlite3')
+
+            # Itera sobre las filas del DataFrame y guarda los datos en la base de datos
+            for index, row in df.iterrows():
+                data = Peru(
+                    numero=row['Número'],
+                    area=row['Área'],
+                    dependencia=row['Dependencia'],
+                    detalle=row['Detalle'],
+                    frecuencia=row['Frecuencia'],
+                    procedimientos=row['Procedimiento'],
+                    parametro_control=row['Parámetros de Control'],
+                    horario=row['Horario']
+                )
+                data.save()
+
+            # Cerrar la conexión
+            conn.close()
         # Si se envió un archivo Excel
         if 'archivo_excel' in request.FILES:
             form = PeruForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                # Obtener el archivo Excel cargado
-                archivo_excel = request.FILES['archivo_excel']
-                # Leer el archivo Excel usando pandas
-                try:
-                    df = pd.read_excel(archivo_excel)
-                    # Guardar los datos en la base de datos
-                    for index, row in df.iterrows():
-                        dato = Peru(
-                            numero=row['Número'],
-                            area=row['Área'],
-                            dependencia=row['Dependencia'],
-                            detalle=row['Detalle'],
-                            frecuencia=row['Frecuencia'],
-                            procedimientos=row['Procedimiento'],
-                            parametro_control=row['Parámetros de Control'],
-                            horario=row['Horario']
-                        )
-                        dato.save()
-                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
-                except Exception as e:
-                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
-                return redirect('peru')
         # Si se envió el formulario de ingreso manual de datos
         else:
             form = PeruForm(request.POST)
@@ -1437,33 +1454,35 @@ def descargar_excel_peru(request):
 
 def piraidosul(request):
     if request.method == 'POST':
+        if 'archivo_excel' in request.FILES:
+            form = PiraidoSulForm(request.POST, request.FILES)
+            myfile = request.FILES['archivo_excel']
+            
+            # Leer el archivo Excel
+            df = pd.read_excel(myfile)
+            
+            # Conectar a la base de datos SQLite (o crearla si no existe)
+            conn = sqlite3.connect('db.sqlite3')
+
+            # Itera sobre las filas del DataFrame y guarda los datos en la base de datos
+            for index, row in df.iterrows():
+                data = PiraidoSul(
+                    numero=row['Número'],
+                    area=row['Área'],
+                    dependencia=row['Dependencia'],
+                    detalle=row['Detalle'],
+                    frecuencia=row['Frecuencia'],
+                    procedimientos=row['Procedimiento'],
+                    parametro_control=row['Parámetros de Control'],
+                    horario=row['Horario']
+                )
+                data.save()
+
+            # Cerrar la conexión
+            conn.close()
         # Si se envió un archivo Excel
         if 'archivo_excel' in request.FILES:
             form = PiraidoSulForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                # Obtener el archivo Excel cargado
-                archivo_excel = request.FILES['archivo_excel']
-                # Leer el archivo Excel usando pandas
-                try:
-                    df = pd.read_excel(archivo_excel)
-                    # Guardar los datos en la base de datos
-                    for index, row in df.iterrows():
-                        dato = PiraidoSul   (
-                            numero=row['Número'],
-                            area=row['Área'],
-                            dependencia=row['Dependencia'],
-                            detalle=row['Detalle'],
-                            frecuencia=row['Frecuencia'],
-                            procedimientos=row['Procedimiento'],
-                            parametro_control=row['Parámetros de Control'],
-                            horario=row['Horario']
-                        )
-                        dato.save()
-                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
-                except Exception as e:
-                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
-                return redirect('piraidosul')
         # Si se envió el formulario de ingreso manual de datos
         else:
             form = PiraidoSulForm(request.POST)
@@ -1527,33 +1546,35 @@ def descargar_excel_piraidosul(request):
 
 def sanjose(request):
     if request.method == 'POST':
+        if 'archivo_excel' in request.FILES:
+            form = SanJoseForm(request.POST, request.FILES)
+            myfile = request.FILES['archivo_excel']
+            
+            # Leer el archivo Excel
+            df = pd.read_excel(myfile)
+            
+            # Conectar a la base de datos SQLite (o crearla si no existe)
+            conn = sqlite3.connect('db.sqlite3')
+
+            # Itera sobre las filas del DataFrame y guarda los datos en la base de datos
+            for index, row in df.iterrows():
+                data = SanJose(
+                    numero=row['Número'],
+                    area=row['Área'],
+                    dependencia=row['Dependencia'],
+                    detalle=row['Detalle'],
+                    frecuencia=row['Frecuencia'],
+                    procedimientos=row['Procedimiento'],
+                    parametro_control=row['Parámetros de Control'],
+                    horario=row['Horario']
+                )
+                data.save()
+
+            # Cerrar la conexión
+            conn.close()
         # Si se envió un archivo Excel
         if 'archivo_excel' in request.FILES:
             form = SanJoseForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                # Obtener el archivo Excel cargado
-                archivo_excel = request.FILES['archivo_excel']
-                # Leer el archivo Excel usando pandas
-                try:
-                    df = pd.read_excel(archivo_excel)
-                    # Guardar los datos en la base de datos
-                    for index, row in df.iterrows():
-                        dato = SanJose(
-                            numero=row['Número'],
-                            area=row['Área'],
-                            dependencia=row['Dependencia'],
-                            detalle=row['Detalle'],
-                            frecuencia=row['Frecuencia'],
-                            procedimientos=row['Procedimiento'],
-                            parametro_control=row['Parámetros de Control'],
-                            horario=row['Horario']
-                        )
-                        dato.save()
-                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
-                except Exception as e:
-                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
-                return redirect('sanjose')
         # Si se envió el formulario de ingreso manual de datos
         else:
             form = SanJoseForm(request.POST)
@@ -1616,37 +1637,39 @@ def descargar_excel_sanjose(request):
     wb.save(response)
     return response
 
-# Biopackaging Corrugados
 
+# Biopackaging Corrugados
 def chimolsa(request):
     if request.method == 'POST':
+        if 'archivo_excel' in request.FILES:
+            form = ChimolsaForm(request.POST, request.FILES)
+            myfile = request.FILES['archivo_excel']
+            
+            # Leer el archivo Excel
+            df = pd.read_excel(myfile)
+            
+            # Conectar a la base de datos SQLite (o crearla si no existe)
+            conn = sqlite3.connect('db.sqlite3')
+
+            # Itera sobre las filas del DataFrame y guarda los datos en la base de datos
+            for index, row in df.iterrows():
+                data = Chimolsa(
+                    numero=row['Número'],
+                    area=row['Área'],
+                    dependencia=row['Dependencia'],
+                    detalle=row['Detalle'],
+                    frecuencia=row['Frecuencia'],
+                    procedimientos=row['Procedimiento'],
+                    parametro_control=row['Parámetros de Control'],
+                    horario=row['Horario']
+                )
+                data.save()
+
+            # Cerrar la conexión
+            conn.close()
         # Si se envió un archivo Excel
         if 'archivo_excel' in request.FILES:
             form = ChimolsaForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                # Obtener el archivo Excel cargado
-                archivo_excel = request.FILES['archivo_excel']
-                # Leer el archivo Excel usando pandas
-                try:
-                    df = pd.read_excel(archivo_excel)
-                    # Guardar los datos en la base de datos
-                    for index, row in df.iterrows():
-                        dato = Chimolsa(
-                            numero=row['Número'],
-                            area=row['Área'],
-                            dependencia=row['Dependencia'],
-                            detalle=row['Detalle'],
-                            frecuencia=row['Frecuencia'],
-                            procedimientos=row['Procedimiento'],
-                            parametro_control=row['Parámetros de Control'],
-                            horario=row['Horario']
-                        )
-                        dato.save()
-                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
-                except Exception as e:
-                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
-                return redirect('chimolsa')
         # Si se envió el formulario de ingreso manual de datos
         else:
             form = ChimolsaForm(request.POST)
@@ -1711,33 +1734,35 @@ def descargar_excel_chimolsa(request):
 
 def cordillera(request):
     if request.method == 'POST':
+        if 'archivo_excel' in request.FILES:
+            form = CordilleraForm(request.POST, request.FILES)
+            myfile = request.FILES['archivo_excel']
+            
+            # Leer el archivo Excel
+            df = pd.read_excel(myfile)
+            
+            # Conectar a la base de datos SQLite (o crearla si no existe)
+            conn = sqlite3.connect('db.sqlite3')
+
+            # Itera sobre las filas del DataFrame y guarda los datos en la base de datos
+            for index, row in df.iterrows():
+                data = Cordillera(
+                    numero=row['Número'],
+                    area=row['Área'],
+                    dependencia=row['Dependencia'],
+                    detalle=row['Detalle'],
+                    frecuencia=row['Frecuencia'],
+                    procedimientos=row['Procedimiento'],
+                    parametro_control=row['Parámetros de Control'],
+                    horario=row['Horario']
+                )
+                data.save()
+
+            # Cerrar la conexión
+            conn.close()
         # Si se envió un archivo Excel
         if 'archivo_excel' in request.FILES:
             form = CordilleraForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                # Obtener el archivo Excel cargado
-                archivo_excel = request.FILES['archivo_excel']
-                # Leer el archivo Excel usando pandas
-                try:
-                    df = pd.read_excel(archivo_excel)
-                    # Guardar los datos en la base de datos
-                    for index, row in df.iterrows():
-                        dato = Cordillera(
-                            numero=row['Número'],
-                            area=row['Área'],
-                            dependencia=row['Dependencia'],
-                            detalle=row['Detalle'],
-                            frecuencia=row['Frecuencia'],
-                            procedimientos=row['Procedimiento'],
-                            parametro_control=row['Parámetros de Control'],
-                            horario=row['Horario']
-                        )
-                        dato.save()
-                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
-                except Exception as e:
-                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
-                return redirect('cordillera')
         # Si se envió el formulario de ingreso manual de datos
         else:
             form = CordilleraForm(request.POST)
@@ -1802,33 +1827,35 @@ def descargar_excel_cordillera(request):
 
 def buin(request):
     if request.method == 'POST':
+        if 'archivo_excel' in request.FILES:
+            form = BuinForm(request.POST, request.FILES)
+            myfile = request.FILES['archivo_excel']
+            
+            # Leer el archivo Excel
+            df = pd.read_excel(myfile)
+            
+            # Conectar a la base de datos SQLite (o crearla si no existe)
+            conn = sqlite3.connect('db.sqlite3')
+
+            # Itera sobre las filas del DataFrame y guarda los datos en la base de datos
+            for index, row in df.iterrows():
+                data = Buin(
+                    numero=row['Número'],
+                    area=row['Área'],
+                    dependencia=row['Dependencia'],
+                    detalle=row['Detalle'],
+                    frecuencia=row['Frecuencia'],
+                    procedimientos=row['Procedimiento'],
+                    parametro_control=row['Parámetros de Control'],
+                    horario=row['Horario']
+                )
+                data.save()
+
+            # Cerrar la conexión
+            conn.close()
         # Si se envió un archivo Excel
         if 'archivo_excel' in request.FILES:
             form = BuinForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                # Obtener el archivo Excel cargado
-                archivo_excel = request.FILES['archivo_excel']
-                # Leer el archivo Excel usando pandas
-                try:
-                    df = pd.read_excel(archivo_excel)
-                    # Guardar los datos en la base de datos
-                    for index, row in df.iterrows():
-                        dato = Buin(
-                            numero=row['Número'],
-                            area=row['Área'],
-                            dependencia=row['Dependencia'],
-                            detalle=row['Detalle'],
-                            frecuencia=row['Frecuencia'],
-                            procedimientos=row['Procedimiento'],
-                            parametro_control=row['Parámetros de Control'],
-                            horario=row['Horario']
-                        )
-                        dato.save()
-                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
-                except Exception as e:
-                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
-                return redirect('buin')
         # Si se envió el formulario de ingreso manual de datos
         else:
             form = BuinForm(request.POST)
@@ -1893,33 +1920,35 @@ def descargar_excel_buin(request):
 
 def osorno(request):
     if request.method == 'POST':
+        if 'archivo_excel' in request.FILES:
+            form = OsornoForm(request.POST, request.FILES)
+            myfile = request.FILES['archivo_excel']
+            
+            # Leer el archivo Excel
+            df = pd.read_excel(myfile)
+            
+            # Conectar a la base de datos SQLite (o crearla si no existe)
+            conn = sqlite3.connect('db.sqlite3')
+
+            # Itera sobre las filas del DataFrame y guarda los datos en la base de datos
+            for index, row in df.iterrows():
+                data = Osorno(
+                    numero=row['Número'],
+                    area=row['Área'],
+                    dependencia=row['Dependencia'],
+                    detalle=row['Detalle'],
+                    frecuencia=row['Frecuencia'],
+                    procedimientos=row['Procedimiento'],
+                    parametro_control=row['Parámetros de Control'],
+                    horario=row['Horario']
+                )
+                data.save()
+
+            # Cerrar la conexión
+            conn.close()
         # Si se envió un archivo Excel
         if 'archivo_excel' in request.FILES:
             form = OsornoForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                # Obtener el archivo Excel cargado
-                archivo_excel = request.FILES['archivo_excel']
-                # Leer el archivo Excel usando pandas
-                try:
-                    df = pd.read_excel(archivo_excel)
-                    # Guardar los datos en la base de datos
-                    for index, row in df.iterrows():
-                        dato = Osorno(
-                            numero=row['Número'],
-                            area=row['Área'],
-                            dependencia=row['Dependencia'],
-                            detalle=row['Detalle'],
-                            frecuencia=row['Frecuencia'],
-                            procedimientos=row['Procedimiento'],
-                            parametro_control=row['Parámetros de Control'],
-                            horario=row['Horario']
-                        )
-                        dato.save()
-                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
-                except Exception as e:
-                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
-                return redirect('osorno')
         # Si se envió el formulario de ingreso manual de datos
         else:
             form = OsornoForm(request.POST)
@@ -1984,33 +2013,35 @@ def descargar_excel_osorno(request):
 
 def tiltil(request):
     if request.method == 'POST':
+        if 'archivo_excel' in request.FILES:
+            form = TilTilForm(request.POST, request.FILES)
+            myfile = request.FILES['archivo_excel']
+            
+            # Leer el archivo Excel
+            df = pd.read_excel(myfile)
+            
+            # Conectar a la base de datos SQLite (o crearla si no existe)
+            conn = sqlite3.connect('db.sqlite3')
+
+            # Itera sobre las filas del DataFrame y guarda los datos en la base de datos
+            for index, row in df.iterrows():
+                data = TilTil(
+                    numero=row['Número'],
+                    area=row['Área'],
+                    dependencia=row['Dependencia'],
+                    detalle=row['Detalle'],
+                    frecuencia=row['Frecuencia'],
+                    procedimientos=row['Procedimiento'],
+                    parametro_control=row['Parámetros de Control'],
+                    horario=row['Horario']
+                )
+                data.save()
+
+            # Cerrar la conexión
+            conn.close()
         # Si se envió un archivo Excel
         if 'archivo_excel' in request.FILES:
             form = TilTilForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                # Obtener el archivo Excel cargado
-                archivo_excel = request.FILES['archivo_excel']
-                # Leer el archivo Excel usando pandas
-                try:
-                    df = pd.read_excel(archivo_excel)
-                    # Guardar los datos en la base de datos
-                    for index, row in df.iterrows():
-                        dato = TilTil(
-                            numero=row['Número'],
-                            area=row['Área'],
-                            dependencia=row['Dependencia'],
-                            detalle=row['Detalle'],
-                            frecuencia=row['Frecuencia'],
-                            procedimientos=row['Procedimiento'],
-                            parametro_control=row['Parámetros de Control'],
-                            horario=row['Horario']
-                        )
-                        dato.save()
-                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
-                except Exception as e:
-                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
-                return redirect('tiltil')
         # Si se envió el formulario de ingreso manual de datos
         else:
             form = TilTilForm(request.POST)
@@ -2075,33 +2106,35 @@ def descargar_excel_tiltil(request):
 
 def sorepapudahuel(request):
     if request.method == 'POST':
+        if 'archivo_excel' in request.FILES:
+            form = PudahuelForm(request.POST, request.FILES)
+            myfile = request.FILES['archivo_excel']
+            
+            # Leer el archivo Excel
+            df = pd.read_excel(myfile)
+            
+            # Conectar a la base de datos SQLite (o crearla si no existe)
+            conn = sqlite3.connect('db.sqlite3')
+
+            # Itera sobre las filas del DataFrame y guarda los datos en la base de datos
+            for index, row in df.iterrows():
+                data = Pudahuel(
+                    numero=row['Número'],
+                    area=row['Área'],
+                    dependencia=row['Dependencia'],
+                    detalle=row['Detalle'],
+                    frecuencia=row['Frecuencia'],
+                    procedimientos=row['Procedimiento'],
+                    parametro_control=row['Parámetros de Control'],
+                    horario=row['Horario']
+                )
+                data.save()
+
+            # Cerrar la conexión
+            conn.close()
         # Si se envió un archivo Excel
         if 'archivo_excel' in request.FILES:
             form = PudahuelForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                # Obtener el archivo Excel cargado
-                archivo_excel = request.FILES['archivo_excel']
-                # Leer el archivo Excel usando pandas
-                try:
-                    df = pd.read_excel(archivo_excel)
-                    # Guardar los datos en la base de datos
-                    for index, row in df.iterrows():
-                        dato = Pudahuel(
-                            numero=row['Número'],
-                            area=row['Área'],
-                            dependencia=row['Dependencia'],
-                            detalle=row['Detalle'],
-                            frecuencia=row['Frecuencia'],
-                            procedimientos=row['Procedimiento'],
-                            parametro_control=row['Parámetros de Control'],
-                            horario=row['Horario']
-                        )
-                        dato.save()
-                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
-                except Exception as e:
-                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
-                return redirect('sorepapudahuel')
         # Si se envió el formulario de ingreso manual de datos
         else:
             form = PudahuelForm(request.POST)
@@ -2166,33 +2199,35 @@ def descargar_excel_sorepapudahuel(request):
 
 def sorepapuentealto(request):
     if request.method == 'POST':
+        if 'archivo_excel' in request.FILES:
+            form = PuenteAltoForm(request.POST, request.FILES)
+            myfile = request.FILES['archivo_excel']
+            
+            # Leer el archivo Excel
+            df = pd.read_excel(myfile)
+            
+            # Conectar a la base de datos SQLite (o crearla si no existe)
+            conn = sqlite3.connect('db.sqlite3')
+
+            # Itera sobre las filas del DataFrame y guarda los datos en la base de datos
+            for index, row in df.iterrows():
+                data = PuenteAlto(
+                    numero=row['Número'],
+                    area=row['Área'],
+                    dependencia=row['Dependencia'],
+                    detalle=row['Detalle'],
+                    frecuencia=row['Frecuencia'],
+                    procedimientos=row['Procedimiento'],
+                    parametro_control=row['Parámetros de Control'],
+                    horario=row['Horario']
+                )
+                data.save()
+
+            # Cerrar la conexión
+            conn.close()
         # Si se envió un archivo Excel
         if 'archivo_excel' in request.FILES:
             form = PuenteAltoForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                # Obtener el archivo Excel cargado
-                archivo_excel = request.FILES['archivo_excel']
-                # Leer el archivo Excel usando pandas
-                try:
-                    df = pd.read_excel(archivo_excel)
-                    # Guardar los datos en la base de datos
-                    for index, row in df.iterrows():
-                        dato = PuenteAlto(
-                            numero=row['Número'],
-                            area=row['Área'],
-                            dependencia=row['Dependencia'],
-                            detalle=row['Detalle'],
-                            frecuencia=row['Frecuencia'],
-                            procedimientos=row['Procedimiento'],
-                            parametro_control=row['Parámetros de Control'],
-                            horario=row['Horario']
-                        )
-                        dato.save()
-                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
-                except Exception as e:
-                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
-                return redirect('sorepapuentealto')
         # Si se envió el formulario de ingreso manual de datos
         else:
             form = PuenteAltoForm(request.POST)
@@ -2257,33 +2292,35 @@ def descargar_excel_sorepapuentealto(request):
 
 def redoficinas(request):
     if request.method == 'POST':
+        if 'archivo_excel' in request.FILES:
+            form = RedOficinasForm(request.POST, request.FILES)
+            myfile = request.FILES['archivo_excel']
+            
+            # Leer el archivo Excel
+            df = pd.read_excel(myfile)
+            
+            # Conectar a la base de datos SQLite (o crearla si no existe)
+            conn = sqlite3.connect('db.sqlite3')
+
+            # Itera sobre las filas del DataFrame y guarda los datos en la base de datos
+            for index, row in df.iterrows():
+                data = RedOficinas(
+                    numero=row['Número'],
+                    area=row['Área'],
+                    dependencia=row['Dependencia'],
+                    detalle=row['Detalle'],
+                    frecuencia=row['Frecuencia'],
+                    procedimientos=row['Procedimiento'],
+                    parametro_control=row['Parámetros de Control'],
+                    horario=row['Horario']
+                )
+                data.save()
+
+            # Cerrar la conexión
+            conn.close()
         # Si se envió un archivo Excel
         if 'archivo_excel' in request.FILES:
             form = RedOficinasForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                # Obtener el archivo Excel cargado
-                archivo_excel = request.FILES['archivo_excel']
-                # Leer el archivo Excel usando pandas
-                try:
-                    df = pd.read_excel(archivo_excel)
-                    # Guardar los datos en la base de datos
-                    for index, row in df.iterrows():
-                        dato = RedOficinas(
-                            numero=row['Número'],
-                            area=row['Área'],
-                            dependencia=row['Dependencia'],
-                            detalle=row['Detalle'],
-                            frecuencia=row['Frecuencia'],
-                            procedimientos=row['Procedimiento'],
-                            parametro_control=row['Parámetros de Control'],
-                            horario=row['Horario']
-                        )
-                        dato.save()
-                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
-                except Exception as e:
-                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
-                return redirect('redoficinas')
         # Si se envió el formulario de ingreso manual de datos
         else:
             form = RedOficinasForm(request.POST)
@@ -2300,7 +2337,6 @@ def redoficinas(request):
     redoficinas = RedOficinas.objects.all()
     print(redoficinas)
     return render(request, 'Instalaciones/Biopackaging/Corrugados/SorepaRedOficinas.html', {'form': form, 'redoficinas': redoficinas})
-
 def eliminar_redoficinas(request, dato_id):
     if request.method == 'POST':
         dato = RedOficinas.objects.get(pk=dato_id)
@@ -2348,33 +2384,35 @@ def descargar_excel_redoficinas(request):
 
 def sorepasanjoaquin(request):
     if request.method == 'POST':
+        if 'archivo_excel' in request.FILES:
+            form = SanJoaquinForm(request.POST, request.FILES)
+            myfile = request.FILES['archivo_excel']
+            
+            # Leer el archivo Excel
+            df = pd.read_excel(myfile)
+            
+            # Conectar a la base de datos SQLite (o crearla si no existe)
+            conn = sqlite3.connect('db.sqlite3')
+
+            # Itera sobre las filas del DataFrame y guarda los datos en la base de datos
+            for index, row in df.iterrows():
+                data = SanJoaquin(
+                    numero=row['Número'],
+                    area=row['Área'],
+                    dependencia=row['Dependencia'],
+                    detalle=row['Detalle'],
+                    frecuencia=row['Frecuencia'],
+                    procedimientos=row['Procedimiento'],
+                    parametro_control=row['Parámetros de Control'],
+                    horario=row['Horario']
+                )
+                data.save()
+
+            # Cerrar la conexión
+            conn.close()
         # Si se envió un archivo Excel
         if 'archivo_excel' in request.FILES:
             form = SanJoaquinForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                # Obtener el archivo Excel cargado
-                archivo_excel = request.FILES['archivo_excel']
-                # Leer el archivo Excel usando pandas
-                try:
-                    df = pd.read_excel(archivo_excel)
-                    # Guardar los datos en la base de datos
-                    for index, row in df.iterrows():
-                        dato = SanJoaquin(
-                            numero=row['Número'],
-                            area=row['Área'],
-                            dependencia=row['Dependencia'],
-                            detalle=row['Detalle'],
-                            frecuencia=row['Frecuencia'],
-                            procedimientos=row['Procedimiento'],
-                            parametro_control=row['Parámetros de Control'],
-                            horario=row['Horario']
-                        )
-                        dato.save()
-                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
-                except Exception as e:
-                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
-                return redirect('sorepasanjoaquin')
         # Si se envió el formulario de ingreso manual de datos
         else:
             form = SanJoaquinForm(request.POST)
@@ -2438,38 +2476,38 @@ def descargar_excel_sorepasanjoaquin(request):
     return response
 
 
-
-
 #Bosques
 def balnearios(request):
     if request.method == 'POST':
+        if 'archivo_excel' in request.FILES:
+            form = BalneariosForm(request.POST, request.FILES)
+            myfile = request.FILES['archivo_excel']
+            
+            # Leer el archivo Excel
+            df = pd.read_excel(myfile)
+            
+            # Conectar a la base de datos SQLite (o crearla si no existe)
+            conn = sqlite3.connect('db.sqlite3')
+
+            # Itera sobre las filas del DataFrame y guarda los datos en la base de datos
+            for index, row in df.iterrows():
+                data = Balnearios(
+                    numero=row['Número'],
+                    area=row['Área'],
+                    dependencia=row['Dependencia'],
+                    detalle=row['Detalle'],
+                    frecuencia=row['Frecuencia'],
+                    procedimientos=row['Procedimiento'],
+                    parametro_control=row['Parámetros de Control'],
+                    horario=row['Horario']
+                )
+                data.save()
+
+            # Cerrar la conexión
+            conn.close()
         # Si se envió un archivo Excel
         if 'archivo_excel' in request.FILES:
             form = BalneariosForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                # Obtener el archivo Excel cargado
-                archivo_excel = request.FILES['archivo_excel']
-                # Leer el archivo Excel usando pandas
-                try:
-                    df = pd.read_excel(archivo_excel)
-                    # Guardar los datos en la base de datos
-                    for index, row in df.iterrows():
-                        dato = Balnearios(
-                            numero=row['Número'],
-                            area=row['Área'],
-                            dependencia=row['Dependencia'],
-                            detalle=row['Detalle'],
-                            frecuencia=row['Frecuencia'],
-                            procedimientos=row['Procedimiento'],
-                            parametro_control=row['Parámetros de Control'],
-                            horario=row['Horario']
-                        )
-                        dato.save()
-                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
-                except Exception as e:
-                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
-                return redirect('balnearios')
         # Si se envió el formulario de ingreso manual de datos
         else:
             form = BalneariosForm(request.POST)
@@ -2533,33 +2571,35 @@ def descargar_excel_balnearios(request):
 
 def villaforest(request):
     if request.method == 'POST':
+        if 'archivo_excel' in request.FILES:
+            form = VillaForestForm(request.POST, request.FILES)
+            myfile = request.FILES['archivo_excel']
+            
+            # Leer el archivo Excel
+            df = pd.read_excel(myfile)
+            
+            # Conectar a la base de datos SQLite (o crearla si no existe)
+            conn = sqlite3.connect('db.sqlite3')
+
+            # Itera sobre las filas del DataFrame y guarda los datos en la base de datos
+            for index, row in df.iterrows():
+                data = VillaForest(
+                    numero=row['Número'],
+                    area=row['Área'],
+                    dependencia=row['Dependencia'],
+                    detalle=row['Detalle'],
+                    frecuencia=row['Frecuencia'],
+                    procedimientos=row['Procedimiento'],
+                    parametro_control=row['Parámetros de Control'],
+                    horario=row['Horario']
+                )
+                data.save()
+
+            # Cerrar la conexión
+            conn.close()
         # Si se envió un archivo Excel
         if 'archivo_excel' in request.FILES:
             form = VillaForestForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                # Obtener el archivo Excel cargado
-                archivo_excel = request.FILES['archivo_excel']
-                # Leer el archivo Excel usando pandas
-                try:
-                    df = pd.read_excel(archivo_excel)
-                    # Guardar los datos en la base de datos
-                    for index, row in df.iterrows():
-                        dato = VillaForest(
-                            numero=row['Número'],
-                            area=row['Área'],
-                            dependencia=row['Dependencia'],
-                            detalle=row['Detalle'],
-                            frecuencia=row['Frecuencia'],
-                            procedimientos=row['Procedimiento'],
-                            parametro_control=row['Parámetros de Control'],
-                            horario=row['Horario']
-                        )
-                        dato.save()
-                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
-                except Exception as e:
-                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
-                return redirect('villaforest')
         # Si se envió el formulario de ingreso manual de datos
         else:
             form = VillaForestForm(request.POST)
@@ -2576,7 +2616,6 @@ def villaforest(request):
     villaforest = VillaForest.objects.all()
     print(villaforest)
     return render(request, 'Instalaciones/Bosques/Bases-y-Villas-Forest.html', {'form': form, 'villaforest': villaforest})
-
 def eliminar_villaforest(request, dato_id):
     if request.method == 'POST':
         dato = VillaForest.objects.get(pk=dato_id)
@@ -2624,33 +2663,35 @@ def descargar_excel_villaforest(request):
 
 def bosquesplata(request):
     if request.method == 'POST':
+        if 'archivo_excel' in request.FILES:
+            form = BosquesPlataForm(request.POST, request.FILES)
+            myfile = request.FILES['archivo_excel']
+            
+            # Leer el archivo Excel
+            df = pd.read_excel(myfile)
+            
+            # Conectar a la base de datos SQLite (o crearla si no existe)
+            conn = sqlite3.connect('db.sqlite3')
+
+            # Itera sobre las filas del DataFrame y guarda los datos en la base de datos
+            for index, row in df.iterrows():
+                data = BosquesPlata(
+                    numero=row['Número'],
+                    area=row['Área'],
+                    dependencia=row['Dependencia'],
+                    detalle=row['Detalle'],
+                    frecuencia=row['Frecuencia'],
+                    procedimientos=row['Procedimiento'],
+                    parametro_control=row['Parámetros de Control'],
+                    horario=row['Horario']
+                )
+                data.save()
+
+            # Cerrar la conexión
+            conn.close()
         # Si se envió un archivo Excel
         if 'archivo_excel' in request.FILES:
             form = BosquesPlataForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                # Obtener el archivo Excel cargado
-                archivo_excel = request.FILES['archivo_excel']
-                # Leer el archivo Excel usando pandas
-                try:
-                    df = pd.read_excel(archivo_excel)
-                    # Guardar los datos en la base de datos
-                    for index, row in df.iterrows():
-                        dato = BosquesPlata(
-                            numero=row['Número'],
-                            area=row['Área'],
-                            dependencia=row['Dependencia'],
-                            detalle=row['Detalle'],
-                            frecuencia=row['Frecuencia'],
-                            procedimientos=row['Procedimiento'],
-                            parametro_control=row['Parámetros de Control'],
-                            horario=row['Horario']
-                        )
-                        dato.save()
-                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
-                except Exception as e:
-                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
-                return redirect('bosquesplata')
         # Si se envió el formulario de ingreso manual de datos
         else:
             form = BosquesPlataForm(request.POST)
@@ -2666,8 +2707,7 @@ def bosquesplata(request):
 
     bosquesplata = BosquesPlata.objects.all()
     print(bosquesplata)
-    return render(request, 'Instalaciones/Bosques/Bosques-del-Plata.html', {'form': form, 'bosquesplata': bosquesplata})
-
+    return render(request, 'Instalaciones/Bosques/Bosques-del-plata.html', {'form': form, 'bosquesplata': bosquesplata})
 def eliminar_bosquesplata(request, dato_id):
     if request.method == 'POST':
         dato = BosquesPlata.objects.get(pk=dato_id)
@@ -2715,33 +2755,35 @@ def descargar_excel_bosquesplata(request):
 
 def edicorpo(request):
     if request.method == 'POST':
+        if 'archivo_excel' in request.FILES:
+            form = EdiCorpoForm(request.POST, request.FILES)
+            myfile = request.FILES['archivo_excel']
+            
+            # Leer el archivo Excel
+            df = pd.read_excel(myfile)
+            
+            # Conectar a la base de datos SQLite (o crearla si no existe)
+            conn = sqlite3.connect('db.sqlite3')
+
+            # Itera sobre las filas del DataFrame y guarda los datos en la base de datos
+            for index, row in df.iterrows():
+                data = EdiCorpo(
+                    numero=row['Número'],
+                    area=row['Área'],
+                    dependencia=row['Dependencia'],
+                    detalle=row['Detalle'],
+                    frecuencia=row['Frecuencia'],
+                    procedimientos=row['Procedimiento'],
+                    parametro_control=row['Parámetros de Control'],
+                    horario=row['Horario']
+                )
+                data.save()
+
+            # Cerrar la conexión
+            conn.close()
         # Si se envió un archivo Excel
         if 'archivo_excel' in request.FILES:
             form = EdiCorpoForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                # Obtener el archivo Excel cargado
-                archivo_excel = request.FILES['archivo_excel']
-                # Leer el archivo Excel usando pandas
-                try:
-                    df = pd.read_excel(archivo_excel)
-                    # Guardar los datos en la base de datos
-                    for index, row in df.iterrows():
-                        dato = EdiCorpo(
-                            numero=row['Número'],
-                            area=row['Área'],
-                            dependencia=row['Dependencia'],
-                            detalle=row['Detalle'],
-                            frecuencia=row['Frecuencia'],
-                            procedimientos=row['Procedimiento'],
-                            parametro_control=row['Parámetros de Control'],
-                            horario=row['Horario']
-                        )
-                        dato.save()
-                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
-                except Exception as e:
-                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
-                return redirect('edicorpo')
         # Si se envió el formulario de ingreso manual de datos
         else:
             form = EdiCorpoForm(request.POST)
@@ -2753,7 +2795,7 @@ def edicorpo(request):
                 messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
 
     else:
-        form = EdiCorpoForm()
+        form = BalneariosForm()
 
     edicorpo = EdiCorpo.objects.all()
     print(edicorpo)
@@ -2806,33 +2848,35 @@ def descargar_excel_edicorpo(request):
 
 def transito(request):
     if request.method == 'POST':
+        if 'archivo_excel' in request.FILES:
+            form = TransitoForm(request.POST, request.FILES)
+            myfile = request.FILES['archivo_excel']
+            
+            # Leer el archivo Excel
+            df = pd.read_excel(myfile)
+            
+            # Conectar a la base de datos SQLite (o crearla si no existe)
+            conn = sqlite3.connect('db.sqlite3')
+
+            # Itera sobre las filas del DataFrame y guarda los datos en la base de datos
+            for index, row in df.iterrows():
+                data = Transito(
+                    numero=row['Número'],
+                    area=row['Área'],
+                    dependencia=row['Dependencia'],
+                    detalle=row['Detalle'],
+                    frecuencia=row['Frecuencia'],
+                    procedimientos=row['Procedimiento'],
+                    parametro_control=row['Parámetros de Control'],
+                    horario=row['Horario']
+                )
+                data.save()
+
+            # Cerrar la conexión
+            conn.close()
         # Si se envió un archivo Excel
         if 'archivo_excel' in request.FILES:
             form = TransitoForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                # Obtener el archivo Excel cargado
-                archivo_excel = request.FILES['archivo_excel']
-                # Leer el archivo Excel usando pandas
-                try:
-                    df = pd.read_excel(archivo_excel)
-                    # Guardar los datos en la base de datos
-                    for index, row in df.iterrows():
-                        dato = Transito(
-                            numero=row['Número'],
-                            area=row['Área'],
-                            dependencia=row['Dependencia'],
-                            detalle=row['Detalle'],
-                            frecuencia=row['Frecuencia'],
-                            procedimientos=row['Procedimiento'],
-                            parametro_control=row['Parámetros de Control'],
-                            horario=row['Horario']
-                        )
-                        dato.save()
-                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
-                except Exception as e:
-                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
-                return redirect('transito')
         # Si se envió el formulario de ingreso manual de datos
         else:
             form = TransitoForm(request.POST)
@@ -2896,33 +2940,35 @@ def descargar_excel_transito(request):
 
 def coyhaique(request):
     if request.method == 'POST':
+        if 'archivo_excel' in request.FILES:
+            form = CoyhaiqueForm(request.POST, request.FILES)
+            myfile = request.FILES['archivo_excel']
+            
+            # Leer el archivo Excel
+            df = pd.read_excel(myfile)
+            
+            # Conectar a la base de datos SQLite (o crearla si no existe)
+            conn = sqlite3.connect('db.sqlite3')
+
+            # Itera sobre las filas del DataFrame y guarda los datos en la base de datos
+            for index, row in df.iterrows():
+                data = Coyhaique(
+                    numero=row['Número'],
+                    area=row['Área'],
+                    dependencia=row['Dependencia'],
+                    detalle=row['Detalle'],
+                    frecuencia=row['Frecuencia'],
+                    procedimientos=row['Procedimiento'],
+                    parametro_control=row['Parámetros de Control'],
+                    horario=row['Horario']
+                )
+                data.save()
+
+            # Cerrar la conexión
+            conn.close()
         # Si se envió un archivo Excel
         if 'archivo_excel' in request.FILES:
             form = CoyhaiqueForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                # Obtener el archivo Excel cargado
-                archivo_excel = request.FILES['archivo_excel']
-                # Leer el archivo Excel usando pandas
-                try:
-                    df = pd.read_excel(archivo_excel)
-                    # Guardar los datos en la base de datos
-                    for index, row in df.iterrows():
-                        dato = Coyhaique(
-                            numero=row['Número'],
-                            area=row['Área'],
-                            dependencia=row['Dependencia'],
-                            detalle=row['Detalle'],
-                            frecuencia=row['Frecuencia'],
-                            procedimientos=row['Procedimiento'],
-                            parametro_control=row['Parámetros de Control'],
-                            horario=row['Horario']
-                        )
-                        dato.save()
-                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
-                except Exception as e:
-                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
-                return redirect('coyhaique')
         # Si se envió el formulario de ingreso manual de datos
         else:
             form = CoyhaiqueForm(request.POST)
@@ -2987,33 +3033,35 @@ def descargar_excel_coyhaique(request):
 
 def viverocd(request):
     if request.method == 'POST':
+        if 'archivo_excel' in request.FILES:
+            form = ViveroForm(request.POST, request.FILES)
+            myfile = request.FILES['archivo_excel']
+            
+            # Leer el archivo Excel
+            df = pd.read_excel(myfile)
+            
+            # Conectar a la base de datos SQLite (o crearla si no existe)
+            conn = sqlite3.connect('db.sqlite3')
+
+            # Itera sobre las filas del DataFrame y guarda los datos en la base de datos
+            for index, row in df.iterrows():
+                data = Vivero(
+                    numero=row['Número'],
+                    area=row['Área'],
+                    dependencia=row['Dependencia'],
+                    detalle=row['Detalle'],
+                    frecuencia=row['Frecuencia'],
+                    procedimientos=row['Procedimiento'],
+                    parametro_control=row['Parámetros de Control'],
+                    horario=row['Horario']
+                )
+                data.save()
+
+            # Cerrar la conexión
+            conn.close()
         # Si se envió un archivo Excel
         if 'archivo_excel' in request.FILES:
             form = ViveroForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                # Obtener el archivo Excel cargado
-                archivo_excel = request.FILES['archivo_excel']
-                # Leer el archivo Excel usando pandas
-                try:
-                    df = pd.read_excel(archivo_excel)
-                    # Guardar los datos en la base de datos
-                    for index, row in df.iterrows():
-                        dato = Vivero(
-                            numero=row['Número'],
-                            area=row['Área'],
-                            dependencia=row['Dependencia'],
-                            detalle=row['Detalle'],
-                            frecuencia=row['Frecuencia'],
-                            procedimientos=row['Procedimiento'],
-                            parametro_control=row['Parámetros de Control'],
-                            horario=row['Horario']
-                        )
-                        dato.save()
-                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
-                except Exception as e:
-                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
-                return redirect('viverocd')
         # Si se envió el formulario de ingreso manual de datos
         else:
             form = ViveroForm(request.POST)
@@ -3075,37 +3123,39 @@ def descargar_excel_viverocd(request):
     wb.save(response)
     return response
 
-#Maderas
 
+#Maderas
 def bucalemu(request):
     if request.method == 'POST':
+        if 'archivo_excel' in request.FILES:
+            form = BucalemuForm(request.POST, request.FILES)
+            myfile = request.FILES['archivo_excel']
+            
+            # Leer el archivo Excel
+            df = pd.read_excel(myfile)
+            
+            # Conectar a la base de datos SQLite (o crearla si no existe)
+            conn = sqlite3.connect('db.sqlite3')
+
+            # Itera sobre las filas del DataFrame y guarda los datos en la base de datos
+            for index, row in df.iterrows():
+                data = Bucalemu(
+                    numero=row['Número'],
+                    area=row['Área'],
+                    dependencia=row['Dependencia'],
+                    detalle=row['Detalle'],
+                    frecuencia=row['Frecuencia'],
+                    procedimientos=row['Procedimiento'],
+                    parametro_control=row['Parámetros de Control'],
+                    horario=row['Horario']
+                )
+                data.save()
+
+            # Cerrar la conexión
+            conn.close()
         # Si se envió un archivo Excel
         if 'archivo_excel' in request.FILES:
             form = BucalemuForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                # Obtener el archivo Excel cargado
-                archivo_excel = request.FILES['archivo_excel']
-                # Leer el archivo Excel usando pandas
-                try:
-                    df = pd.read_excel(archivo_excel)
-                    # Guardar los datos en la base de datos
-                    for index, row in df.iterrows():
-                        dato = Bucalemu(
-                            numero=row['Número'],
-                            area=row['Área'],
-                            dependencia=row['Dependencia'],
-                            detalle=row['Detalle'],
-                            frecuencia=row['Frecuencia'],
-                            procedimientos=row['Procedimiento'],
-                            parametro_control=row['Parámetros de Control'],
-                            horario=row['Horario']
-                        )
-                        dato.save()
-                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
-                except Exception as e:
-                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
-                return redirect('bucalemu')
         # Si se envió el formulario de ingreso manual de datos
         else:
             form = BucalemuForm(request.POST)
@@ -3170,33 +3220,35 @@ def descargar_excel_bucalemu(request):
 
 def mulchen(request):
     if request.method == 'POST':
+        if 'archivo_excel' in request.FILES:
+            form = MulchenForm(request.POST, request.FILES)
+            myfile = request.FILES['archivo_excel']
+            
+            # Leer el archivo Excel
+            df = pd.read_excel(myfile)
+            
+            # Conectar a la base de datos SQLite (o crearla si no existe)
+            conn = sqlite3.connect('db.sqlite3')
+
+            # Itera sobre las filas del DataFrame y guarda los datos en la base de datos
+            for index, row in df.iterrows():
+                data = Mulchen(
+                    numero=row['Número'],
+                    area=row['Área'],
+                    dependencia=row['Dependencia'],
+                    detalle=row['Detalle'],
+                    frecuencia=row['Frecuencia'],
+                    procedimientos=row['Procedimiento'],
+                    parametro_control=row['Parámetros de Control'],
+                    horario=row['Horario']
+                )
+                data.save()
+
+            # Cerrar la conexión
+            conn.close()
         # Si se envió un archivo Excel
         if 'archivo_excel' in request.FILES:
             form = MulchenForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                # Obtener el archivo Excel cargado
-                archivo_excel = request.FILES['archivo_excel']
-                # Leer el archivo Excel usando pandas
-                try:
-                    df = pd.read_excel(archivo_excel)
-                    # Guardar los datos en la base de datos
-                    for index, row in df.iterrows():
-                        dato = Mulchen(
-                            numero=row['Número'],
-                            area=row['Área'],
-                            dependencia=row['Dependencia'],
-                            detalle=row['Detalle'],
-                            frecuencia=row['Frecuencia'],
-                            procedimientos=row['Procedimiento'],
-                            parametro_control=row['Parámetros de Control'],
-                            horario=row['Horario']
-                        )
-                        dato.save()
-                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
-                except Exception as e:
-                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
-                return redirect('mulchen')
         # Si se envió el formulario de ingreso manual de datos
         else:
             form = MulchenForm(request.POST)
@@ -3261,33 +3313,35 @@ def descargar_excel_mulchen(request):
 
 def nacimiento(request):
     if request.method == 'POST':
+        if 'archivo_excel' in request.FILES:
+            form = NacimientoForm(request.POST, request.FILES)
+            myfile = request.FILES['archivo_excel']
+            
+            # Leer el archivo Excel
+            df = pd.read_excel(myfile)
+            
+            # Conectar a la base de datos SQLite (o crearla si no existe)
+            conn = sqlite3.connect('db.sqlite3')
+
+            # Itera sobre las filas del DataFrame y guarda los datos en la base de datos
+            for index, row in df.iterrows():
+                data = Nacimiento(
+                    numero=row['Número'],
+                    area=row['Área'],
+                    dependencia=row['Dependencia'],
+                    detalle=row['Detalle'],
+                    frecuencia=row['Frecuencia'],
+                    procedimientos=row['Procedimiento'],
+                    parametro_control=row['Parámetros de Control'],
+                    horario=row['Horario']
+                )
+                data.save()
+
+            # Cerrar la conexión
+            conn.close()
         # Si se envió un archivo Excel
         if 'archivo_excel' in request.FILES:
             form = NacimientoForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                # Obtener el archivo Excel cargado
-                archivo_excel = request.FILES['archivo_excel']
-                # Leer el archivo Excel usando pandas
-                try:
-                    df = pd.read_excel(archivo_excel)
-                    # Guardar los datos en la base de datos
-                    for index, row in df.iterrows():
-                        dato = Nacimiento(
-                            numero=row['Número'],
-                            area=row['Área'],
-                            dependencia=row['Dependencia'],
-                            detalle=row['Detalle'],
-                            frecuencia=row['Frecuencia'],
-                            procedimientos=row['Procedimiento'],
-                            parametro_control=row['Parámetros de Control'],
-                            horario=row['Horario']
-                        )
-                        dato.save()
-                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
-                except Exception as e:
-                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
-                return redirect('nacimiento')
         # Si se envió el formulario de ingreso manual de datos
         else:
             form = NacimientoForm(request.POST)
@@ -3352,36 +3406,38 @@ def descargar_excel_nacimiento(request):
 
 def niuform(request):
     if request.method == 'POST':
+        if 'archivo_excel' in request.FILES:
+            form = BalneariosForm(request.POST, request.FILES)
+            myfile = request.FILES['archivo_excel']
+            
+            # Leer el archivo Excel
+            df = pd.read_excel(myfile)
+            
+            # Conectar a la base de datos SQLite (o crearla si no existe)
+            conn = sqlite3.connect('db.sqlite3')
+
+            # Itera sobre las filas del DataFrame y guarda los datos en la base de datos
+            for index, row in df.iterrows():
+                data = Niuform(
+                    numero=row['Número'],
+                    area=row['Área'],
+                    dependencia=row['Dependencia'],
+                    detalle=row['Detalle'],
+                    frecuencia=row['Frecuencia'],
+                    procedimientos=row['Procedimiento'],
+                    parametro_control=row['Parámetros de Control'],
+                    horario=row['Horario']
+                )
+                data.save()
+
+            # Cerrar la conexión
+            conn.close()
         # Si se envió un archivo Excel
         if 'archivo_excel' in request.FILES:
-            form = NiuformForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                # Obtener el archivo Excel cargado
-                archivo_excel = request.FILES['archivo_excel']
-                # Leer el archivo Excel usando pandas
-                try:
-                    df = pd.read_excel(archivo_excel)
-                    # Guardar los datos en la base de datos
-                    for index, row in df.iterrows():
-                        dato = Niuform(
-                            numero=row['Número'],
-                            area=row['Área'],
-                            dependencia=row['Dependencia'],
-                            detalle=row['Detalle'],
-                            frecuencia=row['Frecuencia'],
-                            procedimientos=row['Procedimiento'],
-                            parametro_control=row['Parámetros de Control'],
-                            horario=row['Horario']
-                        )
-                        dato.save()
-                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
-                except Exception as e:
-                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
-                return redirect('niuform')
+            form = BalneariosForm(request.POST, request.FILES)
         # Si se envió el formulario de ingreso manual de datos
         else:
-            form =NiuformForm(request.POST)
+            form = NiuformForm(request.POST)
             if form.is_valid():
                 form.save()
                 messages.success(request, 'Datos ingresados correctamente.')
@@ -3391,7 +3447,6 @@ def niuform(request):
 
     else:
         form = NiuformForm()
-
     niuform = Niuform.objects.all()
     print(niuform)
     return render(request, 'Instalaciones/Maderas/Niuform_Los_Angeles.html', {'form': form, 'niuform': niuform})
@@ -3443,33 +3498,35 @@ def descargar_excel_niuform(request):
 
 def plywood(request):
     if request.method == 'POST':
+        if 'archivo_excel' in request.FILES:
+            form = PlywoodForm(request.POST, request.FILES)
+            myfile = request.FILES['archivo_excel']
+            
+            # Leer el archivo Excel
+            df = pd.read_excel(myfile)
+            
+            # Conectar a la base de datos SQLite (o crearla si no existe)
+            conn = sqlite3.connect('db.sqlite3')
+
+            # Itera sobre las filas del DataFrame y guarda los datos en la base de datos
+            for index, row in df.iterrows():
+                data = Plywood(
+                    numero=row['Número'],
+                    area=row['Área'],
+                    dependencia=row['Dependencia'],
+                    detalle=row['Detalle'],
+                    frecuencia=row['Frecuencia'],
+                    procedimientos=row['Procedimiento'],
+                    parametro_control=row['Parámetros de Control'],
+                    horario=row['Horario']
+                )
+                data.save()
+
+            # Cerrar la conexión
+            conn.close()
         # Si se envió un archivo Excel
         if 'archivo_excel' in request.FILES:
             form = PlywoodForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                # Obtener el archivo Excel cargado
-                archivo_excel = request.FILES['archivo_excel']
-                # Leer el archivo Excel usando pandas
-                try:
-                    df = pd.read_excel(archivo_excel)
-                    # Guardar los datos en la base de datos
-                    for index, row in df.iterrows():
-                        dato = Plywood(
-                            numero=row['Número'],
-                            area=row['Área'],
-                            dependencia=row['Dependencia'],
-                            detalle=row['Detalle'],
-                            frecuencia=row['Frecuencia'],
-                            procedimientos=row['Procedimiento'],
-                            parametro_control=row['Parámetros de Control'],
-                            horario=row['Horario']
-                        )
-                        dato.save()
-                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
-                except Exception as e:
-                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
-                return redirect('plywood')
         # Si se envió el formulario de ingreso manual de datos
         else:
             form = PlywoodForm(request.POST)
@@ -3482,11 +3539,9 @@ def plywood(request):
 
     else:
         form = PlywoodForm()
-
     plywood = Plywood.objects.all()
     print(plywood)
     return render(request, 'Instalaciones/Maderas/Plywood.html', {'form': form, 'plywood': plywood})
-
 
 def eliminar_plywood(request, dato_id):
     if request.method == 'POST':
@@ -3535,36 +3590,38 @@ def descargar_excel_plywood(request):
 
 def coronel(request):
     if request.method == 'POST':
+        if 'archivo_excel' in request.FILES:
+            form = CoronelForm(request.POST, request.FILES)
+            myfile = request.FILES['archivo_excel']
+            
+            # Leer el archivo Excel
+            df = pd.read_excel(myfile)
+            
+            # Conectar a la base de datos SQLite (o crearla si no existe)
+            conn = sqlite3.connect('db.sqlite3')
+
+            # Itera sobre las filas del DataFrame y guarda los datos en la base de datos
+            for index, row in df.iterrows():
+                data = Coronel(
+                    numero=row['Número'],
+                    area=row['Área'],
+                    dependencia=row['Dependencia'],
+                    detalle=row['Detalle'],
+                    frecuencia=row['Frecuencia'],
+                    procedimientos=row['Procedimiento'],
+                    parametro_control=row['Parámetros de Control'],
+                    horario=row['Horario']
+                )
+                data.save()
+
+            # Cerrar la conexión
+            conn.close()
         # Si se envió un archivo Excel
         if 'archivo_excel' in request.FILES:
             form = CoronelForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                # Obtener el archivo Excel cargado
-                archivo_excel = request.FILES['archivo_excel']
-                # Leer el archivo Excel usando pandas
-                try:
-                    df = pd.read_excel(archivo_excel)
-                    # Guardar los datos en la base de datos
-                    for index, row in df.iterrows():
-                        dato = Coronel(
-                            numero=row['Número'],
-                            area=row['Área'],
-                            dependencia=row['Dependencia'],
-                            detalle=row['Detalle'],
-                            frecuencia=row['Frecuencia'],
-                            procedimientos=row['Procedimiento'],
-                            parametro_control=row['Parámetros de Control'],
-                            horario=row['Horario']
-                        )
-                        dato.save()
-                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
-                except Exception as e:
-                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
-                return redirect('coronel')
         # Si se envió el formulario de ingreso manual de datos
         else:
-            form = MulchenForm(request.POST)
+            form = CoronelForm(request.POST)
             if form.is_valid():
                 form.save()
                 messages.success(request, 'Datos ingresados correctamente.')
@@ -3578,7 +3635,6 @@ def coronel(request):
     coronel = Coronel.objects.all()
     print(coronel)
     return render(request, 'Instalaciones/Maderas/Rem_Coronel.html', {'form': form, 'coronel': coronel})
-
 
 def eliminar_coronel(request, dato_id):
     if request.method == 'POST':
@@ -3627,33 +3683,35 @@ def descargar_excel_coronel(request):
 
 def remLA(request):
     if request.method == 'POST':
+        if 'archivo_excel' in request.FILES:
+            form = RemLAForm(request.POST, request.FILES)
+            myfile = request.FILES['archivo_excel']
+            
+            # Leer el archivo Excel
+            df = pd.read_excel(myfile)
+            
+            # Conectar a la base de datos SQLite (o crearla si no existe)
+            conn = sqlite3.connect('db.sqlite3')
+
+            # Itera sobre las filas del DataFrame y guarda los datos en la base de datos
+            for index, row in df.iterrows():
+                data = RemLA(
+                    numero=row['Número'],
+                    area=row['Área'],
+                    dependencia=row['Dependencia'],
+                    detalle=row['Detalle'],
+                    frecuencia=row['Frecuencia'],
+                    procedimientos=row['Procedimiento'],
+                    parametro_control=row['Parámetros de Control'],
+                    horario=row['Horario']
+                )
+                data.save()
+
+            # Cerrar la conexión
+            conn.close()
         # Si se envió un archivo Excel
         if 'archivo_excel' in request.FILES:
             form = RemLAForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                # Obtener el archivo Excel cargado
-                archivo_excel = request.FILES['archivo_excel']
-                # Leer el archivo Excel usando pandas
-                try:
-                    df = pd.read_excel(archivo_excel)
-                    # Guardar los datos en la base de datos
-                    for index, row in df.iterrows():
-                        dato = RemLA(
-                            numero=row['Número'],
-                            area=row['Área'],
-                            dependencia=row['Dependencia'],
-                            detalle=row['Detalle'],
-                            frecuencia=row['Frecuencia'],
-                            procedimientos=row['Procedimiento'],
-                            parametro_control=row['Parámetros de Control'],
-                            horario=row['Horario']
-                        )
-                        dato.save()
-                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
-                except Exception as e:
-                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
-                return redirect('remLA')
         # Si se envió el formulario de ingreso manual de datos
         else:
             form = RemLAForm(request.POST)
@@ -3666,11 +3724,9 @@ def remLA(request):
 
     else:
         form = RemLAForm()
-
     remLA = RemLA.objects.all()
     print(remLA)
     return render(request, 'Instalaciones/Maderas/Rem_Los_Angeles.html', {'form': form, 'remLA': remLA})
-
 
 def eliminar_remLA(request, dato_id):
     if request.method == 'POST':
@@ -3717,53 +3773,54 @@ def descargar_excel_remLA(request):
     wb.save(response)
     return response
 
+
 #Pulp
 def balneariolaja(request):
     if request.method == 'POST':
+        if 'archivo_excel' in request.FILES:
+            form = BalnearioLajaForm(request.POST, request.FILES)
+            myfile = request.FILES['archivo_excel']
+            
+            # Leer el archivo Excel
+            df = pd.read_excel(myfile)
+            
+            # Conectar a la base de datos SQLite (o crearla si no existe)
+            conn = sqlite3.connect('db.sqlite3')
+
+            # Itera sobre las filas del DataFrame y guarda los datos en la base de datos
+            for index, row in df.iterrows():
+                data = BalnearioLaja(
+                    numero=row['Número'],
+                    area=row['Área'],
+                    dependencia=row['Dependencia'],
+                    detalle=row['Detalle'],
+                    frecuencia=row['Frecuencia'],
+                    procedimientos=row['Procedimiento'],
+                    parametro_control=row['Parámetros de Control'],
+                    horario=row['Horario']
+                )
+                data.save()
+
+            # Cerrar la conexión
+            conn.close()
         # Si se envió un archivo Excel
         if 'archivo_excel' in request.FILES:
             form = BalnearioLajaForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                # Obtener el archivo Excel cargado
-                archivo_excel = request.FILES['archivo_excel']
-                # Leer el archivo Excel usando pandas
-                try:
-                    df = pd.read_excel(archivo_excel)
-                    # Guardar los datos en la base de datos
-                    for index, row in df.iterrows():
-                        dato = BalnearioLaja(
-                            numero=row['Número'],
-                            area=row['Área'],
-                            dependencia=row['Dependencia'],
-                            detalle=row['Detalle'],
-                            frecuencia=row['Frecuencia'],
-                            procedimientos=row['Procedimiento'],
-                            parametro_control=row['Parámetros de Control'],
-                            horario=row['Horario']
-                        )
-                        dato.save()
-                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
-                except Exception as e:
-                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
-                return redirect('laja')
         # Si se envió el formulario de ingreso manual de datos
         else:
             form = BalnearioLajaForm(request.POST)
             if form.is_valid():
                 form.save()
                 messages.success(request, 'Datos ingresados correctamente.')
-                return redirect('laja')
+                return redirect('balneariolaja')
             else:
                 messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
 
     else:
         form = BalnearioLajaForm()
-
     balneariolaja = BalnearioLaja.objects.all()
     print(balneariolaja)
     return render(request, 'Instalaciones/Pulp/BalnearioLaja.html', {'form': form, 'balneariolaja': balneariolaja})
-
 
 def eliminar_balneariolaja(request, dato_id):
     if request.method == 'POST':
@@ -3812,33 +3869,35 @@ def descargar_excel_balneariolaja(request):
 
 def casahuespedes(request):
     if request.method == 'POST':
+        if 'archivo_excel' in request.FILES:
+            form = CasaHuespedesForm(request.POST, request.FILES)
+            myfile = request.FILES['archivo_excel']
+            
+            # Leer el archivo Excel
+            df = pd.read_excel(myfile)
+            
+            # Conectar a la base de datos SQLite (o crearla si no existe)
+            conn = sqlite3.connect('db.sqlite3')
+
+            # Itera sobre las filas del DataFrame y guarda los datos en la base de datos
+            for index, row in df.iterrows():
+                data = CasaHuespedes(
+                    numero=row['Número'],
+                    area=row['Área'],
+                    dependencia=row['Dependencia'],
+                    detalle=row['Detalle'],
+                    frecuencia=row['Frecuencia'],
+                    procedimientos=row['Procedimiento'],
+                    parametro_control=row['Parámetros de Control'],
+                    horario=row['Horario']
+                )
+                data.save()
+
+            # Cerrar la conexión
+            conn.close()
         # Si se envió un archivo Excel
         if 'archivo_excel' in request.FILES:
             form = CasaHuespedesForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                # Obtener el archivo Excel cargado
-                archivo_excel = request.FILES['archivo_excel']
-                # Leer el archivo Excel usando pandas
-                try:
-                    df = pd.read_excel(archivo_excel)
-                    # Guardar los datos en la base de datos
-                    for index, row in df.iterrows():
-                        dato = CasaHuespedes(
-                            numero=row['Número'],
-                            area=row['Área'],
-                            dependencia=row['Dependencia'],
-                            detalle=row['Detalle'],
-                            frecuencia=row['Frecuencia'],
-                            procedimientos=row['Procedimiento'],
-                            parametro_control=row['Parámetros de Control'],
-                            horario=row['Horario']
-                        )
-                        dato.save()
-                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
-                except Exception as e:
-                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
-                return redirect('casahuespedes')
         # Si se envió el formulario de ingreso manual de datos
         else:
             form = CasaHuespedesForm(request.POST)
@@ -3902,33 +3961,35 @@ def descargar_excel_casahuespedes(request):
 
 def guaiba(request):
     if request.method == 'POST':
+        if 'archivo_excel' in request.FILES:
+            form = GuaibaForm(request.POST, request.FILES)
+            myfile = request.FILES['archivo_excel']
+            
+            # Leer el archivo Excel
+            df = pd.read_excel(myfile)
+            
+            # Conectar a la base de datos SQLite (o crearla si no existe)
+            conn = sqlite3.connect('db.sqlite3')
+
+            # Itera sobre las filas del DataFrame y guarda los datos en la base de datos
+            for index, row in df.iterrows():
+                data = Guaiba(
+                    numero=row['Número'],
+                    area=row['Área'],
+                    dependencia=row['Dependencia'],
+                    detalle=row['Detalle'],
+                    frecuencia=row['Frecuencia'],
+                    procedimientos=row['Procedimiento'],
+                    parametro_control=row['Parámetros de Control'],
+                    horario=row['Horario']
+                )
+                data.save()
+
+            # Cerrar la conexión
+            conn.close()
         # Si se envió un archivo Excel
         if 'archivo_excel' in request.FILES:
             form = GuaibaForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                # Obtener el archivo Excel cargado
-                archivo_excel = request.FILES['archivo_excel']
-                # Leer el archivo Excel usando pandas
-                try:
-                    df = pd.read_excel(archivo_excel)
-                    # Guardar los datos en la base de datos
-                    for index, row in df.iterrows():
-                        dato = Guaiba(
-                            numero=row['Número'],
-                            area=row['Área'],
-                            dependencia=row['Dependencia'],
-                            detalle=row['Detalle'],
-                            frecuencia=row['Frecuencia'],
-                            procedimientos=row['Procedimiento'],
-                            parametro_control=row['Parámetros de Control'],
-                            horario=row['Horario']
-                        )
-                        dato.save()
-                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
-                except Exception as e:
-                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
-                return redirect('guaiba')
         # Si se envió el formulario de ingreso manual de datos
         else:
             form = GuaibaForm(request.POST)
@@ -3993,33 +4054,35 @@ def descargar_excel_guaiba(request):
 
 def laja(request):
     if request.method == 'POST':
+        if 'archivo_excel' in request.FILES:
+            form = LajaForm(request.POST, request.FILES)
+            myfile = request.FILES['archivo_excel']
+            
+            # Leer el archivo Excel
+            df = pd.read_excel(myfile)
+            
+            # Conectar a la base de datos SQLite (o crearla si no existe)
+            conn = sqlite3.connect('db.sqlite3')
+
+            # Itera sobre las filas del DataFrame y guarda los datos en la base de datos
+            for index, row in df.iterrows():
+                data = Laja(
+                    numero=row['Número'],
+                    area=row['Área'],
+                    dependencia=row['Dependencia'],
+                    detalle=row['Detalle'],
+                    frecuencia=row['Frecuencia'],
+                    procedimientos=row['Procedimiento'],
+                    parametro_control=row['Parámetros de Control'],
+                    horario=row['Horario']
+                )
+                data.save()
+
+            # Cerrar la conexión
+            conn.close()
         # Si se envió un archivo Excel
         if 'archivo_excel' in request.FILES:
             form = LajaForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                # Obtener el archivo Excel cargado
-                archivo_excel = request.FILES['archivo_excel']
-                # Leer el archivo Excel usando pandas
-                try:
-                    df = pd.read_excel(archivo_excel)
-                    # Guardar los datos en la base de datos
-                    for index, row in df.iterrows():
-                        dato = Laja(
-                            numero=row['Número'],
-                            area=row['Área'],
-                            dependencia=row['Dependencia'],
-                            detalle=row['Detalle'],
-                            frecuencia=row['Frecuencia'],
-                            procedimientos=row['Procedimiento'],
-                            parametro_control=row['Parámetros de Control'],
-                            horario=row['Horario']
-                        )
-                        dato.save()
-                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
-                except Exception as e:
-                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
-                return redirect('laja')
         # Si se envió el formulario de ingreso manual de datos
         else:
             form = LajaForm(request.POST)
@@ -4084,40 +4147,42 @@ def descargar_excel_laja(request):
 
 def pacifico(request):
     if request.method == 'POST':
+        if 'archivo_excel' in request.FILES:
+            form = PacificoForm(request.POST, request.FILES)
+            myfile = request.FILES['archivo_excel']
+            
+            # Leer el archivo Excel
+            df = pd.read_excel(myfile)
+            
+            # Conectar a la base de datos SQLite (o crearla si no existe)
+            conn = sqlite3.connect('db.sqlite3')
+
+            # Itera sobre las filas del DataFrame y guarda los datos en la base de datos
+            for index, row in df.iterrows():
+                data = Pacifico(
+                    numero=row['Número'],
+                    area=row['Área'],
+                    dependencia=row['Dependencia'],
+                    detalle=row['Detalle'],
+                    frecuencia=row['Frecuencia'],
+                    procedimientos=row['Procedimiento'],
+                    parametro_control=row['Parámetros de Control'],
+                    horario=row['Horario']
+                )
+                data.save()
+
+            # Cerrar la conexión
+            conn.close()
         # Si se envió un archivo Excel
         if 'archivo_excel' in request.FILES:
             form = PacificoForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                # Obtener el archivo Excel cargado
-                archivo_excel = request.FILES['archivo_excel']
-                # Leer el archivo Excel usando pandas
-                try:
-                    df = pd.read_excel(archivo_excel)
-                    # Guardar los datos en la base de datos
-                    for index, row in df.iterrows():
-                        dato = Pacifico(
-                            numero=row['Número'],
-                            area=row['Área'],
-                            dependencia=row['Dependencia'],
-                            detalle=row['Detalle'],
-                            frecuencia=row['Frecuencia'],
-                            procedimientos=row['Procedimiento'],
-                            parametro_control=row['Parámetros de Control'],
-                            horario=row['Horario']
-                        )
-                        dato.save()
-                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
-                except Exception as e:
-                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
-                return redirect('pacifico')
         # Si se envió el formulario de ingreso manual de datos
         else:
             form = PacificoForm(request.POST)
             if form.is_valid():
                 form.save()
                 messages.success(request, 'Datos ingresados correctamente.')
-                return redirect('pacifico')
+                return redirect('balnearios')
             else:
                 messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
 
@@ -4175,33 +4240,35 @@ def descargar_excel_pacifico(request):
 
 def santafe(request):
     if request.method == 'POST':
+        if 'archivo_excel' in request.FILES:
+            form = SantaFeForm(request.POST, request.FILES)
+            myfile = request.FILES['archivo_excel']
+            
+            # Leer el archivo Excel
+            df = pd.read_excel(myfile)
+            
+            # Conectar a la base de datos SQLite (o crearla si no existe)
+            conn = sqlite3.connect('db.sqlite3')
+
+            # Itera sobre las filas del DataFrame y guarda los datos en la base de datos
+            for index, row in df.iterrows():
+                data = SantaFe(
+                    numero=row['Número'],
+                    area=row['Área'],
+                    dependencia=row['Dependencia'],
+                    detalle=row['Detalle'],
+                    frecuencia=row['Frecuencia'],
+                    procedimientos=row['Procedimiento'],
+                    parametro_control=row['Parámetros de Control'],
+                    horario=row['Horario']
+                )
+                data.save()
+
+            # Cerrar la conexión
+            conn.close()
         # Si se envió un archivo Excel
         if 'archivo_excel' in request.FILES:
             form = SantaFeForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                # Obtener el archivo Excel cargado
-                archivo_excel = request.FILES['archivo_excel']
-                # Leer el archivo Excel usando pandas
-                try:
-                    df = pd.read_excel(archivo_excel)
-                    # Guardar los datos en la base de datos
-                    for index, row in df.iterrows():
-                        dato = SantaFe(
-                            numero=row['Número'],
-                            area=row['Área'],
-                            dependencia=row['Dependencia'],
-                            detalle=row['Detalle'],
-                            frecuencia=row['Frecuencia'],
-                            procedimientos=row['Procedimiento'],
-                            parametro_control=row['Parámetros de Control'],
-                            horario=row['Horario']
-                        )
-                        dato.save()
-                    messages.success(request, 'Datos del archivo Excel guardados correctamente.')
-                except Exception as e:
-                    messages.error(request, f'Error al procesar el archivo Excel: {str(e)}')
-                return redirect('santafe')
         # Si se envió el formulario de ingreso manual de datos
         else:
             form = SantaFeForm(request.POST)
