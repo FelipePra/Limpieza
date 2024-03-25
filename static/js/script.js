@@ -1,49 +1,19 @@
-var current = null;
-document.querySelector('#email').addEventListener('focus', function(e) {
-  if (current) current.pause();
-  current = anime({
-    targets: 'path',
-    strokeDashoffset: {
-      value: 0,
-      duration: 700,
-      easing: 'easeOutQuart'
-    },
-    strokeDasharray: {
-      value: '240 1386',
-      duration: 700,
-      easing: 'easeOutQuart'
-    }
-  });
-});
-document.querySelector('#password').addEventListener('focus', function(e) {
-  if (current) current.pause();
-  current = anime({
-    targets: 'path',
-    strokeDashoffset: {
-      value: -336,
-      duration: 700,
-      easing: 'easeOutQuart'
-    },
-    strokeDasharray: {
-      value: '240 1386',
-      duration: 700,
-      easing: 'easeOutQuart'
-    }
-  });
-});
-document.querySelector('#submit').addEventListener('focus', function(e) {
-  if (current) current.pause();
-  current = anime({
-    targets: 'path',
-    strokeDashoffset: {
-      value: -730,
-      duration: 700,
-      easing: 'easeOutQuart'
-    },
-    strokeDasharray: {
-      value: '530 1386',
-      duration: 700,
-      easing: 'easeOutQuart'
-    }
-  });
-});
+function signup()
+{
+    document.querySelector(".login-form-container").style.cssText = "display: none;";
+    document.querySelector(".signup-form-container").style.cssText = "display: block;";
+    document.querySelector(".container").style.cssText = "background: linear-gradient(to bottom, rgb(56, 189, 149),  rgb(28, 139, 106));";
+    document.querySelector(".button-1").style.cssText = "display: none";
+    document.querySelector(".button-2").style.cssText = "display: block";
+
+};
+
+function login()
+{
+    document.querySelector(".signup-form-container").style.cssText = "display: none;";
+    document.querySelector(".login-form-container").style.cssText = "display: block;";
+    document.querySelector(".container").style.cssText = "background: linear-gradient(to bottom, rgb(6, 108, 224),  rgb(14, 48, 122));";
+    document.querySelector(".button-2").style.cssText = "display: none";
+    document.querySelector(".button-1").style.cssText = "display: block";
+
+}
