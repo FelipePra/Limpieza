@@ -20,6 +20,9 @@ def login(request):
 def index(request):
     return render(request, 'index.html')
 
+def calendar(request):
+    return render(request, 'Contratos/Calendario.html')
+
 # Vistas de Instalaciones
 def instalaciones(request):
     return render(request, 'Instalaciones/instalaciones.html')

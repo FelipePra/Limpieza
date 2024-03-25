@@ -1,0 +1,201 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calendario con alertas y notas</title>
+<style>
+  /* Estilos CSS */
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th, td {
+    border: 1px solid #ddd;
+    text-align: left;
+    padding: 8px;
+    cursor: pointer; /* Hacer que las celdas del calendario sean clicables */
+  }
+  th {
+    background-color: #f2f2f2;
+  }
+  td.highlight {
+    background-color: yellow;
+  }
+  .nota-indicador {
+    position: relative;
+  }
+  .nota-indicador::after {
+    content: '⚠️'; /* Icono de advertencia */
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: red;
+    font-size: 12px;
+  }
+</style>
+</head>
+<body>
+    <div class="container">
+        <div class="card p-4 shadow"> 
+            <h2>Calendario con alertas y notas</h2>
+            <table id="calendario">
+            <thead>
+                <tr>
+                <th>Domingo</th>
+                <th>Lunes</th>
+                <th>Martes</th>
+                <th>Miércoles</th>
+                <th>Jueves</th>
+                <th>Viernes</th>
+                <th>Sábado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Se generará dinámicamente el calendario aquí -->
+            </tbody>
+            </table>
+
+            <div id="nota" style="display: none;">
+            <textarea id="nota-texto" placeholder="Escriba su nota aquí"></textarea>
+            <button onclick="guardarNota()">Guardar Nota</button>
+            </div>
+
+            <div id="notasGuardadas">
+            <h3>Notas Guardadas</h3>
+            <ul id="listaNotas"></ul>
+            </div>
+
+            <script>
+            // Obtener el cuerpo de la tabla
+            var cuerpoTabla = document.getElementById("calendario").getElementsByTagName('tbody')[0];
+
+            // Obtener la fecha actual
+            var fechaActual = new Date();
+            var mesActual = fechaActual.getMonth();
+            var añoActual = fechaActual.getFullYear();
+
+            // Fecha seleccionada
+            var fechaSeleccionada = null;
+
+            // Array para almacenar las notas
+            var notas = {};
+
+            // Función para generar el calendario
+            function generarCalendario(mes, año) {
+                var primerDia = new Date(año, mes, 1);
+                var ultimoDia = new Date(año, mes + 1, 0);
+                var numDiasMes = ultimoDia.getDate();
+                var primerDiaSemana = primerDia.getDay();
+
+                cuerpoTabla.innerHTML = ""; // Limpiar el cuerpo de la tabla
+
+                var fila = cuerpoTabla.insertRow();
+                var dia = 1;
+
+                // Llenar los días de la semana anterior si el mes no comienza en domingo
+                for (var i = 0; i < primerDiaSemana; i++) {
+                var celda = fila.insertCell();
+                celda.innerHTML = "";
+                }
+
+                // Llenar el resto de los días del mes
+                for (var j = primerDiaSemana; j < 7; j++) {
+                var celda = fila.insertCell();
+                celda.innerHTML = dia;
+                celda.setAttribute('onclick', 'seleccionarFecha(' + dia + ',' + mes + ',' + año + ')');
+                // Mostrar indicador si hay una nota asociada a esta fecha
+                var fecha = fechaISO(año, mes + 1, dia);
+                if (notas[fecha]) {
+                    celda.classList.add('nota-indicador');
+                }
+                dia++;
+                }
+
+                // Llenar las filas restantes del calendario
+                for (var k = 2; k <= 6; k++) {
+                fila = cuerpoTabla.insertRow();
+                for (var d = 0; d < 7 && dia <= numDiasMes; d++) {
+                    var celda = fila.insertCell();
+                    celda.innerHTML = dia;
+                    celda.setAttribute('onclick', 'seleccionarFecha(' + dia + ',' + mes + ',' + año + ')');
+                    // Mostrar indicador si hay una nota asociada a esta fecha
+                    var fecha = fechaISO(año, mes + 1, dia);
+                    if (notas[fecha]) {
+                    celda.classList.add('nota-indicador');
+                    }
+                    dia++;
+                }
+                }
+            }
+
+            // Función para seleccionar una fecha
+            function seleccionarFecha(dia, mes, año) {
+                fechaSeleccionada = fechaISO(año, mes + 1, dia);
+                document.getElementById('nota-texto').value = notas[fechaSeleccionada] || '';
+                document.getElementById('nota').style.display = 'block';
+                obtenerNotasDelServidor(); // Obtener notas del servidor
+            }
+
+            // Función para guardar la nota
+            function guardarNota() {
+                var nota = document.getElementById('nota-texto').value;
+                notas[fechaSeleccionada] = nota;
+                enviarNotasAlServidor(); // Enviar notas al servidor
+                document.getElementById('nota').style.display = 'none';
+            }
+
+            // Función para obtener la fecha en formato AAAA-MM-DD
+            function fechaISO(año, mes, dia) {
+                return año + '-' + (mes < 10 ? '0' : '') + mes + '-' + (dia < 10 ? '0' : '') + dia;
+            }
+
+            // Función para enviar notas al servidor
+            function enviarNotasAlServidor() {
+                // Aquí deberías enviar las notas al servidor (por ejemplo, mediante una solicitud AJAX)
+                // El formato de datos para enviar al servidor sería 'notas'
+                // Por ahora, simplemente mostramos las notas en la consola como ejemplo
+                console.log("Notas enviadas al servidor:");
+                console.log(notas);
+            }
+
+            // Función para obtener notas del servidor
+            function obtenerNotasDelServidor() {
+                // Aquí deberías hacer una solicitud al servidor para obtener las notas guardadas
+                // Por ahora, simulamos obtener las notas del servidor y las mostramos en la consola como ejemplo
+                console.log("Obteniendo notas del servidor...");
+                console.log("Notas obtenidas del servidor:");
+                console.log(notas);
+            }
+
+            // Generar calendario para el mes y año actuales
+            generarCalendario(mesActual, añoActual);
+            </script>
+
+            </body>
+        </div>
+    </div>
+
+</html>
+
+<!-- CSS personalizado -->
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="{% static 'css/style.css.map' %}">
+<link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+<link rel="stylesheet" href="{% static 'css/style.scss' %}">
+<link rel="stylesheet" href="{% static 'css/style.min.css' %}">
+
+<link rel="stylesheet" href="{% static 'https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,700&display=swap' %}">
+
+{% endblock %}
