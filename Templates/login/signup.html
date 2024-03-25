@@ -1,23 +1,83 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Signup</title>
-  <link rel="stylesheet" href="static/css/stylesignup.css">
+  <link href="https://rsms.me/inter/inter-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="static/css/stylelogin.css">
+  <style>
+    body {
+      display: flex;
+      justify-content: center; /* Centra el contenido horizontalmente */
+      align-items: center; /* Centra el contenido verticalmente */
+      height: 100vh; /* Ocupa el 100% de la altura de la ventana */
+      margin: 0; /* Elimina el margen predeterminado del body */
+      background-color: #e2e2e5; /* Cambia el color de fondo */
+    }
+    .container {
+      display: flex;
+      width: 100%;
+      max-width: 600px; /* Ancho máximo del contenedor */
+    }
+    .left {
+      flex: 1; /* El panel de la izquierda ocupa todo el espacio disponible */
+      background-color: white;
+      padding: 40px;
+    }
+    .right {
+      flex: 1; /* El panel de la derecha ocupa todo el espacio disponible */
+      background-color: #474A59;
+      color: #F1F1F2;
+      padding: 40px;
+    }
+    .form {
+      display: flex;
+      flex-direction: column;
+    }
+    label {
+      margin-bottom: 10px;
+    }
+    input[type="text"],
+    input[type="password"],
+    input[type="email"] {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      margin-bottom: 20px;
+    }
+    .submit {
+      background-color: #343a40;
+      color: #fff;
+      padding: 10px 20px;
+      text-align: center;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .submit:hover {
+      background-color: #0056b3;
+    }
+    .login {
+      font-size: 30px; /* Aumenta el tamaño del texto */
+      font-weight: bold; /* Establece el peso de la fuente */
+      margin-bottom: 20px; /* Agrega un espacio adicional debajo del encabezado */
+    }
+  </style>
 </head>
 <body>
 <div class="page">
   <div class="container">
     <div class="left">
-      <div class="signup">Signup</div>
+      <div class="Signup">Signup</div>
     </div>
     <div class="right">
       <svg viewBox="0 0 320 300">
         <defs>
           <linearGradient
                           inkscape:collect="always"
-                          id="linearGradient"
+                          id="linearGradienta"
                           x1="13"
                           y1="193.49992"
                           x2="307"
@@ -36,24 +96,20 @@
         <path d="m 40,120.00016 239.99984,-3.2e-4 c 0,0 24.99263,0.79932 25.00016,35.00016 0.008,34.20084 -25.00016,35 -25.00016,35 h -239.99984 c 0,-0.0205 -25,4.01348 -25,38.5 0,34.48652 25,38.5 25,38.5 h 215 c 0,0 20,-0.99604 20,-25 0,-24.00396 -20,-25 -20,-25 h -190 c 0,0 -20,1.71033 -20,25 0,24.00396 20,25 20,25 h 168.57143" />
       </svg>
       <div class="form">
-        <form action="/signup/" method="post">
+        <form method="post" action="/">
           {% csrf_token %}
           <label for="username">Username</label>
           <input type="text" id="username" name="username">
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email">
-          <label for="password1">Password</label>
-          <input type="password" id="password1" name="password1">
-          <label for="password2">Confirm Password</label>
-          <input type="password" id="password2" name="password2">
-          <button type="submit" class="submit">Signup</button>
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password">
+          <button class="submit" type="submit">Registrarse</button>
         </form>
       </div>
     </div>
   </div>
 </div>
-<!-- partial -->
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js'></script><script  src="static/js/script.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.min.js'></script><script  src="static/js.script.js"></script>
 
 </body>
+
 </html>
