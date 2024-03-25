@@ -75,6 +75,13 @@ body {
   background-size: cover;
 }
 
+.hero_area {
+  background-image: url("{% static 'images/output.png' %}");
+  background-size: cover;
+  background-position: center;
+  /* Añade más estilos según sea necesario */
+}
+
 .sub_page .hero_area {
   height: 100vh;
 }

@@ -203,11 +203,10 @@ class RedOficinas(models.Model):
     procedimientos = models.TextField()
     parametro_control = models.CharField(max_length=100)
     horario = models.CharField(max_length=100)
-
     def __str__(self):
         return f"Número: {self.numero}, Área: {self.area}, Dependencia: {self.dependencia}"
     class Meta:
-        db_table ='redoficinas'
+        db_table = 'redoficinas'
 
 class SanJoaquin(models.Model):
     numero = models.IntegerField()

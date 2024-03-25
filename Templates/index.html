@@ -10,65 +10,70 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-  <body>
-    <div class="hero_area">
-      <!-- header section strats -->
-      <header class="header_section">
+  <!-- CSS personalizado -->
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/style.css.map' %}">
+  <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+  <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+  <link rel="stylesheet" href="{% static 'css/style.scss' %}">
+  <link rel="stylesheet" href="{% static 'css/style.min.css' %}">
+  <link rel="stylesheet" href="{% static 'https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,700&display=swap' %}">
+  <style>
+    .hero_area {
+      background-image: url("{% static 'images/output.png' %}");
+      background-size: cover;
+      background-position: center;
+      /* Añade más estilos según sea necesario */
+    }
+  </style>
+</head>
 
-      </header>
-      <!-- end header section -->
-      <!-- slider section -->
-      <section class=" slider_section position-relative">
-        <div class="container">
-          <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <div class="row">
-                  <div class="col">
-                    <div class="detail-box">
-                      <div>
-                        <h2>
-                          Bienvenido
-                        </h2>
-                        <h1>
-                          Servicio de Limpieza de CMPC
-                        </h1>
-                        <div class="">
-                          <a href="/instalaciones/">
-                            Instalaciones
-                          </a>
-                        </div>
+<body>
+  <div class="hero_area">
+    <!-- header section strats -->
+    <header class="header_section">
+
+    </header>
+    <!-- end header section -->
+    <!-- slider section -->
+    <section class=" slider_section position-relative">
+      <div class="container">
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <div class="row">
+                <div class="col">
+                  <div class="detail-box">
+                    <div>
+                      <h2>
+                        Bienvenido
+                      </h2>
+                      <h1>
+                        Servicio de Limpieza de CMPC
+                      </h1>
+                      <div class="">
+                        <a href="/instalaciones/">
+                          Instalaciones
+                        </a>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
+            </div>
           </div>
-  
         </div>
-      </section>
-      <!-- end slider section -->
-    </div>
-  
-    <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
-    </script>
-  
-  </body>
+      </div>
+    </section>
+    <!-- end slider section -->
+  </div>
+
+  <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+  <script type="text/javascript" src="js/bootstrap.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
+  </script>
+
+</body>
+
 </html>
-
-<!-- CSS personalizado -->
-<link rel="stylesheet" href="{% static 'css/style.css' %}">
-<link rel="stylesheet" href="{% static 'css/style.css.map' %}">
-<link rel="stylesheet" href="{% static 'css/responsive.css' %}">
-<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
-<link rel="stylesheet" href="{% static 'css/style.scss' %}">
-<link rel="stylesheet" href="{% static 'css/style.min.css' %}">
-
-<link rel="stylesheet" href="{% static 'https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,700&display=swap' %}">
-
 {% endblock %}
-
-
-#Crear tarjetas en un menu en el medio para ver excel recien subidos independiete de la zona que sean, crear graficos para ber 

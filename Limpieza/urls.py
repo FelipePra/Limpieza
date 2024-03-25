@@ -174,7 +174,7 @@ urlpatterns = [
     path('eliminar_tiltil/<int:dato_id>/', views.eliminar_tiltil, name='eliminar_tiltil'),
     path('eliminar_sorepapudahuel/<int:dato_id>/', views.eliminar_sorepapudahuel, name='eliminar_sorepapudahuel'),
     path('eliminar_sorepapuentealto/<int:dato_id>/', views.eliminar_sorepapuentealto, name='eliminar_sorepapuentealto'),
-    path('eliminar_redoficinas/<int:dato_id>', views.redoficinas, name='eliminar_redoficinas'),
+    path('eliminar_redoficinas/<int:dato_id>/', views.eliminar_redoficinas, name='eliminar_redoficinas'),
     path('eliminar_sorepasanjoaquin/<int:dato_id>/', views.eliminar_sorepasanjoaquin, name='eliminar_sorepasanjoaquin'),
 
     #urls Descargar excel

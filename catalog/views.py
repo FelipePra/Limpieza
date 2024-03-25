@@ -422,7 +422,7 @@ def eliminar_dato_mexico(request, dato_id):
     if request.method == 'POST':
         dato = DatosCMPCMexico.objects.get(pk=dato_id)
         dato.delete()
-    return redirect('cmpc_bmexico')
+    return redirect('cmpc_mexico')
 
 def modificar_dato_mexico(request, dato_id):
     dato = DatosCMPCMexico.objects.get(pk=dato_id)
@@ -2195,7 +2195,7 @@ def eliminar_sorepapudahuel(request, dato_id):
     if request.method == 'POST':
         dato = Pudahuel.objects.get(pk=dato_id)
         dato.delete()
-    return redirect('sorepapudahuela')
+    return redirect('sorepapudahuel')
 
 def modificar_sorepapudahuel(request, dato_id):
     dato = Pudahuel.objects.get(pk=dato_id)
@@ -2381,7 +2381,6 @@ def eliminar_redoficinas(request, dato_id):
         dato = RedOficinas.objects.get(pk=dato_id)
         dato.delete()
     return redirect('redoficinas')
-
 def modificar_redoficinas(request, dato_id):
     dato = RedOficinas.objects.get(pk=dato_id)
     if request.method == 'POST':
@@ -4221,7 +4220,7 @@ def pacifico(request):
             if form.is_valid():
                 form.save()
                 messages.success(request, 'Datos ingresados correctamente.')
-                return redirect('balnearios')
+                return redirect('pacifico')
             else:
                 messages.error(request, 'Error al ingresar los datos. Por favor, revise los datos ingresados.')
 
