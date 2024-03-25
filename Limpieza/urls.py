@@ -21,8 +21,10 @@ from catalog import views
 
 urlpatterns = [
     path('', views.login, name='login'),
+    path('signup/', views.signup, name='signup'),
     path('index/', views.index, name='index'),
     path('contratos/', views.calendar, name='calendar'),
+     path('guardar-notas/', views.guardar_notas, name='guardar_notas'),
 
     #urls Instalaciones
     path('instalaciones/', views.instalaciones, name='instalaciones'),

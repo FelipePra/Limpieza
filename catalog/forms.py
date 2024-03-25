@@ -1,5 +1,18 @@
 from django import forms
 from .models import *
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+
+class SignUpForm(UserCreationForm):
+    email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
+
+    class Meta:
+        model = CustomUser  # Utiliza el modelo de usuario personalizado
+        fields = ('username', 'email', 'password1', 'password2')
+
+class CustomAuthenticationForm(AuthenticationForm):
+    class Meta:
+        model = CustomUser  # Utiliza el modelo de usuario personalizado
+        fields = ('username', 'password')
 #Forms CMPC
 class DatosCMPCChileForm(forms.ModelForm):
     class Meta:

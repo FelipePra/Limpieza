@@ -675,4 +675,39 @@ class RegistroExcel(models.Model):
     def __str__(self):
         return f"Registro Excel #{self.numero}: {self.area}"
 
+from django.contrib.auth.models import AbstractUser
+from django.db import models
 
+class CustomUser(AbstractUser):
+    # Puedes agregar campos adicionales según tus necesidades
+    age = models.PositiveIntegerField(blank=True, null=True)
+    bio = models.TextField(max_length=500, blank=True)
+    
+    # Especifica related_name único para las relaciones Many-to-Many
+    groups = models.ManyToManyField(
+        'auth.Group',
+        related_name='customuser_set',  # Por ejemplo, aquí cambiamos el related_name
+        blank=True,
+        verbose_name='groups',
+        help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.',
+    )
+    user_permissions = models.ManyToManyField(
+        'auth.Permission',
+        related_name='customuser_set',  # También cambiamos el related_name aquí
+        blank=True,
+        verbose_name='user permissions',
+        help_text='Specific permissions for this user.',
+        related_query_name='user',
+    )
+
+    def __str__(self):
+        return self.username
+
+class Nota(models.Model):
+    contenido = models.TextField()
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.contenido
+    class Meta:
+        db_table ='Notas'

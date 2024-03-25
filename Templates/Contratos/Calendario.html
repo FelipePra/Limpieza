@@ -3,19 +3,8 @@
 
 {% block content %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Calendario con alertas y notas</title>
 <style>
   /* Estilos CSS */
-  body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
-  }
   table {
     width: 100%;
     border-collapse: collapse;
@@ -44,11 +33,9 @@
     font-size: 12px;
   }
 </style>
-</head>
-<body>
-    <div class="container">
+<div class="container">
         <div class="card p-4 shadow"> 
-            <h2>Calendario con alertas y notas</h2>
+          <h1 style="font-weight: bold; font-size: 65px;">Calendario con alertas </h1>
             <table id="calendario">
             <thead>
                 <tr>
@@ -182,11 +169,37 @@
             generarCalendario(mesActual, añoActual);
             </script>
 
-            </body>
-        </div>
-    </div>
+            <script>
+              // Función para enviar notas al servidor
+              function enviarNotasAlServidor() {
+                var notasArray = [];
+                for (var fecha in notas) {
+                  if (notas.hasOwnProperty(fecha)) {
+                    notasArray.push(notas[fecha]);
+                  }
+                }
 
-</html>
+                // Enviar notas al servidor usando AJAX
+                fetch('/guardar-notas/', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'  // Si estás utilizando CSRF protection en Django
+                  },
+                  body: JSON.stringify({ notas: notasArray })
+                })
+                .then(response => response.json())
+                .then(data => {
+                  console.log('Respuesta del servidor:', data);
+                })
+                .catch(error => {
+                  console.error('Error al enviar notas al servidor:', error);
+                });
+              }
+            </script>
+
+        </div>
+</div>
 
 <!-- CSS personalizado -->
 <link rel="stylesheet" href="{% static 'css/style.css' %}">

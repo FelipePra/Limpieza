@@ -4,6 +4,7 @@ from django.http import HttpResponse
 import xlwt
 import pandas as pd
 import sqlite3
+from django.http import JsonResponse
 
 from catalog.forms import *
 from .models import  DatosCMPCChile
@@ -12,10 +13,45 @@ from .forms import DatosCMPCChileForm
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import DatosCMPCChile
+from django.contrib.auth import login as auth_login
+from django.contrib.auth.models import User
+from django.views.decorators.csrf import csrf_exempt
 
 # Vistas para renderizar las plantillas HTML
 def login(request):
-    return render(request, 'login/login.html')
+    if request.method == 'POST':
+        form = AuthenticationForm(request, request.POST)
+        if form.is_valid():
+            auth_login(request, form.get_user())
+            # redirigir a la página deseada después del inicio de sesión
+            return redirect('index')
+    else:
+        form = AuthenticationForm()
+    return render(request, 'login/login.html', {'form': form})
+
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    else:
+        form = UserCreationForm()
+    return render(request, 'login/signup.html', {'form': form})
+
+@csrf_exempt
+def guardar_notas(request):
+    if request.method == 'POST':
+        notas_nuevas = request.POST.getlist('notas[]')  # Obtener las notas del cuerpo de la solicitud
+        for nota in notas_nuevas:
+            # Guardar cada nota en la base de datos
+            Nota.objects.create(contenido=nota)  # Ajusta esto según tu modelo de Nota
+        return JsonResponse({'status': 'ok'})
+    else:
+        return JsonResponse({'status': 'error', 'message': 'Método no permitido'})
+
+    def __str__(self):
+        return self.contenido
 
 def index(request):
     return render(request, 'index.html')

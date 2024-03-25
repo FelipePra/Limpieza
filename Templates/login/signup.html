@@ -1,15 +1,16 @@
+
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Login</title>
-  <link rel="stylesheet" href="static/css/stylelogin.css">
+  <title>Signup</title>
+  <link rel="stylesheet" href="static/css/stylesignup.css">
 </head>
 <body>
 <div class="page">
   <div class="container">
     <div class="left">
-      <div class="login">Login</div>
+      <div class="signup">Signup</div>
     </div>
     <div class="right">
       <svg viewBox="0 0 320 300">
@@ -35,14 +36,18 @@
         <path d="m 40,120.00016 239.99984,-3.2e-4 c 0,0 24.99263,0.79932 25.00016,35.00016 0.008,34.20084 -25.00016,35 -25.00016,35 h -239.99984 c 0,-0.0205 -25,4.01348 -25,38.5 0,34.48652 25,38.5 25,38.5 h 215 c 0,0 20,-0.99604 20,-25 0,-24.00396 -20,-25 -20,-25 h -190 c 0,0 -20,1.71033 -20,25 0,24.00396 20,25 20,25 h 168.57143" />
       </svg>
       <div class="form">
-        <label for="email">Email</label>
-        <input type="email" id="email">
-        <label for="password">Password</label>
-        <input type="password" id="password">
-        <a href="/index/" class="submit" id="submit" type="submit">Iniciar sesión</a>
-        <input type="submit" id="submit" href="/index/">
-        <a href="/signup/"class="submit" id="signup" type="submit">Crear Usuario</a>
-        <input type="submit" id="signup" href="/signup/">
+        <form action="/signup/" method="post">
+          {% csrf_token %}
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email">
+          <label for="password1">Password</label>
+          <input type="password" id="password1" name="password1">
+          <label for="password2">Confirm Password</label>
+          <input type="password" id="password2" name="password2">
+          <button type="submit" class="submit">Signup</button>
+        </form>
       </div>
     </div>
   </div>
